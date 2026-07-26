@@ -1,0 +1,68 @@
+import type { FormDoc } from "./types";
+
+export const forms: FormDoc[] = [
+  {
+    id: "residential-building-permit",
+    title: "Residential Building Permit Application",
+    description: "Required for additions, accessory structures, and interior renovations affecting structural elements.",
+    category: "Permits",
+    fileUrl: "/documents/forms/residential-building-permit.pdf",
+    fileType: "PDF",
+  },
+  {
+    id: "commercial-building-permit",
+    title: "Commercial Building Permit Application",
+    description: "Required for new construction, tenant build-outs, and major renovations to commercial properties.",
+    category: "Permits",
+    fileUrl: "/documents/forms/commercial-building-permit.pdf",
+    fileType: "PDF",
+  },
+  {
+    id: "water-service-application",
+    title: "New Water Service Application",
+    description: "Open a new water and sewer account for a residential or commercial address.",
+    category: "Utilities",
+    fileUrl: "/documents/forms/water-service-application.pdf",
+    fileType: "PDF",
+  },
+  {
+    id: "service-request-form",
+    title: "General Service Request Form",
+    description: "Report a pothole, sidewalk hazard, malfunctioning streetlight, or other non-emergency maintenance issue.",
+    category: "Maintenance",
+    fileUrl: "/documents/forms/service-request-form.pdf",
+    fileType: "PDF",
+  },
+  {
+    id: "public-records-request",
+    title: "Public Records Request Form",
+    description: "Submit a formal request for public records maintained by Bellwood Public Works under the state open records law.",
+    category: "Public Records",
+    fileUrl: "/documents/forms/public-records-request.pdf",
+    fileType: "PDF",
+  },
+  {
+    id: "stormwater-credit-application",
+    title: "Stormwater Utility Credit Application",
+    description: "Apply for a reduced stormwater utility fee based on approved on-site stormwater controls.",
+    category: "Utilities",
+    fileUrl: "/documents/forms/stormwater-credit-application.pdf",
+    fileType: "PDF",
+  },
+  {
+    id: "pavilion-reservation",
+    title: "Park Pavilion Reservation Form",
+    description: "Reserve a park pavilion or athletic field for a private event or organized activity.",
+    category: "Parks and Recreation",
+    fileUrl: "/documents/forms/pavilion-reservation.pdf",
+    fileType: "PDF",
+  },
+  {
+    id: "right-of-way-permit",
+    title: "Right-of-Way Work Permit",
+    description: "Required before performing excavation or utility work within a public street or sidewalk right-of-way.",
+    category: "Permits",
+    fileUrl: "/documents/forms/right-of-way-permit.pdf",
+    fileType: "PDF",
+  },
+];

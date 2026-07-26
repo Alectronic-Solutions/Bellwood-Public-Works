@@ -1,0 +1,60 @@
+import type { Notice } from "./types";
+
+export const notices: Notice[] = [
+  {
+    id: "water-main-repair-elm",
+    title: "Emergency water main repair on Elm Street",
+    body: "Crews are repairing a broken water main between 4th Avenue and 6th Avenue. Expect low water pressure in the surrounding blocks through the end of the day. Elm Street is closed to through traffic while repairs are underway.",
+    date: "2026-07-26",
+    urgent: true,
+    active: true,
+  },
+  {
+    id: "boil-water-notice-northside",
+    title: "Boil water notice lifted for the Northside district",
+    body: "Water quality testing following last week's main repair has confirmed the Northside district's water supply meets all safety standards. The boil water notice issued on July 20 is no longer in effect.",
+    date: "2026-07-25",
+    urgent: false,
+    active: true,
+  },
+  {
+    id: "city-hall-closure-holiday",
+    title: "City offices closed for Labor Day",
+    body: "All Bellwood Public Works offices, including the permitting counter and utility billing office, will be closed on Labor Day. Waste and recycling collection will run one day later than usual that week.",
+    date: "2026-08-15",
+    urgent: false,
+    active: true,
+  },
+  {
+    id: "road-closure-bridge-street",
+    title: "Bridge Street closed for resurfacing through August",
+    body: "Bridge Street between Oak Avenue and the river crossing is closed to vehicle traffic while crews complete a full-depth resurfacing project. A signed detour routes traffic via Oak Avenue and Riverside Drive. Pedestrian access remains open.",
+    date: "2026-07-14",
+    urgent: false,
+    active: true,
+  },
+  {
+    id: "winter-storm-advisory-archive",
+    title: "Winter storm advisory: parking restrictions lifted",
+    body: "Snow emergency parking restrictions issued during the January storm have been lifted. Residential streets have been fully plowed and normal parking rules are back in effect.",
+    date: "2026-01-18",
+    urgent: false,
+    active: false,
+  },
+  {
+    id: "stormwater-fee-adjustment",
+    title: "Stormwater utility fee adjustment approved",
+    body: "City Council approved a modest adjustment to the stormwater utility fee effective with the next billing cycle. Property owners with approved on-site stormwater controls remain eligible for a reduced rate.",
+    date: "2026-06-02",
+    urgent: false,
+    active: true,
+  },
+  {
+    id: "spring-flushing-program-archive",
+    title: "Spring hydrant flushing program completed",
+    body: "The annual hydrant flushing program, which can cause temporary water discoloration, wrapped up in all city districts as of this notice. Residents who still notice discolored water are encouraged to run a cold tap for a few minutes.",
+    date: "2026-04-30",
+    urgent: false,
+    active: false,
+  },
+];
