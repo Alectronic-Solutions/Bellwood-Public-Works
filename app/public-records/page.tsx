@@ -21,7 +21,7 @@ export default function PublicRecordsPage() {
       sidebar={
         <>
           <ContactCard
-            departmentName="City Clerk's Office"
+            departmentName="City Clerk&apos;s Office"
             phone="(555) 011-2200"
             email="records@bellwoodpublicworks.example"
             hours={strings.footer.officeHours}
@@ -80,15 +80,15 @@ export default function PublicRecordsPage() {
       <h2 className="mt-6 text-xl font-semibold text-gov-navy">Fees</h2>
       <p className="mt-2 text-gov-slate">
         The first fifty pages of copies are provided free of charge. Additional copies are billed at $0.15 per
-        page, and staff time for extensive searches or redactions may be billed at the department's standard
+        page, and staff time for extensive searches or redactions may be billed at the department&apos;s standard
         clerical rate after the first hour, which is provided at no cost. Requesters who qualify for a fee waiver
-        under the state's public interest standard may submit the Public Records Fee Waiver Request alongside their
+        under the state&apos;s public interest standard may submit the Public Records Fee Waiver Request alongside their
         records request.
       </p>
 
       <h2 className="mt-6 text-xl font-semibold text-gov-navy">Response time</h2>
       <p className="mt-2 text-gov-slate">
-        The City Clerk's Office will acknowledge a request within five business days and provide records, a partial
+        The City Clerk&apos;s Office will acknowledge a request within five business days and provide records, a partial
         release, or a written explanation of any delay or denial within ten business days. Requests involving a
         large volume of records or records held by multiple departments may take longer, and staff will provide an
         estimated timeline in writing if the ten-day window cannot be met.
@@ -97,13 +97,13 @@ export default function PublicRecordsPage() {
       <h2 className="mt-6 text-xl font-semibold text-gov-navy">Appeals</h2>
       <p className="mt-2 text-gov-slate">
         If a request is denied in whole or in part, the response will include the specific exemption relied upon
-        and instructions for appeal. Appeals may be submitted in writing to the City Attorney's Office within
+        and instructions for appeal. Appeals may be submitted in writing to the City Attorney&apos;s Office within
         thirty calendar days of the denial and will be reviewed within fifteen business days.
       </p>
 
       <h2 className="mt-6 text-xl font-semibold text-gov-navy">Contact</h2>
       <p className="mt-2 text-gov-slate">
-        Questions about a records request can be directed to the City Clerk's Office at{" "}
+        Questions about a records request can be directed to the City Clerk&apos;s Office at{" "}
         records@bellwoodpublicworks.example or (555) 011-2200.
       </p>
     </InteriorLayout>
