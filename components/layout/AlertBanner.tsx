@@ -11,7 +11,7 @@ export function AlertBanner() {
   if (!urgentNotice) return null;
 
   return (
-    <div role="region" aria-label={strings.alert.urgentLabel} className="border-b border-gov-border bg-gov-surface">
+    <div role="region" aria-label={strings.alert.urgentLabel} className="bg-gov-surface">
       <div className="mx-auto flex max-w-6xl items-start gap-3 px-4 py-3 sm:px-6">
         <TriangleAlert className="mt-0.5 h-5 w-5 flex-shrink-0 text-gov-alert" aria-hidden="true" />
         <div>

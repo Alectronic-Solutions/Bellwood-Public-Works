@@ -1,10 +1,16 @@
 "use client";
 
+import { useMemo } from "react";
 import { meetings } from "@/content/meetings";
-import { useLanguage } from "@/lib/i18n";
+import { useLanguage, localize, dateLocale } from "@/lib/i18n";
+import type { Language } from "@/lib/i18n";
+import type { Meeting } from "@/content/types";
+import { InteriorLayout } from "@/components/layout/InteriorLayout";
+import { RelatedLinks } from "@/components/layout/RelatedLinks";
+import { sections } from "@/content/sections";
 
-function formatDate(isoDate: string) {
-  return new Date(`${isoDate}T00:00:00`).toLocaleDateString("en-US", {
+function formatDate(isoDate: string, language: Language) {
+  return new Date(`${isoDate}T00:00:00`).toLocaleDateString(dateLocale(language), {
     year: "numeric",
     month: "long",
     day: "numeric",
@@ -12,37 +18,153 @@ function formatDate(isoDate: string) {
 }
 
 export default function MeetingsPage() {
-  const { strings } = useLanguage();
-  const sorted = [...meetings].sort((a, b) => (a.date < b.date ? 1 : -1));
+  const { strings, language } = useLanguage();
+  const section = sections.find((item) => item.id === "meetings")!;
+
+  const localized = useMemo(() => meetings.map((meeting) => localize(meeting, language)), [language]);
+
+  const todayIso = new Date().toISOString().slice(0, 10);
+
+  const upcoming = useMemo(
+    () => localized.filter((meeting) => meeting.date >= todayIso).sort((a, b) => (a.date > b.date ? 1 : -1)),
+    [localized, todayIso],
+  );
+  const past = useMemo(
+    () => localized.filter((meeting) => meeting.date < todayIso).sort((a, b) => (a.date < b.date ? 1 : -1)),
+    [localized, todayIso],
+  );
+
+  function renderTable(list: Meeting[], emptyMessage: string, captionLabel: string) {
+    if (list.length === 0) {
+      return <p className="mt-4 text-gov-slate">{emptyMessage}</p>;
+    }
+    return (
+      <>
+        <ul className="mt-4 flex flex-col gap-3 sm:hidden">
+          {list.map((meeting) => (
+            <li key={meeting.id} className="border border-gov-border p-4">
+              <p className="font-medium text-gov-navy">{meeting.title}</p>
+              <p className="mt-1 text-gov-slate">{meeting.body}</p>
+              <p className="mt-2 text-sm text-gov-slate">
+                {formatDate(meeting.date, language)} {strings.meetings.atTime} {meeting.time}
+                <br />
+                {meeting.location}
+              </p>
+              {(meeting.agendaUrl || meeting.minutesUrl) && (
+                <div className="mt-2 flex flex-col gap-1 text-sm">
+                  {meeting.agendaUrl && (
+                    <a href={meeting.agendaUrl} className="link-body">
+                      {strings.meetings.agendaLabel}
+                      <span className="sr-only">
+                        {" "}
+                        {strings.meetings.forLabel} {meeting.title} ({strings.meetings.pdfFormat})
+                      </span>
+                    </a>
+                  )}
+                  {meeting.minutesUrl && (
+                    <a href={meeting.minutesUrl} className="link-body">
+                      {strings.meetings.minutesLabel}
+                      <span className="sr-only">
+                        {" "}
+                        {strings.meetings.forLabel} {meeting.title} ({strings.meetings.pdfFormat})
+                      </span>
+                    </a>
+                  )}
+                </div>
+              )}
+            </li>
+          ))}
+        </ul>
+
+        <div className="mt-4 hidden overflow-x-auto border border-gov-border sm:block">
+          <table className="w-full min-w-[28rem] border-collapse text-left">
+            <caption className="sr-only">{captionLabel}</caption>
+            <thead>
+              <tr>
+                <th scope="col" className="px-3 py-2 font-semibold">
+                  Meeting
+                </th>
+                <th scope="col" className="px-3 py-2 font-semibold">
+                  Date and Location
+                </th>
+                <th scope="col" className="px-3 py-2 font-semibold">
+                  Documents
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {list.map((meeting) => (
+                <tr key={meeting.id} className="align-top">
+                  <td className="px-3 py-2">
+                    <p className="font-medium text-gov-navy">{meeting.title}</p>
+                    <p className="mt-1 text-gov-slate">{meeting.body}</p>
+                  </td>
+                  <td className="px-3 py-2 text-gov-slate">
+                    {formatDate(meeting.date, language)} {strings.meetings.atTime} {meeting.time}
+                    <br />
+                    {meeting.location}
+                  </td>
+                  <td className="px-3 py-2 text-sm">
+                    <div className="flex flex-col gap-1">
+                      {meeting.agendaUrl && (
+                        <a href={meeting.agendaUrl} className="link-body">
+                          {strings.meetings.agendaLabel}
+                          <span className="sr-only">
+                            {" "}
+                            {strings.meetings.forLabel} {meeting.title} ({strings.meetings.pdfFormat})
+                          </span>
+                        </a>
+                      )}
+                      {meeting.minutesUrl && (
+                        <a href={meeting.minutesUrl} className="link-body">
+                          {strings.meetings.minutesLabel}
+                          <span className="sr-only">
+                            {" "}
+                            {strings.meetings.forLabel} {meeting.title} ({strings.meetings.pdfFormat})
+                          </span>
+                        </a>
+                      )}
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </>
+    );
+  }
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-      <h1 className="text-3xl font-bold text-gov-navy">{strings.pages.meetingsHeading}</h1>
-      <p className="mt-4 max-w-2xl text-gov-slate">{strings.pages.meetingsIntro}</p>
+    <InteriorLayout
+      section={section}
+      currentHref="/meetings"
+      breadcrumbs={[{ label: strings.pages.meetingsHeading }]}
+      heading={strings.pages.meetingsHeading}
+      intro={strings.pages.meetingsIntro}
+      lastUpdatedIso={upcoming[0]?.date ?? past[0]?.date ?? "2026-07-26"}
+      sidebar={
+        <RelatedLinks
+          links={[
+            { href: "/notices", label: strings.nav.notices },
+            { href: "/contact", label: strings.pages.contactDirectoryHeading },
+          ]}
+        />
+      }
+    >
+      <section aria-labelledby="upcoming-meetings-heading">
+        <h2 id="upcoming-meetings-heading" className="text-xl font-semibold text-gov-navy">
+          {strings.meetings.upcomingHeading}
+        </h2>
+        {renderTable(upcoming, strings.meetings.noUpcoming, strings.meetings.upcomingHeading)}
+      </section>
 
-      <ul className="mt-8 flex flex-col gap-4">
-        {sorted.map((meeting) => (
-          <li key={meeting.id} className="rounded border border-gov-border bg-gov-surface p-5">
-            <h2 className="text-lg font-semibold text-gov-navy">{meeting.title}</h2>
-            <p className="mt-1 text-sm text-gov-slate">
-              {formatDate(meeting.date)} at {meeting.time} &middot; {meeting.location}
-            </p>
-            <p className="mt-3 text-sm text-gov-slate">{meeting.body}</p>
-            <div className="mt-3 flex gap-4 text-sm">
-              {meeting.agendaUrl && (
-                <a href={meeting.agendaUrl} className="text-gov-blue hover:underline">
-                  Agenda
-                </a>
-              )}
-              {meeting.minutesUrl && (
-                <a href={meeting.minutesUrl} className="text-gov-blue hover:underline">
-                  Minutes
-                </a>
-              )}
-            </div>
-          </li>
-        ))}
-      </ul>
-    </div>
+      <section aria-labelledby="past-meetings-heading" className="mt-8">
+        <h2 id="past-meetings-heading" className="text-xl font-semibold text-gov-navy">
+          {strings.meetings.pastHeading}
+        </h2>
+        {renderTable(past, strings.meetings.noPast, strings.meetings.pastHeading)}
+      </section>
+    </InteriorLayout>
   );
 }

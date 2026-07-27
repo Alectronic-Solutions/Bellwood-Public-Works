@@ -22,6 +22,21 @@ const config: Config = {
       fontFamily: {
         sans: ["var(--font-public-sans)", "system-ui", "-apple-system", "sans-serif"],
       },
+      fontSize: {
+        base: ["1.0625rem", { lineHeight: "1.6" }],
+      },
+      borderRadius: {
+        DEFAULT: "2px",
+        none: "0px",
+        sm: "2px",
+        md: "2px",
+        lg: "2px",
+        xl: "2px",
+        full: "9999px",
+      },
+      boxShadow: {
+        none: "none",
+      },
     },
   },
   plugins: [],

@@ -1,24 +1,44 @@
+"use client";
+
+import Link from "next/link";
+import { useLanguage } from "@/lib/i18n";
+import { InteriorLayout } from "@/components/layout/InteriorLayout";
+import { RelatedLinks } from "@/components/layout/RelatedLinks";
+import { sections } from "@/content/sections";
+
 export default function AccessibilityPage() {
+  const { strings } = useLanguage();
+  const section = sections.find((item) => item.id === "about")!;
+
   return (
-    <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
-      <h1 className="text-3xl font-bold text-gov-navy">Accessibility Statement</h1>
-      <p className="mt-4 text-gov-slate">
-        Bellwood Public Works is committed to ensuring digital accessibility for people of all
-        abilities. We aim to conform to the Web Content Accessibility Guidelines (WCAG) 2.1 Level
-        AA and Section 508 of the Rehabilitation Act.
-      </p>
-      <h2 className="mt-8 text-xl font-semibold text-gov-navy">Measures we take</h2>
+    <InteriorLayout
+      section={section}
+      currentHref="/accessibility"
+      breadcrumbs={[{ label: strings.accessibility.heading }]}
+      heading={strings.accessibility.heading}
+      lastUpdatedIso="2026-05-01"
+      sidebar={
+        <RelatedLinks
+          links={[
+            { href: "/public-records", label: strings.footer.publicRecords },
+            { href: "/contact", label: strings.header.contactLink },
+          ]}
+        />
+      }
+    >
+      <p className="text-gov-slate">{strings.accessibility.intro}</p>
+
+      <h2 className="mt-6 text-xl font-semibold text-gov-navy">{strings.accessibility.standardsHeading}</h2>
+      <p className="mt-2 text-gov-slate">{strings.accessibility.standardsBody}</p>
+
+      <h2 className="mt-6 text-xl font-semibold text-gov-navy">{strings.accessibility.feedbackHeading}</h2>
       <p className="mt-2 text-gov-slate">
-        This site is built with semantic landmarks, keyboard-accessible navigation, visible focus
-        indicators, sufficient color contrast, and support for reduced motion preferences. Content
-        is reviewed for correct heading structure and descriptive link text.
+        {strings.accessibility.feedbackBody}{" "}
+        <Link href="/contact" className="text-gov-blue underline underline-offset-2 hover:text-gov-navy">
+          {strings.accessibility.contactLinkLabel}
+        </Link>
+        .
       </p>
-      <h2 className="mt-8 text-xl font-semibold text-gov-navy">Feedback</h2>
-      <p className="mt-2 text-gov-slate">
-        If you encounter an accessibility barrier on this site, please contact us at
-        accessibility@bellwoodpublicworks.example or (555) 011-2200. This is a fictional portfolio
-        demonstration site and this contact address is not monitored.
-      </p>
-    </div>
+    </InteriorLayout>
   );
 }

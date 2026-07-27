@@ -5,8 +5,21 @@ export interface Service {
   summary: string;
   description: string;
   icon: string;
+  whoItAppliesTo: string;
+  howToApply: string;
+  relatedFormIds: string[];
+  photo: string;
+  photoAlt: string;
   contactPhone?: string;
   contactEmail?: string;
+  es: {
+    name: string;
+    category: string;
+    summary: string;
+    description: string;
+    whoItAppliesTo: string;
+    howToApply: string;
+  };
 }
 
 export interface Notice {
@@ -14,8 +27,14 @@ export interface Notice {
   title: string;
   body: string;
   date: string;
+  department: string;
   urgent: boolean;
   active: boolean;
+  es: {
+    title: string;
+    body: string;
+    department: string;
+  };
 }
 
 export interface Meeting {
@@ -27,6 +46,11 @@ export interface Meeting {
   location: string;
   agendaUrl?: string;
   minutesUrl?: string;
+  es: {
+    title: string;
+    body: string;
+    location: string;
+  };
 }
 
 export interface FormDoc {
@@ -36,6 +60,55 @@ export interface FormDoc {
   category: string;
   fileUrl: string;
   fileType: "PDF" | "DOC";
+  fileSizeLabel: string;
+  lastUpdated: string;
+  es: {
+    title: string;
+    description: string;
+    category: string;
+  };
+}
+
+export interface Department {
+  name: string;
+  phone: string;
+  email: string;
+  hours: string;
+  es: {
+    name: string;
+    hours: string;
+  };
+}
+
+export interface StaffMember {
+  id: string;
+  name: string;
+  title: string;
+  department: string;
+  extension: string;
+  email: string;
+  photo: string;
+  photoAlt: string;
+  es: {
+    title: string;
+    department: string;
+  };
+}
+
+export interface Project {
+  id: string;
+  name: string;
+  status: "Planning" | "Design" | "In Construction" | "Completed";
+  division: string;
+  budget: string;
+  timeline: string;
+  description: string;
+  es: {
+    name: string;
+    status: string;
+    division: string;
+    description: string;
+  };
 }
 
 export interface UIStrings {
@@ -45,6 +118,7 @@ export interface UIStrings {
     notices: string;
     meetings: string;
     forms: string;
+    contact: string;
   };
   banner: {
     demo: string;
@@ -57,6 +131,15 @@ export interface UIStrings {
     skipLink: string;
     mobileNavOpen: string;
     mobileNavClose: string;
+    agencyName: string;
+    agencyParent: string;
+    seatUnder: string;
+    seatOver: string;
+    seatReset: string;
+    contactLink: string;
+    quickActionsHeading: string;
+    navDropdownOpen: string;
+    navDropdownClose: string;
   };
   footer: {
     contactHeading: string;
@@ -64,10 +147,21 @@ export interface UIStrings {
     officeHours: string;
     address: string;
     phone: string;
+    tty: string;
+    phone2: string;
     email: string;
     accessibilityStatement: string;
     nonDiscrimination: string;
     publicRecords: string;
+    privacyPolicy: string;
+    siteMap: string;
+    departmentsHeading: string;
+    servicesHeading: string;
+    resourcesHeading: string;
+    connectHeading: string;
+    copyright: string;
+    designedBy: string;
+    backToTop: string;
   };
   alert: {
     urgentLabel: string;
@@ -80,6 +174,13 @@ export interface UIStrings {
     noticesCta: string;
     meetingsCta: string;
     formsCta: string;
+    alertsHeading: string;
+    noAlertsMessage: string;
+    quickLinksHeading: string;
+    upcomingMeetingsHeading: string;
+    viewAllMeetings: string;
+    recentNoticesHeading: string;
+    viewAllNotices: string;
   };
   pages: {
     servicesHeading: string;
@@ -90,5 +191,114 @@ export interface UIStrings {
     meetingsIntro: string;
     formsHeading: string;
     formsIntro: string;
+    contactHeading: string;
+    contactIntro: string;
+    contactDirectoryHeading: string;
+    contactDirectoryCaption: string;
+    contactDirectoryDepartmentColumn: string;
+    contactDirectoryPhoneColumn: string;
+    contactDirectoryEmailColumn: string;
+    staffDirectoryHeading: string;
+    staffDirectoryIntro: string;
+  };
+  serviceDetail: {
+    appliesToHeading: string;
+    howToApplyHeading: string;
+    relatedFormsHeading: string;
+    contactHeading: string;
+    backLink: string;
+  };
+  noticeDetail: {
+    postedLabel: string;
+    departmentLabel: string;
+    backLink: string;
+  };
+  services: {
+    categoryFilterLabel: string;
+    allCategoriesLabel: string;
+    resultsCount: string;
+    emptyState: string;
+  };
+  notices: {
+    yearFilterLabel: string;
+    allYearsLabel: string;
+    resultsCount: string;
+    emptyState: string;
+  };
+  meetings: {
+    agendaLabel: string;
+    minutesLabel: string;
+    upcomingHeading: string;
+    pastHeading: string;
+    noUpcoming: string;
+    noPast: string;
+    atTime: string;
+    forLabel: string;
+    pdfFormat: string;
+  };
+  forms: {
+    searchLabel: string;
+    searchPlaceholder: string;
+    categoryFilterLabel: string;
+    allCategoriesLabel: string;
+    resultsCount: string;
+    emptyState: string;
+    lastUpdatedLabel: string;
+    fileSizeLabel: string;
+  };
+  contactForm: {
+    legendYourInfo: string;
+    legendYourMessage: string;
+    nameLabel: string;
+    nameRequiredError: string;
+    emailLabel: string;
+    emailRequiredError: string;
+    emailFormatError: string;
+    phoneLabel: string;
+    phoneOptional: string;
+    departmentLabel: string;
+    departmentOptional: string;
+    departmentPlaceholder: string;
+    messageLabel: string;
+    messageRequiredError: string;
+    errorSummaryHeading: string;
+    submitLabel: string;
+    successMessage: string;
+    demoNote: string;
+    requiredMarker: string;
+  };
+  accessibility: {
+    heading: string;
+    intro: string;
+    standardsHeading: string;
+    standardsBody: string;
+    feedbackHeading: string;
+    feedbackBody: string;
+    contactLinkLabel: string;
+  };
+  breadcrumbs: {
+    homeLabel: string;
+  };
+  sectionNav: {
+    heading: string;
+    toggleLabel: string;
+  };
+  lastUpdated: {
+    label: string;
+  };
+  pageHelpful: {
+    question: string;
+    yes: string;
+    no: string;
+    thanksYes: string;
+    thanksNo: string;
+  };
+  sidebar: {
+    contactHeading: string;
+    callLabel: string;
+    emailLabel: string;
+    hoursLabel: string;
+    relatedDocumentsHeading: string;
+    relatedLinksHeading: string;
   };
 }

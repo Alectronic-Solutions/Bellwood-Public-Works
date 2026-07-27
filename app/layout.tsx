@@ -2,9 +2,11 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { LanguageProvider } from "@/lib/i18n";
+import { TextSizeProvider } from "@/lib/textSize";
 import { SkipLink } from "@/components/layout/SkipLink";
-import { DemoBanner } from "@/components/layout/DemoBanner";
 import { SiteHeader } from "@/components/layout/SiteHeader";
+import { PrimaryNav } from "@/components/layout/PrimaryNav";
+import { QuickActionsBar } from "@/components/layout/QuickActionsBar";
 import { AlertBanner } from "@/components/layout/AlertBanner";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 
@@ -44,12 +46,15 @@ export default function RootLayout({
     <html lang="en" className={publicSans.variable}>
       <body className="font-sans antialiased">
         <LanguageProvider>
-          <SkipLink />
-          <DemoBanner />
-          <SiteHeader />
-          <AlertBanner />
-          <main id="main-content">{children}</main>
-          <SiteFooter />
+          <TextSizeProvider>
+            <SkipLink />
+            <SiteHeader />
+            <PrimaryNav />
+            <QuickActionsBar />
+            <AlertBanner />
+            <main id="main-content">{children}</main>
+            <SiteFooter />
+          </TextSizeProvider>
         </LanguageProvider>
       </body>
     </html>

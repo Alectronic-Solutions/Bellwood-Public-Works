@@ -16,6 +16,35 @@
 body {
   background-color: var(--gov-bg);
   color: var(--gov-slate);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+}
+
+.link-body {
+  color: var(--gov-blue);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.link-body:hover {
+  color: var(--gov-navy);
+}
+
+table {
+  font-size: 0.9375rem;
+}
+
+table thead th {
+  background-color: var(--gov-navy);
+  color: #ffffff;
+}
+
+table tbody tr:nth-child(even) {
+  background-color: var(--gov-surface);
+}
+
+table tbody tr {
+  border-bottom: 1px solid var(--gov-border);
 }
 
 .sr-only-focusable {

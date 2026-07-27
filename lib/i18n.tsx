@@ -38,9 +38,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const setLanguage = (next: Language) => {
     setLanguageState(next);
     window.localStorage.setItem(STORAGE_KEY, next);
-    setAnnouncement(
-      next === "es" ? "Idioma cambiado a Español" : "Language changed to English"
-    );
+    setAnnouncement(next === "es" ? "Idioma cambiado a Español" : "Language changed to English");
   };
 
   const value = useMemo<LanguageContextValue>(
@@ -50,7 +48,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
       setLanguage,
       announcement,
     }),
-    [language, announcement]
+    [language, announcement],
   );
 
   return (
@@ -69,4 +67,13 @@ export function useLanguage() {
     throw new Error("useLanguage must be used within a LanguageProvider");
   }
   return context;
+}
+
+export function localize<T extends { es: Partial<T> }>(item: T, language: Language): T {
+  if (language === "en") return item;
+  return { ...item, ...item.es };
+}
+
+export function dateLocale(language: Language): string {
+  return language === "es" ? "es-ES" : "en-US";
 }

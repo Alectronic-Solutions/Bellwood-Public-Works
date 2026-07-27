@@ -1,45 +1,123 @@
 "use client";
 
 import Link from "next/link";
+import { ArrowUp } from "lucide-react";
 import { useLanguage } from "@/lib/i18n";
+import { footerDepartmentLinks, footerServiceLinks, footerResourceLinks } from "@/content/nav";
+import { CivicSeal } from "./CivicSeal";
 
 export function SiteFooter() {
-  const { strings } = useLanguage();
+  const { strings, language } = useLanguage();
+
+  const columns = [
+    { heading: strings.footer.departmentsHeading, links: footerDepartmentLinks },
+    { heading: strings.footer.servicesHeading, links: footerServiceLinks },
+    { heading: strings.footer.resourcesHeading, links: footerResourceLinks },
+  ];
 
   return (
-    <footer className="border-t border-gov-border bg-gov-surface">
-      <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
-        <div className="grid gap-8 md:grid-cols-2">
+    <footer className="border-t border-gov-border bg-gov-navy text-white">
+      <div role="region" aria-label={strings.banner.demo} className="border-b border-white/20 bg-gov-navy">
+        <p className="mx-auto max-w-6xl px-4 py-2 text-sm sm:px-6">{strings.banner.demo}</p>
+      </div>
+      <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          {columns.map((column) => (
+            <div key={column.heading}>
+              <h2 className="text-sm font-bold uppercase tracking-wide text-white">{column.heading}</h2>
+              <ul className="mt-3 space-y-2">
+                {column.links.map((link, index) => (
+                  <li key={`${link.href}-${index}`}>
+                    <Link href={link.href} className="text-sm text-white/80 hover:text-white hover:underline">
+                      {language === "es" ? link.labelEs : link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+
           <div>
-            <h2 className="text-sm font-bold uppercase tracking-wide text-gov-navy">
-              {strings.footer.contactHeading}
-            </h2>
-            <address className="mt-2 not-italic text-sm text-gov-slate">
-              {strings.footer.address}
-              <br />
-              {strings.footer.phone}
-              <br />
-              {strings.footer.email}
-            </address>
-          </div>
-          <div>
-            <h2 className="text-sm font-bold uppercase tracking-wide text-gov-navy">
+            <h2 className="text-sm font-bold uppercase tracking-wide text-white">{strings.footer.connectHeading}</h2>
+            <div className="mt-3 flex items-start gap-3">
+              <CivicSeal variant="white" className="h-10 w-10 shrink-0" />
+              <address className="not-italic text-sm text-white/80">
+                {strings.footer.address}
+                <br />
+                {strings.footer.phone}
+                <br />
+                {strings.footer.tty}
+                <br />
+                {strings.footer.phone2}
+                <br />
+                {strings.footer.email}
+              </address>
+            </div>
+            <h3 className="mt-4 text-xs font-bold uppercase tracking-wide text-white">
               {strings.footer.officeHoursHeading}
-            </h2>
-            <p className="mt-2 text-sm text-gov-slate">{strings.footer.officeHours}</p>
+            </h3>
+            <p className="mt-1 text-sm text-white/80">{strings.footer.officeHours}</p>
           </div>
         </div>
 
-        <nav aria-label="Footer" className="mt-8 flex flex-wrap gap-x-6 gap-y-2 border-t border-gov-border pt-6 text-sm">
-          <Link href="/accessibility" className="text-gov-blue hover:underline">
-            {strings.footer.accessibilityStatement}
-          </Link>
-          <Link href="/public-records" className="text-gov-blue hover:underline">
-            {strings.footer.publicRecords}
-          </Link>
-        </nav>
+        <div className="mt-8 border-t border-white/20 pt-6">
+          <nav aria-label="Footer" className="flex flex-wrap gap-x-6 gap-y-1 text-sm">
+            <Link
+              href="/accessibility"
+              className="flex min-h-[44px] items-center text-white/80 hover:text-white hover:underline"
+            >
+              {strings.footer.accessibilityStatement}
+            </Link>
+            <Link
+              href="/public-records"
+              className="flex min-h-[44px] items-center text-white/80 hover:text-white hover:underline"
+            >
+              {strings.footer.publicRecords}
+            </Link>
+            <Link
+              href="/accessibility"
+              className="flex min-h-[44px] items-center text-white/80 hover:text-white hover:underline"
+            >
+              {strings.footer.privacyPolicy}
+            </Link>
+            <Link
+              href="/services"
+              className="flex min-h-[44px] items-center text-white/80 hover:text-white hover:underline"
+            >
+              {strings.footer.siteMap}
+            </Link>
+          </nav>
 
-        <p className="mt-6 max-w-3xl text-xs text-gov-slate">{strings.footer.nonDiscrimination}</p>
+          <p className="mt-4 max-w-3xl text-xs text-white/70">{strings.footer.nonDiscrimination}</p>
+
+          <div className="mt-6 flex flex-col gap-4 border-t border-white/20 pt-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="text-xs text-white/60">
+              <p>
+                {"© "}
+                {new Date().getFullYear()} {strings.footer.copyright}
+              </p>
+              <p className="mt-1">
+                {strings.footer.designedBy}{" "}
+                <a
+                  href="https://alectronicsolutions.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white/80 underline hover:text-white"
+                >
+                  Alectronic Solutions
+                </a>
+              </p>
+            </div>
+
+            <a
+              href="#main-content"
+              className="inline-flex w-fit items-center gap-2 rounded border border-white/30 px-3 py-2 text-sm text-white/90 hover:bg-white/10 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+            >
+              <ArrowUp className="h-4 w-4" aria-hidden="true" />
+              {strings.footer.backToTop}
+            </a>
+          </div>
+        </div>
       </div>
     </footer>
   );

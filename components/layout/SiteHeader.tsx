@@ -1,58 +1,44 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
 import { Menu, X, Search } from "lucide-react";
 import { useLanguage } from "@/lib/i18n";
-import { LanguageToggle } from "./LanguageToggle";
+import { UtilityBar } from "./UtilityBar";
+import { CivicSeal } from "./CivicSeal";
 import { MobileNav } from "./MobileNav";
 
 export function SiteHeader() {
   const { strings } = useLanguage();
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const mobileNavButtonRef = useRef<HTMLButtonElement>(null);
 
-  const links = [
-    { href: "/", label: strings.nav.home },
-    { href: "/services", label: strings.nav.services },
-    { href: "/notices", label: strings.nav.notices },
-    { href: "/meetings", label: strings.nav.meetings },
-    { href: "/forms", label: strings.nav.forms },
-  ];
+  function closeMobileNav() {
+    setMobileNavOpen(false);
+    mobileNavButtonRef.current?.focus();
+  }
 
   return (
     <header className="border-b border-gov-border bg-white">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4 sm:px-6">
-        <Link href="/" className="text-lg font-bold text-gov-navy" aria-label="Bellwood Public Works home">
-          Bellwood Public Works
+      <UtilityBar />
+
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-2 px-4 py-3 sm:gap-4 sm:px-6">
+        <Link
+          href="/"
+          className="flex min-w-0 items-center gap-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gov-blue sm:gap-4"
+          aria-label="Bellwood Public Works home"
+        >
+          <CivicSeal className="h-10 w-10 shrink-0 sm:h-14 sm:w-14 md:h-16 md:w-16" />
+          <span className="flex flex-col leading-tight">
+            <span className="text-xs font-semibold uppercase tracking-widest text-gov-slate">
+              {strings.header.agencyName}
+            </span>
+            <span className="text-lg font-bold text-gov-navy sm:text-xl">{strings.header.agencyParent}</span>
+          </span>
         </Link>
 
-        <nav aria-label="Primary" className="hidden md:flex md:items-center md:gap-6">
-          {links.map((link) => (
-            <Link key={link.href} href={link.href} className="text-sm font-medium text-gov-slate hover:text-gov-navy">
-              {link.label}
-            </Link>
-          ))}
-        </nav>
-
-        <div className="hidden items-center gap-3 md:flex">
-          <form role="search" className="flex items-center">
-            <label htmlFor="site-search" className="sr-only-focusable">
-              {strings.header.searchLabel}
-            </label>
-            <div className="flex items-center rounded border border-gov-border px-2">
-              <Search className="h-4 w-4 text-gov-slate" aria-hidden="true" />
-              <input
-                id="site-search"
-                type="search"
-                placeholder={strings.header.searchPlaceholder}
-                className="w-40 border-0 px-2 py-1.5 text-sm text-gov-slate focus:outline-none"
-              />
-            </div>
-          </form>
-          <LanguageToggle />
-        </div>
-
         <button
+          ref={mobileNavButtonRef}
           type="button"
           className="inline-flex items-center justify-center rounded p-2 text-gov-navy md:hidden"
           aria-expanded={mobileNavOpen}
@@ -69,21 +55,20 @@ export function SiteHeader() {
           <label htmlFor="site-search-mobile" className="sr-only-focusable">
             {strings.header.searchLabel}
           </label>
-          <div className="flex flex-1 items-center rounded border border-gov-border px-2">
+          <div className="flex flex-1 items-center rounded border border-gov-border px-2 focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-gov-blue">
             <Search className="h-4 w-4 text-gov-slate" aria-hidden="true" />
             <input
               id="site-search-mobile"
               type="search"
               placeholder={strings.header.searchPlaceholder}
-              className="w-full border-0 px-2 py-1.5 text-sm text-gov-slate focus:outline-none"
+              className="w-full border-0 bg-transparent px-2 py-1.5 text-sm text-gov-slate focus:outline-none"
             />
           </div>
-          <LanguageToggle />
         </form>
       </div>
 
       <div id="mobile-nav">
-        <MobileNav open={mobileNavOpen} onNavigate={() => setMobileNavOpen(false)} />
+        <MobileNav open={mobileNavOpen} onNavigate={closeMobileNav} />
       </div>
     </header>
   );
