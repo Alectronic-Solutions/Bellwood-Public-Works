@@ -42,7 +42,9 @@ export function SiteFooter() {
             <div className="mt-3 flex items-start gap-3">
               <CivicSeal variant="white" className="h-10 w-10 shrink-0" />
               <address className="not-italic text-sm text-white/80">
-                {strings.footer.address}
+                {strings.footer.addressLine1}
+                <br />
+                {strings.footer.addressLine2}
                 <br />
                 {strings.footer.phone}
                 <br />

@@ -34,10 +34,11 @@ export const en: UIStrings = {
     contactHeading: "Contact Bellwood Public Works",
     officeHoursHeading: "Office Hours",
     officeHours: "Monday through Friday, 8:00 AM to 4:30 PM. Closed on observed city holidays.",
-    address: "100 Municipal Way, Bellwood, ST 55501",
+    addressLine1: "100 Municipal Way",
+    addressLine2: "Bellwood, ST 55501",
     phone: "(555) 011-2200",
     tty: "TTY: (555) 011-2299",
-    phone2: "Non-emergency after hours: (555) 011-2911",
+    phone2: "Non-emergency after hours: (555) 011-2911",
     email: "info@bellwoodpublicworks.example",
     accessibilityStatement: "Accessibility Statement",
     nonDiscrimination:

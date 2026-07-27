@@ -145,7 +145,8 @@ export interface UIStrings {
     contactHeading: string;
     officeHoursHeading: string;
     officeHours: string;
-    address: string;
+    addressLine1: string;
+    addressLine2: string;
     phone: string;
     tty: string;
     phone2: string;
