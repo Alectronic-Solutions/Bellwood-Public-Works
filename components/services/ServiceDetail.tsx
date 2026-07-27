@@ -2,6 +2,7 @@
 
 import type { Service } from "@/content/types";
 import { forms } from "@/content/forms";
+import { withBasePath } from "@/lib/basePath";
 import { useLanguage, localize } from "@/lib/i18n";
 import { InteriorLayout } from "@/components/layout/InteriorLayout";
 import { ContactCard } from "@/components/layout/ContactCard";
@@ -33,7 +34,7 @@ export function ServiceDetail({ service: rawService }: ServiceDetailProps) {
           <ContactCard departmentName={service.category} phone={service.contactPhone} email={service.contactEmail} />
           <RelatedDocuments
             documents={relatedForms.map((form) => ({
-              href: form.fileUrl,
+              href: withBasePath(form.fileUrl),
               title: form.title,
               meta: `${form.fileType} · ${form.fileSizeLabel}`,
             }))}

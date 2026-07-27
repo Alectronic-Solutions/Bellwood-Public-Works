@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { Search } from "lucide-react";
 import { forms } from "@/content/forms";
+import { withBasePath } from "@/lib/basePath";
 import { useLanguage, localize, dateLocale } from "@/lib/i18n";
 import type { Language } from "@/lib/i18n";
 import { InteriorLayout } from "@/components/layout/InteriorLayout";
@@ -112,7 +113,7 @@ export default function FormsPage() {
           <ul className="mt-4 flex flex-col gap-3 sm:hidden">
             {filtered.map((form) => (
               <li key={form.id} className="border border-gov-border p-4">
-                <a href={form.fileUrl} className="font-medium link-body">
+                <a href={withBasePath(form.fileUrl)} className="font-medium link-body">
                   {form.title}
                 </a>
                 <p className="mt-1 text-gov-slate">{form.description}</p>
@@ -159,7 +160,7 @@ export default function FormsPage() {
                 {filtered.map((form) => (
                   <tr key={form.id} className="align-top">
                     <td className="px-3 py-2">
-                      <a href={form.fileUrl} className="font-medium link-body">
+                      <a href={withBasePath(form.fileUrl)} className="font-medium link-body">
                         {form.title}
                         <span className="sr-only">
                           {" "}

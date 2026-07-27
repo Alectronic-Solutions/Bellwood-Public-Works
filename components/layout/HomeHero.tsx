@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { withBasePath } from "@/lib/basePath";
 
 interface HomeHeroProps {
   heading: string;
@@ -39,7 +40,7 @@ export function HomeHero({ heading, mission }: HomeHeroProps) {
     <div ref={sectionRef} className="relative h-72 w-full overflow-hidden sm:h-[28rem] lg:h-[36rem]">
       <div className="absolute inset-0 -top-16 -bottom-16" style={{ transform: `translateY(${offset}px)` }}>
         <Image
-          src="/images/hero/hero-home.jpg"
+          src={withBasePath("/images/hero/hero-home.jpg")}
           alt="An aerial view of a Bellwood Public Works construction crew in hard hats and safety vests inspecting a reinforced concrete work site"
           fill
           priority

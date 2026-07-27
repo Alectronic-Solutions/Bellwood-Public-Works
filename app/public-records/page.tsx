@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useLanguage } from "@/lib/i18n";
 import { InteriorLayout } from "@/components/layout/InteriorLayout";
 import { ContactCard } from "@/components/layout/ContactCard";
@@ -49,9 +50,9 @@ export default function PublicRecordsPage() {
       <h2 className="mt-6 text-xl font-semibold text-gov-navy">How to submit a request</h2>
       <p className="mt-2 text-gov-slate">
         Complete the Public Records Request Form, available on the{" "}
-        <a href="/forms" className="text-gov-blue underline underline-offset-2 hover:text-gov-navy">
+        <Link href="/forms" className="text-gov-blue underline underline-offset-2 hover:text-gov-navy">
           Forms and Applications
-        </a>{" "}
+        </Link>{" "}
         page, and submit it by mail, email, or in person at City Hall.
       </p>
       <h2 className="mt-6 text-xl font-semibold text-gov-navy">Contact</h2>

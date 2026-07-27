@@ -12,7 +12,7 @@ interface MobileNavProps {
 }
 
 export function MobileNav({ open, onNavigate }: MobileNavProps) {
-  const { strings, language } = useLanguage();
+  const { language } = useLanguage();
   const firstLinkRef = useRef<HTMLAnchorElement>(null);
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
