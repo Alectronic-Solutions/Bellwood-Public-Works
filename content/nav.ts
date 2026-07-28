@@ -214,7 +214,7 @@ export const quickActions: QuickAction[] = [
   {
     href: "/public-records",
     icon: "folder-search",
-    label: "Submit a Public Records Request",
+    label: "Public Records Request",
     labelEs: "Solicitar Registros Públicos",
   },
   {
@@ -226,13 +226,13 @@ export const quickActions: QuickAction[] = [
   {
     href: "/services/streets-sidewalks",
     icon: "lightbulb",
-    label: "Report a Streetlight Outage",
+    label: "Report Streetlight Outage",
     labelEs: "Reportar Luz de Calle Apagada",
   },
   {
     href: "/services/streets-sidewalks",
     icon: "signpost",
-    label: "Apply for an Encroachment Permit",
-    labelEs: "Solicitar Permiso de Invasión",
+    label: "Encroachment Permit",
+    labelEs: "Permiso de Invasión",
   },
 ];

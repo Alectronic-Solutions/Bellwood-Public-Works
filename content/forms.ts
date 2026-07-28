@@ -11,6 +11,7 @@ export const forms: FormDoc[] = [
     fileType: "PDF",
     fileSizeLabel: "210 KB",
     lastUpdated: "2026-02-10",
+    featured: true,
     es: {
       title: "Solicitud de Permiso de Construcción Residencial",
       description:
@@ -154,6 +155,7 @@ export const forms: FormDoc[] = [
     fileType: "PDF",
     fileSizeLabel: "158 KB",
     lastUpdated: "2026-04-01",
+    featured: true,
     es: {
       title: "Formulario de Reserva de Pabellón de Parque",
       description: "Reserve un pabellón de parque o campo deportivo para un evento privado o actividad organizada.",
@@ -219,6 +221,7 @@ export const forms: FormDoc[] = [
     fileType: "PDF",
     fileSizeLabel: "112 KB",
     lastUpdated: "2026-03-05",
+    featured: true,
     es: {
       title: "Formulario General de Solicitud de Servicio",
       description:
@@ -380,6 +383,7 @@ export const forms: FormDoc[] = [
     fileType: "PDF",
     fileSizeLabel: "148 KB",
     lastUpdated: "2026-01-22",
+    featured: true,
     es: {
       title: "Solicitud de Nuevo Servicio de Agua",
       description: "Abra una nueva cuenta de agua y alcantarillado para una dirección residencial o comercial.",

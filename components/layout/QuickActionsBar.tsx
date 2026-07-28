@@ -14,7 +14,7 @@ export function QuickActionsBar() {
         <h2 className="mb-2 text-xs font-bold uppercase tracking-wide text-gov-navy">
           {strings.header.quickActionsHeading}
         </h2>
-        <ul className="flex flex-wrap gap-x-6 gap-y-1">
+        <ul className="grid grid-cols-2 gap-x-4 gap-y-2 sm:grid-cols-4">
           {quickActions.map((action) => {
             const Icon = quickActionIcons[action.icon];
             const label = language === "es" ? action.labelEs : action.label;

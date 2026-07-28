@@ -82,7 +82,7 @@ export function MobileNav({ open, onNavigate }: MobileNavProps) {
                                     <Link
                                       href={link.href}
                                       onClick={onNavigate}
-                                      className="block py-1 text-sm text-gov-blue underline underline-offset-2 hover:text-gov-navy"
+                                      className="flex min-h-[44px] items-center py-2 text-base text-gov-blue underline underline-offset-2 hover:text-gov-navy"
                                     >
                                       {linkLabel}
                                     </Link>

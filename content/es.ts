@@ -57,6 +57,8 @@ export const es: UIStrings = {
   alert: {
     urgentLabel: "Aviso urgente",
     archivedLabel: "Archivado",
+    pauseScrolling: "Pausar aviso desplazable",
+    resumeScrolling: "Reanudar aviso desplazable",
   },
   home: {
     heading: "Bienvenido a Bellwood Public Works",
@@ -73,6 +75,22 @@ export const es: UIStrings = {
     viewAllMeetings: "Ver todas las reuniones",
     recentNoticesHeading: "Avisos Recientes",
     viewAllNotices: "Ver todos los avisos",
+    departmentsCta: "Directorio de departamentos",
+    contactCta: "Contáctenos",
+    servicesShowcaseHeading: "Explore nuestros servicios",
+    viewAllServices: "Ver todos los servicios",
+    projectsHeading: "Proyectos de capital actuales",
+    projectsIntro: "Un vistazo a los trabajos de infraestructura activos en Bellwood.",
+    projectStatusLabel: "Estado",
+    projectBudgetLabel: "Presupuesto",
+    projectTimelineLabel: "Cronograma",
+    popularFormsHeading: "Formularios más solicitados",
+    viewAllForms: "Ver todos los formularios",
+    viewAllStaff: "Ver el directorio completo del personal",
+    contactCtaHeading: "¿Tiene una pregunta o un problema que reportar?",
+    contactCtaIntro:
+      "Comuníquese directamente con la oficina de Obras Públicas, o presente una solicitud de servicio por un bache, una luz de calle apagada u otro problema.",
+    reportIssueCta: "Reportar un problema",
   },
   pages: {
     servicesHeading: "Servicios",

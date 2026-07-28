@@ -108,27 +108,32 @@ export default function ContactPage() {
       </ul>
 
       <div className="mt-4 hidden overflow-x-auto border border-gov-border sm:block">
-        <table className="w-full min-w-[24rem] border-collapse text-left">
+        <table className="w-full min-w-[26rem] table-fixed border-collapse text-left">
           <caption className="sr-only">{strings.pages.contactDirectoryCaption}</caption>
+          <colgroup>
+            <col className="w-[34%]" />
+            <col className="w-[24%]" />
+            <col className="w-[42%]" />
+          </colgroup>
           <thead>
             <tr>
-              <th scope="col" className="px-3 py-2 font-semibold">
+              <th scope="col" className="break-words px-3 py-2 font-semibold">
                 {strings.pages.contactDirectoryDepartmentColumn}
               </th>
-              <th scope="col" className="px-3 py-2 font-semibold">
+              <th scope="col" className="break-words px-3 py-2 font-semibold">
                 {strings.pages.contactDirectoryPhoneColumn}
               </th>
-              <th scope="col" className="px-3 py-2 font-semibold">
+              <th scope="col" className="break-words px-3 py-2 font-semibold">
                 {strings.pages.contactDirectoryEmailColumn}
               </th>
             </tr>
           </thead>
           <tbody>
             {localizedDepartments.map((department) => (
-              <tr key={department.name}>
-                <td className="px-3 py-2 text-gov-slate">{department.name}</td>
-                <td className="px-3 py-2 text-gov-slate">{department.phone}</td>
-                <td className="px-3 py-2 text-gov-slate">{department.email}</td>
+              <tr key={department.name} className="align-top">
+                <td className="break-words px-3 py-2 text-gov-slate">{department.name}</td>
+                <td className="break-words px-3 py-2 text-gov-slate">{department.phone}</td>
+                <td className="break-all px-3 py-2 text-gov-slate">{department.email}</td>
               </tr>
             ))}
           </tbody>

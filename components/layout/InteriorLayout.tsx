@@ -33,12 +33,12 @@ export function InteriorLayout({
       <Breadcrumbs trail={breadcrumbs} />
 
       <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
-        <div className="grid gap-8 lg:grid-cols-[16rem_minmax(0,1fr)_18rem]">
-          <aside>
+        <div className="grid gap-8 xl:grid-cols-[16rem_minmax(0,1fr)_22rem]">
+          <aside className="order-2 xl:order-none">
             <SectionNav section={section} currentHref={currentHref} />
           </aside>
 
-          <main>
+          <main className="order-1 xl:order-none">
             <h1 className="text-4xl font-bold text-gov-navy">{heading}</h1>
             {intro && <p className="mt-3 max-w-[70ch] text-gov-slate">{intro}</p>}
 
@@ -48,7 +48,11 @@ export function InteriorLayout({
             <WasThisPageHelpful />
           </main>
 
-          {sidebar && <aside className="flex flex-col gap-6 lg:sticky lg:top-4 lg:self-start">{sidebar}</aside>}
+          {sidebar && (
+            <aside className="order-3 flex flex-col gap-6 xl:order-none xl:sticky xl:top-4 xl:self-start">
+              {sidebar}
+            </aside>
+          )}
         </div>
       </div>
     </div>

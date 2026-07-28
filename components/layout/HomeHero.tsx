@@ -38,7 +38,7 @@ export function HomeHero({ heading, mission }: HomeHeroProps) {
 
   return (
     <div ref={sectionRef} className="relative h-72 w-full overflow-hidden sm:h-[28rem] lg:h-[36rem]">
-      <div className="absolute inset-0 -top-16 -bottom-16" style={{ transform: `translateY(${offset}px)` }}>
+      <div className="absolute inset-0 -top-32 -bottom-32" style={{ transform: `translateY(${offset}px)` }}>
         <Image
           src={withBasePath("/images/hero/hero-home.jpg")}
           alt="An aerial view of a Bellwood Public Works construction crew in hard hats and safety vests inspecting a reinforced concrete work site"

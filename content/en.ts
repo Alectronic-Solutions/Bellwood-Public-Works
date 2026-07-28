@@ -57,6 +57,8 @@ export const en: UIStrings = {
   alert: {
     urgentLabel: "Urgent notice",
     archivedLabel: "Archived",
+    pauseScrolling: "Pause scrolling alert",
+    resumeScrolling: "Resume scrolling alert",
   },
   home: {
     heading: "Welcome to Bellwood Public Works",
@@ -73,6 +75,22 @@ export const en: UIStrings = {
     viewAllMeetings: "View all meetings",
     recentNoticesHeading: "Recent Notices",
     viewAllNotices: "View all notices",
+    departmentsCta: "Department directory",
+    contactCta: "Contact us",
+    servicesShowcaseHeading: "Explore our services",
+    viewAllServices: "View all services",
+    projectsHeading: "Current capital projects",
+    projectsIntro: "A look at active infrastructure work happening around Bellwood.",
+    projectStatusLabel: "Status",
+    projectBudgetLabel: "Budget",
+    projectTimelineLabel: "Timeline",
+    popularFormsHeading: "Popular forms",
+    viewAllForms: "View all forms",
+    viewAllStaff: "View the full staff directory",
+    contactCtaHeading: "Have a question or a problem to report?",
+    contactCtaIntro:
+      "Reach the Public Works office directly, or submit a service request for a pothole, streetlight outage, or other issue.",
+    reportIssueCta: "Report a problem",
   },
   pages: {
     servicesHeading: "Services",

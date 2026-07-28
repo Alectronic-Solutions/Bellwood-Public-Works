@@ -62,6 +62,7 @@ export interface FormDoc {
   fileType: "PDF" | "DOC";
   fileSizeLabel: string;
   lastUpdated: string;
+  featured?: boolean;
   es: {
     title: string;
     description: string;
@@ -167,6 +168,8 @@ export interface UIStrings {
   alert: {
     urgentLabel: string;
     archivedLabel: string;
+    pauseScrolling: string;
+    resumeScrolling: string;
   };
   home: {
     heading: string;
@@ -182,6 +185,21 @@ export interface UIStrings {
     viewAllMeetings: string;
     recentNoticesHeading: string;
     viewAllNotices: string;
+    departmentsCta: string;
+    contactCta: string;
+    servicesShowcaseHeading: string;
+    viewAllServices: string;
+    projectsHeading: string;
+    projectsIntro: string;
+    projectStatusLabel: string;
+    projectBudgetLabel: string;
+    projectTimelineLabel: string;
+    popularFormsHeading: string;
+    viewAllForms: string;
+    viewAllStaff: string;
+    contactCtaHeading: string;
+    contactCtaIntro: string;
+    reportIssueCta: string;
   };
   pages: {
     servicesHeading: string;

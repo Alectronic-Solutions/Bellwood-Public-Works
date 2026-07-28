@@ -45,13 +45,13 @@ export function SectionNav({ section, currentHref }: SectionNavProps) {
   }
 
   return (
-    <nav aria-label={heading} className="lg:sticky lg:top-4">
-      <div className="hidden lg:block">
+    <nav aria-label={heading} className="xl:sticky xl:top-4">
+      <div className="hidden xl:block">
         <h2 className="px-3 text-xs font-bold uppercase tracking-wide text-gov-slate">{heading}</h2>
         <div className="mt-2">{renderList()}</div>
       </div>
 
-      <div className="lg:hidden">
+      <div className="xl:hidden">
         <button
           type="button"
           aria-expanded={mobileOpen}

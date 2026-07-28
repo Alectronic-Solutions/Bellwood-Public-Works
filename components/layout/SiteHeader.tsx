@@ -40,7 +40,7 @@ export function SiteHeader() {
         <button
           ref={mobileNavButtonRef}
           type="button"
-          className="inline-flex items-center justify-center rounded p-2 text-gov-navy md:hidden"
+          className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded p-2 text-gov-navy md:hidden"
           aria-expanded={mobileNavOpen}
           aria-controls="mobile-nav"
           aria-label={mobileNavOpen ? strings.header.mobileNavClose : strings.header.mobileNavOpen}
@@ -55,13 +55,13 @@ export function SiteHeader() {
           <label htmlFor="site-search-mobile" className="sr-only-focusable">
             {strings.header.searchLabel}
           </label>
-          <div className="flex flex-1 items-center rounded border border-gov-border px-2 focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-gov-blue">
+          <div className="flex min-h-[44px] flex-1 items-center rounded border border-gov-border px-2 focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-gov-blue">
             <Search className="h-4 w-4 text-gov-slate" aria-hidden="true" />
             <input
               id="site-search-mobile"
               type="search"
               placeholder={strings.header.searchPlaceholder}
-              className="w-full border-0 bg-transparent px-2 py-1.5 text-sm text-gov-slate focus:outline-none"
+              className="w-full border-0 bg-transparent px-2 py-2.5 text-base text-gov-slate focus:outline-none"
             />
           </div>
         </form>

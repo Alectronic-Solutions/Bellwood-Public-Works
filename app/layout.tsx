@@ -48,10 +48,10 @@ export default function RootLayout({
         <LanguageProvider>
           <TextSizeProvider>
             <SkipLink />
+            <AlertBanner />
             <SiteHeader />
             <PrimaryNav />
             <QuickActionsBar />
-            <AlertBanner />
             <main id="main-content">{children}</main>
             <SiteFooter />
           </TextSizeProvider>
