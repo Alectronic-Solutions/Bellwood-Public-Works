@@ -15,7 +15,6 @@ const config: Config = {
           border: "var(--gov-border)",
           bg: "var(--gov-bg)",
           surface: "var(--gov-surface)",
-          "demo-accent": "var(--gov-demo-accent)",
           alert: "var(--gov-alert)",
           "alert-bg": "var(--gov-alert-bg)",
           "alert-border": "var(--gov-alert-border)",

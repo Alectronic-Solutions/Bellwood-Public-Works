@@ -9,11 +9,6 @@ export const en: UIStrings = {
     forms: "Forms",
     contact: "Contact",
   },
-  banner: {
-    demoTag: "Demo",
-    demo: "This is a fictional agency built as a portfolio example and is not affiliated with any government entity.",
-    demoLabel: "Demonstration site notice",
-  },
   header: {
     searchPlaceholder: "Search this site",
     searchLabel: "Search this site",

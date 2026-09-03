@@ -18,15 +18,6 @@ export function SiteFooter() {
 
   return (
     <footer className="border-t border-gov-border bg-gov-navy text-white">
-      <div role="region" aria-label={strings.banner.demoLabel} className="border-b border-white/20 bg-gov-navy">
-        <p className="mx-auto max-w-6xl px-4 py-2 text-sm sm:px-6">
-          {/* The tag carries the opening label that the shared sentence no longer has. */}
-          <span className="font-semibold uppercase tracking-wide text-gov-demo-accent">
-            {strings.banner.demoTag}
-          </span>{" "}
-          {strings.banner.demo}
-        </p>
-      </div>
       <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {columns.map((column) => (

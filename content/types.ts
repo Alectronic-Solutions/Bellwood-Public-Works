@@ -121,11 +121,6 @@ export interface UIStrings {
     forms: string;
     contact: string;
   };
-  banner: {
-    demoTag: string;
-    demo: string;
-    demoLabel: string;
-  };
   header: {
     searchPlaceholder: string;
     searchLabel: string;

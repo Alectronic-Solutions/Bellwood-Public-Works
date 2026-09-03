@@ -9,9 +9,6 @@
   --gov-border: #d6dbe1;
   --gov-bg: #ffffff;
   --gov-surface: #f4f6f8;
-  /* Tags the footer demo notice. Deliberately outside the municipal palette so the
-     disclosure does not read as one of the agency's own banners. */
-  --gov-demo-accent: #f0b866;
   --gov-alert: #b45309;
   --gov-alert-bg: #fdecea;
   --gov-alert-border: #f3b8ae;

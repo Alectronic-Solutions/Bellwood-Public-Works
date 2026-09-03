@@ -9,9 +9,11 @@ It is NOT a real government site and must never be mistaken for one.
   Every component must pass: keyboard navigation, visible focus states,
   4.5:1 text contrast minimum, semantic landmarks, real alt text, correct
   heading order with no skipped levels.
-- A persistent demo notice must appear in the footer of every page. It was
-  removed from the top of the header on request; the footer is now the only
-  disclosure, so it must not be removed as well.
+- A persistent demo disclosure must appear on every page. It lives in the footer
+  copyright line (footer.copyright in /content), which reads "This is a
+  demonstration website and does not represent a real municipality." The separate
+  header and footer notice banners were removed on request, so this line is now the
+  only disclosure on the site and must not be removed as well.
 - All pages must carry noindex, nofollow meta tags.
 - No em dashes anywhere in copy or content.
 - No lorem ipsum. Write plausible municipal content.

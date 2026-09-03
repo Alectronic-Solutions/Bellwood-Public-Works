@@ -9,11 +9,6 @@ export const es: UIStrings = {
     forms: "Formularios",
     contact: "Contacto",
   },
-  banner: {
-    demoTag: "Demo",
-    demo: "Esta es una agencia ficticia creada como ejemplo de portafolio y no está afiliada a ninguna entidad gubernamental.",
-    demoLabel: "Aviso de sitio de demostración",
-  },
   header: {
     searchPlaceholder: "Buscar en este sitio",
     searchLabel: "Buscar en este sitio",
