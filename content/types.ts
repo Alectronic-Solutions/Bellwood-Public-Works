@@ -122,6 +122,7 @@ export interface UIStrings {
     contact: string;
   };
   banner: {
+    demoTag: string;
     demo: string;
     demoLabel: string;
   };

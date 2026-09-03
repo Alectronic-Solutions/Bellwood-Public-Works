@@ -13,9 +13,13 @@ import { useLanguage, localize } from "@/lib/i18n";
  * wrapping list below is what renders by default, and the scrolling track is only built
  * when we have confirmed the viewer accepts motion.
  *
+ * The track holds one copy of the notices and travels the full width of the viewport, so
+ * exactly one copy is on screen at a time. Repeating the list to tile the bar was tried
+ * and looked wrong with a single short notice: several copies sat side by side and the
+ * leading one was clipped at the viewport edge.
+ *
  * WCAG 2.2.2 requires a way to stop movement that lasts longer than five seconds, so the
- * pause control is rendered whenever the track is scrolling and is a real button rather
- * than a hover affordance.
+ * pause control is a real button rather than a hover affordance.
  */
 export function AlertBanner() {
   const { strings, language } = useLanguage();
@@ -27,12 +31,10 @@ export function AlertBanner() {
   // below opts into motion only after hydration, and only if the viewer allows it.
   const [motionAllowed, setMotionAllowed] = useState(false);
   const [paused, setPaused] = useState(false);
-  // A two-copy track only loops seamlessly when one copy is wider than the viewport.
-  // With a single short notice it is not, which leaves visible dead space, so the list
-  // is repeated until it overfills the viewport and the copies are measured at runtime.
-  const [copies, setCopies] = useState(2);
+  // The keyframe needs the viewport's width in pixels: a percentage there would resolve
+  // against the track instead, starting a short notice already inside the bar.
+  const [span, setSpan] = useState<number | null>(null);
   const viewportRef = useRef<HTMLDivElement | null>(null);
-  const listRef = useRef<HTMLUListElement | null>(null);
 
   useEffect(() => {
     const query = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -44,39 +46,28 @@ export function AlertBanner() {
 
   useEffect(() => {
     if (!motionAllowed) return;
+    const viewport = viewportRef.current;
+    if (!viewport) return;
 
-    const fit = () => {
-      const viewport = viewportRef.current;
-      const list = listRef.current;
-      if (!viewport || !list) return;
-      const listWidth = list.getBoundingClientRect().width;
-      if (listWidth === 0) return;
-      // Always keep at least two copies so the loop has something to follow with.
-      setCopies(Math.max(2, Math.ceil(viewport.clientWidth / listWidth) + 1));
-    };
-
-    fit();
-    const observer = new ResizeObserver(fit);
-    if (viewportRef.current) observer.observe(viewportRef.current);
+    const measure = () => setSpan(viewport.clientWidth);
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(viewport);
     return () => observer.disconnect();
-  }, [motionAllowed, language, urgentNotices.length]);
+  }, [motionAllowed]);
 
   if (urgentNotices.length === 0) return null;
 
-  const renderItems = (decorative = false) =>
-    urgentNotices.map((notice) => (
-      <li key={notice.id} className={motionAllowed ? "shrink-0" : undefined}>
-        <Link
-          href={`/notices/${notice.id}`}
-          // The duplicated copy exists only to close the loop visually, so it is taken
-          // out of the tab order as well as hidden, or focus vanishes into it.
-          tabIndex={decorative ? -1 : undefined}
-          className="text-base font-medium text-gov-navy underline underline-offset-2 hover:text-gov-blue"
-        >
-          {notice.title}
-        </Link>
-      </li>
-    ));
+  const items = urgentNotices.map((notice) => (
+    <li key={notice.id} className={motionAllowed ? "shrink-0" : undefined}>
+      <Link
+        href={`/notices/${notice.id}`}
+        className="text-base font-medium text-gov-navy underline underline-offset-2 hover:text-gov-blue"
+      >
+        {notice.title}
+      </Link>
+    </li>
+  ));
 
   return (
     <div
@@ -90,26 +81,15 @@ export function AlertBanner() {
         {motionAllowed ? (
           <>
             <div ref={viewportRef} className="marquee-viewport min-w-0 flex-1">
-              <div
-                className="marquee-track"
+              <ul
+                className="marquee-track flex items-center gap-10"
                 data-paused={paused ? "true" : undefined}
-                style={{ "--marquee-copies": copies } as CSSProperties}
+                style={
+                  span === null ? undefined : ({ "--marquee-span": `${span}px` } as CSSProperties)
+                }
               >
-                {/* Only the first copy is real. The rest exist to close the loop and are
-                    hidden from assistive tech so the notices are announced once. */}
-                <ul ref={listRef} className="flex shrink-0 items-center gap-10 pr-10">
-                  {renderItems()}
-                </ul>
-                {Array.from({ length: copies - 1 }, (_, index) => (
-                  <ul
-                    key={`copy-${index}`}
-                    className="flex shrink-0 items-center gap-10 pr-10"
-                    aria-hidden="true"
-                  >
-                    {renderItems(true)}
-                  </ul>
-                ))}
-              </div>
+                {items}
+              </ul>
             </div>
             <button
               type="button"
@@ -128,7 +108,7 @@ export function AlertBanner() {
             </button>
           </>
         ) : (
-          <ul className="flex min-w-0 flex-col gap-1">{renderItems()}</ul>
+          <ul className="flex min-w-0 flex-col gap-1">{items}</ul>
         )}
       </div>
     </div>

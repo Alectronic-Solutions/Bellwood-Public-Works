@@ -4,7 +4,6 @@ import "./globals.css";
 import { LanguageProvider } from "@/lib/i18n";
 import { TextSizeProvider } from "@/lib/textSize";
 import { SkipLink } from "@/components/layout/SkipLink";
-import { DemoNotice } from "@/components/layout/DemoNotice";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { PrimaryNav } from "@/components/layout/PrimaryNav";
 import { QuickActionsBar } from "@/components/layout/QuickActionsBar";
@@ -57,7 +56,6 @@ export default function RootLayout({
         <LanguageProvider>
           <TextSizeProvider>
             <SkipLink />
-            <DemoNotice />
             <AlertBanner />
             <SiteHeader />
             <PrimaryNav />

@@ -103,31 +103,41 @@ test("urgent alert is fully readable with reduced motion", async ({ page }) => {
   expect(results.violations, `\n${describeViolations(results)}`).toEqual([]);
 });
 
-test("scrolling alert repeats its notices without duplicating the tab order", async ({ page }) => {
+test("scrolling alert shows one copy of each notice and never starts clipped", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "no-preference" });
   await page.goto("/");
 
   const alert = page.getByRole("region", { name: /urgent notice|aviso urgente/i });
   await expect(alert).toBeVisible();
 
-  // The marquee repeats its list to close the loop. Only the first copy may be
-  // reachable, or keyboard focus disappears into an aria-hidden duplicate.
+  // An earlier version tiled the list to fill the bar, which showed several copies at
+  // once with the leading one cut in half. Each notice must appear exactly once.
   const links = await alert.evaluate((node) => {
     const anchors = Array.from(node.querySelectorAll("a"));
-    return { total: anchors.length, tabbable: anchors.filter((a) => a.tabIndex >= 0).length };
+    return {
+      total: anchors.length,
+      tabbable: anchors.filter((a) => a.tabIndex >= 0).length,
+      unique: new Set(anchors.map((a) => a.getAttribute("href"))).size,
+    };
   });
-  expect(links.total, "marquee should repeat its notices").toBeGreaterThan(links.tabbable);
-  expect(links.tabbable, "one copy of each notice must stay reachable").toBeGreaterThan(0);
+  expect(links.total, "each notice should be rendered once").toBe(links.unique);
+  expect(links.tabbable, "every rendered notice must be reachable").toBe(links.total);
 
-  // Repeated copies must more than fill the viewport, otherwise the loop shows a gap.
-  const fills = await alert.evaluate((node) => {
-    const viewport = node.querySelector(".marquee-viewport");
-    const track = node.querySelector(".marquee-track");
-    const first = track?.querySelector("ul");
-    if (!viewport || !track || !first) return false;
-    return track.scrollWidth - first.getBoundingClientRect().width >= viewport.clientWidth;
+  // The track has to be able to leave the viewport on both sides, or the notice either
+  // starts already clipped or never scrolls clear of the edge.
+  const travel = await alert.evaluate((node) => {
+    const viewport = node.querySelector(".marquee-viewport") as HTMLElement | null;
+    const track = node.querySelector(".marquee-track") as HTMLElement | null;
+    if (!viewport || !track) return null;
+    const span = getComputedStyle(track).getPropertyValue("--marquee-span").trim();
+    return { span, viewport: viewport.clientWidth };
   });
-  expect(fills, "marquee copies do not fill the viewport").toBe(true);
+  expect(travel, "marquee elements are missing").not.toBeNull();
+  // The keyframe travels by the viewport's width, published in pixels by AlertBanner.
+  // A percentage here would resolve against the track and start a short notice inside
+  // the bar rather than off its right edge.
+  expect(travel!.span, "marquee span should be a pixel value").toMatch(/px$/);
+  expect(parseFloat(travel!.span)).toBeCloseTo(travel!.viewport, 0);
 });
 
 test("scrolling alert can be paused", async ({ page }) => {

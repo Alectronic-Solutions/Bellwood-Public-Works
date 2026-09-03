@@ -10,7 +10,8 @@ export const en: UIStrings = {
     contact: "Contact",
   },
   banner: {
-    demo: "Demonstration site. This is a fictional agency built as a portfolio example and is not affiliated with any government entity.",
+    demoTag: "Demo",
+    demo: "This is a fictional agency built as a portfolio example and is not affiliated with any government entity.",
     demoLabel: "Demonstration site notice",
   },
   header: {
