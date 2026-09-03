@@ -175,6 +175,8 @@ export interface UIStrings {
     navLabel: string;
   };
   alert: {
+    pauseScrolling: string;
+    resumeScrolling: string;
     urgentLabel: string;
     archivedLabel: string;
   };

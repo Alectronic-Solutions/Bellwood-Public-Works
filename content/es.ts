@@ -64,6 +64,8 @@ export const es: UIStrings = {
     navLabel: "Pie de página",
   },
   alert: {
+    pauseScrolling: "Pausar avisos en movimiento",
+    resumeScrolling: "Reanudar avisos en movimiento",
     urgentLabel: "Aviso urgente",
     archivedLabel: "Archivado",
   },

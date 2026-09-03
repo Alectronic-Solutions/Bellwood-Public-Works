@@ -103,6 +103,54 @@ test("urgent alert is fully readable with reduced motion", async ({ page }) => {
   expect(results.violations, `\n${describeViolations(results)}`).toEqual([]);
 });
 
+test("scrolling alert repeats its notices without duplicating the tab order", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.goto("/");
+
+  const alert = page.getByRole("region", { name: /urgent notice|aviso urgente/i });
+  await expect(alert).toBeVisible();
+
+  // The marquee repeats its list to close the loop. Only the first copy may be
+  // reachable, or keyboard focus disappears into an aria-hidden duplicate.
+  const links = await alert.evaluate((node) => {
+    const anchors = Array.from(node.querySelectorAll("a"));
+    return { total: anchors.length, tabbable: anchors.filter((a) => a.tabIndex >= 0).length };
+  });
+  expect(links.total, "marquee should repeat its notices").toBeGreaterThan(links.tabbable);
+  expect(links.tabbable, "one copy of each notice must stay reachable").toBeGreaterThan(0);
+
+  // Repeated copies must more than fill the viewport, otherwise the loop shows a gap.
+  const fills = await alert.evaluate((node) => {
+    const viewport = node.querySelector(".marquee-viewport");
+    const track = node.querySelector(".marquee-track");
+    const first = track?.querySelector("ul");
+    if (!viewport || !track || !first) return false;
+    return track.scrollWidth - first.getBoundingClientRect().width >= viewport.clientWidth;
+  });
+  expect(fills, "marquee copies do not fill the viewport").toBe(true);
+});
+
+test("scrolling alert can be paused", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.goto("/");
+
+  // WCAG 2.2.2: movement lasting over five seconds needs a way to stop it. The button
+  // is located by aria-pressed rather than by name, because its accessible name flips
+  // to "Resume scrolling" once it is toggled.
+  const pause = page.locator("button[aria-pressed]");
+  await expect(pause).toBeVisible();
+  await expect(pause).toHaveAccessibleName(/pause scrolling|pausar avisos/i);
+  await pause.click();
+  await expect(pause).toHaveAttribute("aria-pressed", "true");
+  await expect(pause).toHaveAccessibleName(/resume scrolling|reanudar avisos/i);
+
+  const track = page.locator(".marquee-track");
+  const before = await track.evaluate((n) => n.getBoundingClientRect().x);
+  await page.waitForTimeout(700);
+  const after = await track.evaluate((n) => n.getBoundingClientRect().x);
+  expect(Math.round(before), "track kept moving after pause").toBe(Math.round(after));
+});
+
 test("mobile menu takes focus on open and returns it on Escape", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/");

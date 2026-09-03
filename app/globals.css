@@ -110,3 +110,51 @@ main:focus-visible {
     scroll-behavior: auto !important;
   }
 }
+
+/* Urgent notice marquee. The viewport clips and the track moves, so suppressing the
+   animation leaves the text laid out normally instead of cut off at the clip edge.
+   AlertBanner only mounts these elements when the viewer accepts motion; the rule
+   below is a second line of defence for anyone who changes the setting mid-session. */
+.marquee-viewport {
+  overflow: hidden;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 40s linear infinite;
+}
+
+.marquee-track[data-paused="true"] {
+  animation-play-state: paused;
+}
+
+/* Pausing on hover and on keyboard focus gives mouse and keyboard users a way to stop
+   the movement without hunting for the button. */
+.marquee-track:hover,
+.marquee-track:focus-within {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    /* Shift by exactly one copy. The track holds --marquee-copies identical lists, so
+       moving 1/copies of its width lands the next copy where the first one started. */
+    transform: translateX(calc(-100% / var(--marquee-copies, 2)));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-viewport {
+    overflow: visible;
+  }
+
+  .marquee-track {
+    animation: none;
+    width: auto;
+    flex-wrap: wrap;
+  }
+}

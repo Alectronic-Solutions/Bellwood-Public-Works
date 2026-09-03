@@ -64,6 +64,8 @@ export const en: UIStrings = {
     navLabel: "Footer",
   },
   alert: {
+    pauseScrolling: "Pause scrolling notices",
+    resumeScrolling: "Resume scrolling notices",
     urgentLabel: "Urgent notice",
     archivedLabel: "Archived",
   },
