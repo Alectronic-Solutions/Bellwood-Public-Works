@@ -38,7 +38,7 @@ export function PrimaryNav() {
 
   return (
     <nav
-      aria-label="Primary"
+      aria-label={strings.header.primaryNavLabel}
       ref={navRef}
       className="sticky top-0 z-30 hidden border-b border-white/10 bg-gov-navy md:block"
     >
@@ -68,7 +68,7 @@ export function PrimaryNav() {
                   aria-expanded={isOpen}
                   aria-controls={menuId}
                   onClick={() => setOpenIndex(isOpen ? null : index)}
-                  className="flex items-center gap-1 px-4 py-3 text-sm font-medium uppercase tracking-wide text-white hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-white"
+                  className="flex items-center gap-1 px-4 py-3 text-sm font-medium uppercase tracking-wide text-white hover:bg-white/10"
                 >
                   {label}
                   <ChevronDown className="h-3.5 w-3.5" aria-hidden="true" />
@@ -79,7 +79,7 @@ export function PrimaryNav() {
               ) : (
                 <Link
                   href={item.href}
-                  className="flex items-center px-4 py-3 text-sm font-medium uppercase tracking-wide text-white hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-white"
+                  className="flex items-center px-4 py-3 text-sm font-medium uppercase tracking-wide text-white hover:bg-white/10"
                 >
                   {label}
                 </Link>
@@ -88,17 +88,24 @@ export function PrimaryNav() {
               {hasColumns && isOpen ? (
                 <div
                   id={menuId}
-                  className="absolute left-0 top-full z-20 w-max max-w-[calc(100vw-2rem)] min-w-[18rem] border border-gov-border bg-white p-5 lg:min-w-[36rem]"
+                  className="absolute left-0 top-full z-20 w-max min-w-[18rem] max-w-[calc(100vw-2rem)] border border-gov-border bg-white p-5 lg:min-w-[36rem]"
                 >
                   <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                    {item.columns!.map((column) => {
+                    {item.columns!.map((column, columnIndex) => {
                       const columnHeading = language === "es" ? column.headingEs : column.heading;
+                      const columnLabelId = `${menuId}-col-${columnIndex}`;
                       return (
                         <div key={column.heading}>
-                          <h3 className="mb-2 text-xs font-bold uppercase tracking-wide text-gov-navy">
+                          {/* Not a heading: this menu opens above the page h1, so a real
+                              heading here would break the document outline. The list below
+                              takes its accessible name from this text instead. */}
+                          <p
+                            id={columnLabelId}
+                            className="mb-2 text-xs font-bold uppercase tracking-wide text-gov-navy"
+                          >
                             {columnHeading}
-                          </h3>
-                          <ul className="space-y-2">
+                          </p>
+                          <ul className="space-y-2" aria-labelledby={columnLabelId}>
                             {column.links.map((link) => {
                               const linkLabel = language === "es" ? link.labelEs : link.label;
                               return (
@@ -106,7 +113,7 @@ export function PrimaryNav() {
                                   <Link
                                     href={link.href}
                                     onClick={() => setOpenIndex(null)}
-                                    className="text-sm text-gov-blue underline underline-offset-2 hover:text-gov-navy focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gov-blue"
+                                    className="text-sm text-gov-blue underline underline-offset-2 hover:text-gov-navy"
                                   >
                                     {linkLabel}
                                   </Link>

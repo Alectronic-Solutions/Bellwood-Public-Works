@@ -13,6 +13,12 @@
   --gov-alert-bg: #fdecea;
   --gov-alert-border: #f3b8ae;
   --gov-success: #15803d;
+
+  /* Boundary color for interactive controls: inputs, selects, textareas, buttons.
+     WCAG 2.1 SC 1.4.11 requires 3:1 for these. This clears it against both the page
+     background (3.65:1) and the surface color (3.37:1), where --gov-border does not
+     (1.39:1 and 1.29:1). Keep --gov-border for decorative rules and dividers. */
+  --gov-control-border: #7c8794;
 }
 
 body {
@@ -49,18 +55,6 @@ table tbody tr {
   border-bottom: 1px solid var(--gov-border);
 }
 
-.sr-only-focusable {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
 .skip-link {
   position: absolute;
   left: 0.5rem;
@@ -79,10 +73,31 @@ table tbody tr {
   top: 0.5rem;
 }
 
+/* One focus treatment for the whole site, readable on light and dark grounds alike.
+   The navy ring carries the contrast on light backgrounds (11.63:1) and the white
+   ring carries it on the navy header and footer (11.63:1), so neither surface needs
+   its own override. A single-color ring cannot do this: gov-blue on gov-navy is
+   1.67:1, well under the 3:1 that SC 1.4.11 requires. */
 :focus-visible {
-  outline: 3px solid var(--gov-blue);
+  outline: 3px solid #ffffff;
   outline-offset: 2px;
+  box-shadow: 0 0 0 6px var(--gov-navy);
   border-radius: 2px;
+}
+
+/* The programmatic skip-link target must not paint a ring when it receives focus. */
+main:focus,
+main:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+@media (forced-colors: active) {
+  :focus-visible {
+    outline: 3px solid Highlight;
+    outline-offset: 2px;
+    box-shadow: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

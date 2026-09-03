@@ -123,6 +123,7 @@ export interface UIStrings {
   };
   banner: {
     demo: string;
+    demoLabel: string;
   };
   header: {
     searchPlaceholder: string;
@@ -134,11 +135,18 @@ export interface UIStrings {
     mobileNavClose: string;
     agencyName: string;
     agencyParent: string;
+    homeLink: string;
     seatUnder: string;
     seatOver: string;
     seatReset: string;
+    textSizeGroupLabel: string;
+    textSizeNormal: string;
+    textSizeLarge: string;
+    textSizeLargest: string;
     contactLink: string;
     quickActionsHeading: string;
+    primaryNavLabel: string;
+    mobileNavLabel: string;
     navDropdownOpen: string;
     navDropdownClose: string;
   };
@@ -164,12 +172,11 @@ export interface UIStrings {
     copyright: string;
     designedBy: string;
     backToTop: string;
+    navLabel: string;
   };
   alert: {
     urgentLabel: string;
     archivedLabel: string;
-    pauseScrolling: string;
-    resumeScrolling: string;
   };
   home: {
     heading: string;
@@ -291,12 +298,137 @@ export interface UIStrings {
     intro: string;
     standardsHeading: string;
     standardsBody: string;
+    testingHeading: string;
+    testingBody: string;
+    testingAutomated: string;
+    testingManual: string;
+    featuresHeading: string;
+    features: string[];
+    limitationsHeading: string;
+    limitationsBody: string;
+    limitations: string[];
+    formatsHeading: string;
+    formatsBody: string;
     feedbackHeading: string;
     feedbackBody: string;
     contactLinkLabel: string;
   };
+  privacy: {
+    heading: string;
+    intro: string;
+    demoNote: string;
+    collectHeading: string;
+    collectBody: string;
+    cookiesHeading: string;
+    cookiesBody: string;
+    thirdPartyHeading: string;
+    thirdPartyBody: string;
+    retentionHeading: string;
+    retentionBody: string;
+    rightsHeading: string;
+    rightsBody: string;
+    changesHeading: string;
+    changesBody: string;
+    contactHeading: string;
+    contactBody: string;
+    contactLinkLabel: string;
+  };
+  siteMap: {
+    heading: string;
+    intro: string;
+    allPagesHeading: string;
+  };
+  projects: {
+    heading: string;
+    intro: string;
+    statusFilterLabel: string;
+    allStatuses: string;
+    budgetLabel: string;
+    timelineLabel: string;
+    divisionLabel: string;
+    caption: string;
+    empty: string;
+    countLabel: string;
+  };
+  departments: {
+    heading: string;
+    intro: string;
+    phoneLabel: string;
+    emailLabel: string;
+    hoursLabel: string;
+    servicesHeading: string;
+    staffHeading: string;
+    noServices: string;
+    noStaff: string;
+  };
+  tables: {
+    service: string;
+    category: string;
+    summary: string;
+    notice: string;
+    posted: string;
+    status: string;
+    meeting: string;
+    dateAndLocation: string;
+    documents: string;
+    form: string;
+    name: string;
+    title: string;
+    department: string;
+    email: string;
+    project: string;
+    division: string;
+  };
+  publicRecords: {
+    heading: string;
+    intro: string;
+    whoHeading: string;
+    whoBody: string;
+    howHeading: string;
+    howBodyBefore: string;
+    howFormsLinkLabel: string;
+    howBodyAfter: string;
+    exemptHeading: string;
+    exemptBody: string;
+    feesHeading: string;
+    feesBody: string;
+    responseHeading: string;
+    responseBody: string;
+    appealsHeading: string;
+    appealsBody: string;
+    contactHeading: string;
+    contactBody: string;
+  };
+  search: {
+    heading: string;
+    intro: string;
+    inputLabel: string;
+    submitLabel: string;
+    resultsOne: string;
+    resultsMany: string;
+    noResults: string;
+    noResultsHint: string;
+    emptyQuery: string;
+    typeService: string;
+    typeNotice: string;
+    typeMeeting: string;
+    typeForm: string;
+    typeProject: string;
+    typeDepartment: string;
+    typePage: string;
+  };
+  notFound: {
+    heading: string;
+    intro: string;
+    causesHeading: string;
+    causeMistyped: string;
+    causeMoved: string;
+    causeOutdated: string;
+    nextStepsHeading: string;
+  };
   breadcrumbs: {
     homeLabel: string;
+    navLabel: string;
   };
   sectionNav: {
     heading: string;

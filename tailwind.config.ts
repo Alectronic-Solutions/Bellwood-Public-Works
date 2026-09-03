@@ -19,6 +19,7 @@ const config: Config = {
           "alert-bg": "var(--gov-alert-bg)",
           "alert-border": "var(--gov-alert-border)",
           success: "var(--gov-success)",
+          "control-border": "var(--gov-control-border)",
         },
       },
       fontFamily: {
@@ -47,15 +48,6 @@ const config: Config = {
       boxShadow: {
         none: "none",
         card: "0 1px 3px rgba(27, 58, 92, 0.12), 0 1px 2px rgba(27, 58, 92, 0.08)",
-      },
-      keyframes: {
-        marquee: {
-          "0%": { transform: "translateX(0)" },
-          "100%": { transform: "translateX(-50%)" },
-        },
-      },
-      animation: {
-        marquee: "marquee 22s linear infinite",
       },
     },
   },

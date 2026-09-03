@@ -33,6 +33,7 @@ export default function ServicesPage() {
     <InteriorLayout
       section={section}
       currentHref="/services"
+      headerImage="/images/headers/services.jpg"
       breadcrumbs={[{ label: strings.pages.servicesHeading }]}
       heading={strings.pages.servicesHeading}
       intro={strings.pages.servicesIntro}
@@ -54,7 +55,7 @@ export default function ServicesPage() {
           id="service-category-filter"
           value={category}
           onChange={(event) => setCategory(event.target.value)}
-          className="rounded border border-gov-border bg-white px-3 py-2 text-sm text-gov-slate"
+          className="rounded border border-gov-control-border bg-white px-3 py-2 text-sm text-gov-slate"
         >
           <option value="all">{strings.services.allCategoriesLabel}</option>
           {categories.map((cat) => (
@@ -89,13 +90,13 @@ export default function ServicesPage() {
               <thead>
                 <tr>
                   <th scope="col" className="px-3 py-2 font-semibold">
-                    Service
+                    {strings.tables.service}
                   </th>
                   <th scope="col" className="px-3 py-2 font-semibold">
-                    Category
+                    {strings.tables.category}
                   </th>
                   <th scope="col" className="px-3 py-2 font-semibold">
-                    Summary
+                    {strings.tables.summary}
                   </th>
                 </tr>
               </thead>

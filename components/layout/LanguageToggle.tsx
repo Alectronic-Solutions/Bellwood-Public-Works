@@ -13,8 +13,8 @@ export function LanguageToggle({ variant = "default" }: LanguageToggleProps) {
 
   const className =
     variant === "utility"
-      ? "rounded border border-white/30 px-2 py-1 text-xs font-medium text-white hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-      : "rounded border border-gov-border px-3 py-1.5 text-sm font-medium text-gov-navy hover:bg-gov-surface";
+      ? "rounded border border-white/60 px-2 py-1 text-xs font-medium text-white hover:bg-white/10"
+      : "rounded border border-gov-control-border px-3 py-1.5 text-sm font-medium text-gov-navy hover:bg-gov-surface";
 
   return (
     <button type="button" onClick={() => setLanguage(nextLanguage)} className={className}>

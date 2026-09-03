@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { AlertTriangle } from "lucide-react";
 import { useLanguage, localize, dateLocale } from "@/lib/i18n";
+import { todayIso } from "@/lib/dates";
 import type { Language } from "@/lib/i18n";
 import { notices } from "@/content/notices";
 import { meetings } from "@/content/meetings";
@@ -34,7 +35,8 @@ const projectStatusStyles: Record<string, string> = {
 export default function HomePage() {
   const { strings, language } = useLanguage();
 
-  const todayIso = new Date().toISOString().slice(0, 10);
+  // Resolved once at build time in lib/dates. Reading the clock here instead would let
+  // the prerendered HTML and the hydrated client disagree about what counts as upcoming.
 
   const localizedNotices = notices.map((notice) => localize(notice, language));
   const localizedMeetings = meetings.map((meeting) => localize(meeting, language));
@@ -73,7 +75,7 @@ export default function HomePage() {
   ];
 
   return (
-    <div>
+    <main id="main-content" tabIndex={-1}>
       <HomeHero heading={strings.home.heading} mission={strings.home.intro} />
 
       <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
@@ -283,6 +285,6 @@ export default function HomePage() {
           </Link>
         </div>
       </div>
-    </div>
+    </main>
   );
 }

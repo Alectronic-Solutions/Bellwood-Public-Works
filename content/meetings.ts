@@ -1,6 +1,9 @@
 import type { Meeting } from "./types";
+import { shiftIso, shiftUrlDate } from "@/lib/dates";
 
-export const meetings: Meeting[] = [
+// Dates below are written against the dataset anchor in lib/dates. They are shifted onto
+// the current timeline at build time, in whole weeks so each body keeps its weekday.
+const rawMeetings: Meeting[] = [
   {
     id: "council-regular-aug-2026",
     title: "City Council Regular Meeting",
@@ -279,3 +282,10 @@ export const meetings: Meeting[] = [
     },
   },
 ];
+
+export const meetings: Meeting[] = rawMeetings.map((meeting) => ({
+  ...meeting,
+  date: shiftIso(meeting.date),
+  agendaUrl: meeting.agendaUrl ? shiftUrlDate(meeting.agendaUrl) : undefined,
+  minutesUrl: meeting.minutesUrl ? shiftUrlDate(meeting.minutesUrl) : undefined,
+}));

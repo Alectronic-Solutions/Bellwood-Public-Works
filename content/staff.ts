@@ -9,7 +9,7 @@ export const staff: StaffMember[] = [
     extension: "1200",
     email: "mwhitfield@bellwoodpublicworks.example",
     photo: "/images/staff/director.jpg",
-    photoAlt: "Portrait of Marcus Whitfield, Director of Public Works, wearing glasses and a navy blazer",
+    photoAlt: "Portrait of Marcus Whitfield, Director of Public Works",
     es: {
       title: "Director de Obras Públicas",
       department: "Administración",
@@ -22,8 +22,8 @@ export const staff: StaffMember[] = [
     department: "Administration",
     extension: "1201",
     email: "cvasquez@bellwoodpublicworks.example",
-    photo: "/images/staff/director.jpg",
-    photoAlt: "Portrait of Colleen Vasquez, Deputy Director of Public Works, wearing glasses and a navy blazer",
+    photo: "/images/staff/deputy-director.jpg",
+    photoAlt: "Portrait of Colleen Vasquez, Deputy Director of Public Works",
     es: {
       title: "Subdirectora de Obras Públicas",
       department: "Administración",
@@ -37,7 +37,7 @@ export const staff: StaffMember[] = [
     extension: "2201",
     email: "ribarra@bellwoodpublicworks.example",
     photo: "/images/staff/water-sewer.jpg",
-    photoAlt: "Portrait of Renata Ibarra, Water and Sewer Division Manager, smiling in an office setting",
+    photoAlt: "Portrait of Renata Ibarra, Water and Sewer Division Manager",
     es: {
       title: "Gerente de la División de Agua y Alcantarillado",
       department: "División de Agua y Alcantarillado",
@@ -50,8 +50,8 @@ export const staff: StaffMember[] = [
     department: "Water and Sewer Division",
     extension: "2205",
     email: "jfoss@bellwoodpublicworks.example",
-    photo: "/images/staff/water-sewer.jpg",
-    photoAlt: "Portrait of Julian Foss, Water Quality Supervisor, smiling in an office setting",
+    photo: "/images/staff/water-quality-supervisor.jpg",
+    photoAlt: "Portrait of Julian Foss, Water Quality Supervisor",
     es: {
       title: "Supervisor de Calidad del Agua",
       department: "División de Agua y Alcantarillado",
@@ -65,7 +65,7 @@ export const staff: StaffMember[] = [
     extension: "2211",
     email: "obaptiste@bellwoodpublicworks.example",
     photo: "/images/staff/streets.jpg",
-    photoAlt: "Portrait of Owen Baptiste, Streets Division Manager, in a dark suit outdoors",
+    photoAlt: "Portrait of Owen Baptiste, Streets Division Manager",
     es: {
       title: "Gerente de la División de Calles",
       department: "División de Calles",
@@ -78,8 +78,8 @@ export const staff: StaffMember[] = [
     department: "Streets Division",
     extension: "2214",
     email: "npetrosyan@bellwoodpublicworks.example",
-    photo: "/images/staff/streets.jpg",
-    photoAlt: "Portrait of Nadia Petrosyan, City Traffic Engineer, in a dark suit outdoors",
+    photo: "/images/staff/traffic-engineer.jpg",
+    photoAlt: "Portrait of Nadia Petrosyan, City Traffic Engineer",
     es: {
       title: "Ingeniera de Tráfico de la Ciudad",
       department: "División de Calles",
@@ -93,7 +93,7 @@ export const staff: StaffMember[] = [
     extension: "2221",
     email: "pchandran@bellwoodpublicworks.example",
     photo: "/images/staff/permits.jpg",
-    photoAlt: "Portrait of Priya Chandran, Chief Building Inspector, smiling against a plain background",
+    photoAlt: "Portrait of Priya Chandran, Chief Building Inspector",
     es: {
       title: "Inspectora Jefa de Construcción",
       department: "Permisos de Construcción e Inspecciones",
@@ -106,8 +106,8 @@ export const staff: StaffMember[] = [
     department: "Building Permits and Inspections",
     extension: "2224",
     email: "hyeboah@bellwoodpublicworks.example",
-    photo: "/images/staff/permits.jpg",
-    photoAlt: "Portrait of Harold Yeboah, Senior Plans Examiner, smiling against a plain background",
+    photo: "/images/staff/plans-examiner.jpg",
+    photoAlt: "Portrait of Harold Yeboah, Senior Plans Examiner",
     es: {
       title: "Examinador Principal de Planos",
       department: "Permisos de Construcción e Inspecciones",
@@ -121,7 +121,7 @@ export const staff: StaffMember[] = [
     extension: "2231",
     email: "dmarsh@bellwoodpublicworks.example",
     photo: "/images/staff/sanitation.jpg",
-    photoAlt: "Portrait of Devon Marsh, Sanitation Division Manager, in a gray sweater",
+    photoAlt: "Portrait of Devon Marsh, Sanitation Division Manager",
     es: {
       title: "Gerente de la División de Saneamiento",
       department: "División de Saneamiento",
@@ -135,7 +135,7 @@ export const staff: StaffMember[] = [
     extension: "2241",
     email: "tnkemelu@bellwoodpublicworks.example",
     photo: "/images/staff/parks.jpg",
-    photoAlt: "Portrait of Talia Nkemelu, Parks and Recreation Manager, smiling indoors",
+    photoAlt: "Portrait of Talia Nkemelu, Parks and Recreation Manager",
     es: {
       title: "Gerente de Parques y Recreación",
       department: "Parques y Recreación",
@@ -148,8 +148,8 @@ export const staff: StaffMember[] = [
     department: "Stormwater Division",
     extension: "2261",
     email: "ralcott@bellwoodpublicworks.example",
-    photo: "/images/staff/sanitation.jpg",
-    photoAlt: "Portrait of Regina Alcott, Stormwater Division Manager, in a gray sweater",
+    photo: "/images/staff/stormwater.jpg",
+    photoAlt: "Portrait of Regina Alcott, Stormwater Division Manager",
     es: {
       title: "Gerente de la División de Aguas Pluviales",
       department: "División de Aguas Pluviales",
@@ -163,7 +163,7 @@ export const staff: StaffMember[] = [
     extension: "1210",
     email: "sokafor@bellwoodpublicworks.example",
     photo: "/images/staff/clerk.jpg",
-    photoAlt: "Portrait of Samuel Okafor, City Clerk, wearing sunglasses outdoors",
+    photoAlt: "Portrait of Samuel Okafor, City Clerk",
     es: {
       title: "Secretario Municipal",
       department: "Oficina del Secretario Municipal",

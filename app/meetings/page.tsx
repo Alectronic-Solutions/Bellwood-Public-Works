@@ -3,6 +3,7 @@
 import { useMemo } from "react";
 import { meetings } from "@/content/meetings";
 import { useLanguage, localize, dateLocale } from "@/lib/i18n";
+import { todayIso } from "@/lib/dates";
 import type { Language } from "@/lib/i18n";
 import type { Meeting } from "@/content/types";
 import { InteriorLayout } from "@/components/layout/InteriorLayout";
@@ -23,15 +24,14 @@ export default function MeetingsPage() {
 
   const localized = useMemo(() => meetings.map((meeting) => localize(meeting, language)), [language]);
 
-  const todayIso = new Date().toISOString().slice(0, 10);
-
+  // todayIso is a build-time constant, so it is not a reactive dependency.
   const upcoming = useMemo(
     () => localized.filter((meeting) => meeting.date >= todayIso).sort((a, b) => (a.date > b.date ? 1 : -1)),
-    [localized, todayIso],
+    [localized],
   );
   const past = useMemo(
     () => localized.filter((meeting) => meeting.date < todayIso).sort((a, b) => (a.date < b.date ? 1 : -1)),
-    [localized, todayIso],
+    [localized],
   );
 
   function renderTable(list: Meeting[], emptyMessage: string, captionLabel: string) {
@@ -82,13 +82,13 @@ export default function MeetingsPage() {
             <thead>
               <tr>
                 <th scope="col" className="px-3 py-2 font-semibold">
-                  Meeting
+                  {strings.tables.meeting}
                 </th>
                 <th scope="col" className="px-3 py-2 font-semibold">
-                  Date and Location
+                  {strings.tables.dateAndLocation}
                 </th>
                 <th scope="col" className="px-3 py-2 font-semibold">
-                  Documents
+                  {strings.tables.documents}
                 </th>
               </tr>
             </thead>
@@ -139,6 +139,7 @@ export default function MeetingsPage() {
     <InteriorLayout
       section={section}
       currentHref="/meetings"
+      headerImage="/images/headers/meetings.jpg"
       breadcrumbs={[{ label: strings.pages.meetingsHeading }]}
       heading={strings.pages.meetingsHeading}
       intro={strings.pages.meetingsIntro}

@@ -1,6 +1,10 @@
 import type { Notice } from "./types";
+import { shiftIso } from "@/lib/dates";
 
-export const notices: Notice[] = [
+// Dates below are written against the dataset anchor in lib/dates and shifted onto the
+// current timeline at build time. Bodies that name a date use a {date:YYYY-MM-DD} token
+// so the prose moves with the notice instead of contradicting it.
+const rawNotices: Notice[] = [
   {
     id: "water-main-repair-elm",
     title: "Emergency water main repair on Elm Street",
@@ -18,14 +22,14 @@ export const notices: Notice[] = [
   {
     id: "boil-water-notice-northside",
     title: "Boil water notice lifted for the Northside district",
-    body: "Water quality testing following last week's main repair has confirmed the Northside district's water supply meets all safety standards. The boil water notice issued on July 20 is no longer in effect.",
+    body: "Water quality testing following last week's main repair has confirmed the Northside district's water supply meets all safety standards. The boil water notice issued on {date:2026-07-20} is no longer in effect.",
     date: "2026-07-25",
     department: "Water and Sewer Division",
     urgent: false,
     active: true,
     es: {
       title: "Se levanta el aviso de hervir el agua para el distrito Northside",
-      body: "Las pruebas de calidad del agua tras la reparación de la tubería principal de la semana pasada han confirmado que el suministro de agua del distrito Northside cumple con todas las normas de seguridad. El aviso de hervir el agua emitido el 20 de julio ya no está vigente.",
+      body: "Las pruebas de calidad del agua tras la reparación de la tubería principal de la semana pasada han confirmado que el suministro de agua del distrito Northside cumple con todas las normas de seguridad. El aviso de hervir el agua emitido el {date:2026-07-20} ya no está vigente.",
       department: "División de Agua y Alcantarillado",
     },
   },
@@ -46,28 +50,28 @@ export const notices: Notice[] = [
   {
     id: "bid-solicitation-oakhill-lift-station",
     title: "Bid solicitation: Oakhill lift station rehabilitation",
-    body: "Bellwood Public Works is soliciting sealed bids from qualified contractors for the rehabilitation of the Oakhill sewer lift station, including pump replacement and electrical upgrades. Bid documents are available from the Purchasing Office. Bids are due by 2:00 PM on August 21, 2026.",
+    body: "Bellwood Public Works is soliciting sealed bids from qualified contractors for the rehabilitation of the Oakhill sewer lift station, including pump replacement and electrical upgrades. Bid documents are available from the Purchasing Office. Bids are due by 2:00 PM on {date:2026-08-21}.",
     date: "2026-07-17",
     department: "Water and Sewer Division",
     urgent: false,
     active: true,
     es: {
       title: "Licitación: rehabilitación de la estación de bombeo de Oakhill",
-      body: "Bellwood Public Works solicita ofertas selladas de contratistas calificados para la rehabilitación de la estación de bombeo de alcantarillado de Oakhill, incluyendo el reemplazo de bombas y mejoras eléctricas. Los documentos de la licitación están disponibles en la Oficina de Compras. Las ofertas vencen a las 2:00 PM del 21 de agosto de 2026.",
+      body: "Bellwood Public Works solicita ofertas selladas de contratistas calificados para la rehabilitación de la estación de bombeo de alcantarillado de Oakhill, incluyendo el reemplazo de bombas y mejoras eléctricas. Los documentos de la licitación están disponibles en la Oficina de Compras. Las ofertas vencen a las 2:00 PM del {date:2026-08-21}.",
       department: "División de Agua y Alcantarillado",
     },
   },
   {
     id: "public-hearing-maple-rezoning",
     title: "Public hearing scheduled on Maple Avenue rezoning application",
-    body: "The Planning Commission will hold a public hearing on a proposed rezoning of the 900 block of Maple Avenue from single-family residential to mixed-use. The hearing is part of the August 11 Planning Commission meeting. Written comments may be submitted in advance through the Planning Office.",
+    body: "The Planning Commission will hold a public hearing on a proposed rezoning of the 900 block of Maple Avenue from single-family residential to mixed-use. The hearing is part of the Planning Commission meeting on {date:2026-08-11}. Written comments may be submitted in advance through the Planning Office.",
     date: "2026-07-15",
     department: "City Clerk's Office",
     urgent: false,
     active: true,
     es: {
       title: "Audiencia pública programada sobre la recalificación de la Avenida Maple",
-      body: "La Comisión de Planificación llevará a cabo una audiencia pública sobre una propuesta de recalificación de la cuadra 900 de la Avenida Maple, de residencial unifamiliar a uso mixto. La audiencia forma parte de la reunión de la Comisión de Planificación del 11 de agosto. Los comentarios por escrito pueden enviarse con anticipación a través de la Oficina de Planificación.",
+      body: "La Comisión de Planificación llevará a cabo una audiencia pública sobre una propuesta de recalificación de la cuadra 900 de la Avenida Maple, de residencial unifamiliar a uso mixto. La audiencia forma parte de la reunión de la Comisión de Planificación del {date:2026-08-11}. Los comentarios por escrito pueden enviarse con anticipación a través de la Oficina de Planificación.",
       department: "Oficina del Secretario Municipal",
     },
   },
@@ -116,14 +120,14 @@ export const notices: Notice[] = [
   {
     id: "willow-creek-drainage-hearing",
     title: "Public hearing on proposed Willow Creek drainage improvements",
-    body: "The Stormwater Advisory Committee will accept public comment on proposed drainage improvements near Willow Creek, intended to reduce recurring street flooding in the Southside district. The hearing is part of the August 18 committee meeting at the Public Works Annex.",
+    body: "The Stormwater Advisory Committee will accept public comment on proposed drainage improvements near Willow Creek, intended to reduce recurring street flooding in the Southside district. The hearing is part of the committee meeting on {date:2026-08-18} at the Public Works Annex.",
     date: "2026-05-28",
     department: "Stormwater Division",
     urgent: false,
     active: true,
     es: {
       title: "Audiencia pública sobre mejoras de drenaje propuestas en Willow Creek",
-      body: "El Comité Asesor de Aguas Pluviales recibirá comentarios públicos sobre las mejoras de drenaje propuestas cerca de Willow Creek, destinadas a reducir las inundaciones recurrentes de calles en el distrito Southside. La audiencia forma parte de la reunión del comité del 18 de agosto en el Anexo de Obras Públicas.",
+      body: "El Comité Asesor de Aguas Pluviales recibirá comentarios públicos sobre las mejoras de drenaje propuestas cerca de Willow Creek, destinadas a reducir las inundaciones recurrentes de calles en el distrito Southside. La audiencia forma parte de la reunión del comité del {date:2026-08-18} en el Anexo de Obras Públicas.",
       department: "División de Aguas Pluviales",
     },
   },
@@ -144,28 +148,28 @@ export const notices: Notice[] = [
   {
     id: "bid-solicitation-eastside-trail",
     title: "Bid solicitation: Eastside Trail extension, phase two",
-    body: "Sealed bids are being accepted for phase two construction of the Eastside Trail extension, connecting Birch Street to the Riverside Drive greenway. Bid documents are available from the Purchasing Office. A mandatory pre-bid site walk will be held on April 22 at the trailhead on Birch Street.",
+    body: "Sealed bids are being accepted for phase two construction of the Eastside Trail extension, connecting Birch Street to the Riverside Drive greenway. Bid documents are available from the Purchasing Office. A mandatory pre-bid site walk will be held on {date:2026-04-22} at the trailhead on Birch Street.",
     date: "2026-04-08",
     department: "Parks and Recreation",
     urgent: false,
     active: false,
     es: {
       title: "Licitación: extensión del sendero Eastside, fase dos",
-      body: "Se aceptan ofertas selladas para la construcción de la fase dos de la extensión del sendero Eastside, que conectará la calle Birch con el corredor verde de Riverside Drive. Los documentos de la licitación están disponibles en la Oficina de Compras. Se realizará una visita obligatoria previa a la oferta el 22 de abril en la entrada del sendero en la calle Birch.",
+      body: "Se aceptan ofertas selladas para la construcción de la fase dos de la extensión del sendero Eastside, que conectará la calle Birch con el corredor verde de Riverside Drive. Los documentos de la licitación están disponibles en la Oficina de Compras. Se realizará una visita obligatoria previa a la oferta el {date:2026-04-22} en la entrada del sendero en la calle Birch.",
       department: "Parques y Recreación",
     },
   },
   {
     id: "seasonal-water-restrictions-summer",
     title: "Seasonal outdoor watering schedule now in effect",
-    body: "The annual summer outdoor watering schedule is now in effect through September 30. Addresses ending in an odd number may water lawns and gardens on odd-numbered calendar days, and even-numbered addresses on even-numbered days, between 6:00 PM and 10:00 AM.",
+    body: "The annual summer outdoor watering schedule is now in effect through {date:2026-09-30}. Addresses ending in an odd number may water lawns and gardens on odd-numbered calendar days, and even-numbered addresses on even-numbered days, between 6:00 PM and 10:00 AM.",
     date: "2026-06-01",
     department: "Water and Sewer Division",
     urgent: false,
     active: true,
     es: {
       title: "Entra en vigencia el calendario estacional de riego al aire libre",
-      body: "El calendario anual de riego exterior de verano está vigente hasta el 30 de septiembre. Las direcciones que terminan en número impar pueden regar césped y jardines en días impares del calendario, y las direcciones pares en días pares, entre las 6:00 PM y las 10:00 AM.",
+      body: "El calendario anual de riego exterior de verano está vigente hasta el {date:2026-09-30}. Las direcciones que terminan en número impar pueden regar césped y jardines en días impares del calendario, y las direcciones pares en días pares, entre las 6:00 PM y las 10:00 AM.",
       department: "División de Agua y Alcantarillado",
     },
   },
@@ -185,14 +189,14 @@ export const notices: Notice[] = [
   },
   {
     id: "snow-emergency-declared-jan-2026",
-    title: "Snow emergency declared for the January 17 storm",
+    title: "Snow emergency declared for the overnight winter storm",
     body: "A snow emergency has been declared effective 6:00 PM. Parking is prohibited on designated snow emergency routes until the emergency is lifted. Vehicles left on emergency routes are subject to towing. Priority routes will be plowed first, followed by residential streets.",
     date: "2026-01-17",
     department: "Streets Division",
     urgent: true,
     active: false,
     es: {
-      title: "Se declara emergencia por nieve para la tormenta del 17 de enero",
+      title: "Se declara emergencia por nieve para la tormenta invernal nocturna",
       body: "Se ha declarado una emergencia por nieve vigente a partir de las 6:00 PM. Se prohíbe estacionar en las rutas designadas de emergencia por nieve hasta que se levante la emergencia. Los vehículos dejados en rutas de emergencia están sujetos a remolque. Las rutas prioritarias se despejarán primero, seguidas de las calles residenciales.",
       department: "División de Calles",
     },
@@ -242,14 +246,14 @@ export const notices: Notice[] = [
   {
     id: "bid-solicitation-fleet-vehicles",
     title: "Bid solicitation: replacement fleet vehicles",
-    body: "Bellwood Public Works is accepting sealed bids for the purchase of six replacement service vehicles for the Streets and Water and Sewer Divisions. Specifications and bid forms are available from the Purchasing Office. Bids are due by 2:00 PM on December 5, 2025.",
+    body: "Bellwood Public Works is accepting sealed bids for the purchase of six replacement service vehicles for the Streets and Water and Sewer Divisions. Specifications and bid forms are available from the Purchasing Office. Bids are due by 2:00 PM on {date:2025-12-05}.",
     date: "2025-11-10",
     department: "Streets Division",
     urgent: false,
     active: false,
     es: {
       title: "Licitación: vehículos de flota de reemplazo",
-      body: "Bellwood Public Works acepta ofertas selladas para la compra de seis vehículos de servicio de reemplazo para las Divisiones de Calles y de Agua y Alcantarillado. Las especificaciones y los formularios de oferta están disponibles en la Oficina de Compras. Las ofertas vencen a las 2:00 PM del 5 de diciembre de 2025.",
+      body: "Bellwood Public Works acepta ofertas selladas para la compra de seis vehículos de servicio de reemplazo para las Divisiones de Calles y de Agua y Alcantarillado. Las especificaciones y los formularios de oferta están disponibles en la Oficina de Compras. Las ofertas vencen a las 2:00 PM del {date:2025-12-05}.",
       department: "División de Calles",
     },
   },
@@ -270,14 +274,14 @@ export const notices: Notice[] = [
   {
     id: "public-hearing-fee-ordinance",
     title: "Public hearing on proposed stormwater fee ordinance",
-    body: "City Council will hold a public hearing on a proposed ordinance updating the stormwater utility fee schedule. The hearing is part of the July 7 regular Council meeting. Residents may submit written comments to the City Clerk's Office prior to the meeting.",
+    body: "City Council will hold a public hearing on a proposed ordinance updating the stormwater utility fee schedule. The hearing is part of the regular Council meeting on {date:2026-07-07}. Residents may submit written comments to the City Clerk's Office prior to the meeting.",
     date: "2026-06-20",
     department: "City Clerk's Office",
     urgent: false,
     active: false,
     es: {
       title: "Audiencia pública sobre la propuesta de ordenanza de tarifas de aguas pluviales",
-      body: "El Concejo Municipal llevará a cabo una audiencia pública sobre una propuesta de ordenanza que actualiza el cuadro de tarifas del servicio de aguas pluviales. La audiencia forma parte de la reunión ordinaria del Concejo del 7 de julio. Los residentes pueden enviar comentarios por escrito a la Oficina del Secretario Municipal antes de la reunión.",
+      body: "El Concejo Municipal llevará a cabo una audiencia pública sobre una propuesta de ordenanza que actualiza el cuadro de tarifas del servicio de aguas pluviales. La audiencia forma parte de la reunión ordinaria del Concejo del {date:2026-07-07}. Los residentes pueden enviar comentarios por escrito a la Oficina del Secretario Municipal antes de la reunión.",
       department: "Oficina del Secretario Municipal",
     },
   },
@@ -326,14 +330,14 @@ export const notices: Notice[] = [
   {
     id: "bid-solicitation-oak-avenue-sidewalks",
     title: "Bid solicitation: Oak Avenue sidewalk and ADA ramp construction",
-    body: "Sealed bids are being solicited for new sidewalk construction and ADA-compliant curb ramps along Oak Avenue between 2nd Avenue and Maple Avenue. Bid documents are available from the Purchasing Office. Bids are due by 2:00 PM on March 6, 2025.",
+    body: "Sealed bids are being solicited for new sidewalk construction and ADA-compliant curb ramps along Oak Avenue between 2nd Avenue and Maple Avenue. Bid documents are available from the Purchasing Office. Bids are due by 2:00 PM on {date:2025-03-06}.",
     date: "2025-02-10",
     department: "Streets Division",
     urgent: false,
     active: false,
     es: {
       title: "Licitación: construcción de aceras y rampas ADA en la Avenida Oak",
-      body: "Se solicitan ofertas selladas para la construcción de nuevas aceras y rampas de acera conformes con la ADA a lo largo de la Avenida Oak entre la 2da Avenida y la Avenida Maple. Los documentos de la licitación están disponibles en la Oficina de Compras. Las ofertas vencen a las 2:00 PM del 6 de marzo de 2025.",
+      body: "Se solicitan ofertas selladas para la construcción de nuevas aceras y rampas de acera conformes con la ADA a lo largo de la Avenida Oak entre la 2da Avenida y la Avenida Maple. Los documentos de la licitación están disponibles en la Oficina de Compras. Las ofertas vencen a las 2:00 PM del {date:2025-03-06}.",
       department: "División de Calles",
     },
   },
@@ -352,3 +356,8 @@ export const notices: Notice[] = [
     },
   },
 ];
+
+export const notices: Notice[] = rawNotices.map((notice) => ({
+  ...notice,
+  date: shiftIso(notice.date),
+}));

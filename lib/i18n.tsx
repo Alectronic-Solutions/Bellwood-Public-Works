@@ -54,7 +54,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   return (
     <LanguageContext.Provider value={value}>
       {children}
-      <div aria-live="polite" className="sr-only-focusable">
+      <div aria-live="polite" className="sr-only">
         {announcement}
       </div>
     </LanguageContext.Provider>
@@ -74,6 +74,4 @@ export function localize<T extends { es: Partial<T> }>(item: T, language: Langua
   return { ...item, ...item.es };
 }
 
-export function dateLocale(language: Language): string {
-  return language === "es" ? "es-ES" : "en-US";
-}
+export { dateLocaleTag as dateLocale } from "./dates";

@@ -24,14 +24,14 @@ export function WasThisPageHelpful() {
           <button
             type="button"
             onClick={() => setResponse("yes")}
-            className="rounded border border-gov-border bg-white px-4 py-1.5 text-sm font-medium text-gov-navy hover:border-gov-blue"
+            className="rounded border border-gov-control-border bg-white px-4 py-1.5 text-sm font-medium text-gov-navy hover:border-gov-blue"
           >
             {strings.pageHelpful.yes}
           </button>
           <button
             type="button"
             onClick={() => setResponse("no")}
-            className="rounded border border-gov-border bg-white px-4 py-1.5 text-sm font-medium text-gov-navy hover:border-gov-blue"
+            className="rounded border border-gov-control-border bg-white px-4 py-1.5 text-sm font-medium text-gov-navy hover:border-gov-blue"
           >
             {strings.pageHelpful.no}
           </button>

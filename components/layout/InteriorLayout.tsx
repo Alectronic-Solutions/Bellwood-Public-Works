@@ -2,6 +2,7 @@
 
 import type { ReactNode } from "react";
 import { Breadcrumbs, type Crumb } from "@/components/layout/Breadcrumbs";
+import { PageHeader } from "@/components/layout/PageHeader";
 import { SectionNav } from "@/components/layout/SectionNav";
 import { LastUpdated } from "@/components/layout/LastUpdated";
 import { WasThisPageHelpful } from "@/components/layout/WasThisPageHelpful";
@@ -14,6 +15,8 @@ interface InteriorLayoutProps {
   heading: string;
   intro?: string;
   lastUpdatedIso?: string;
+  /** Decorative banner image for the section, from /public/images/headers. */
+  headerImage?: string;
   sidebar?: ReactNode;
   children: ReactNode;
 }
@@ -25,20 +28,21 @@ export function InteriorLayout({
   heading,
   intro,
   lastUpdatedIso,
+  headerImage,
   sidebar,
   children,
 }: InteriorLayoutProps) {
   return (
     <div>
       <Breadcrumbs trail={breadcrumbs} />
+      {headerImage && <PageHeader imageSrc={headerImage} />}
 
       <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
+        {/* DOM order is main, section nav, sidebar, which is also the reading order on
+            small screens. The order utilities only rearrange columns at xl and above,
+            so tab order never diverges from what is on screen. */}
         <div className="grid gap-8 xl:grid-cols-[16rem_minmax(0,1fr)_22rem]">
-          <aside className="order-2 xl:order-none">
-            <SectionNav section={section} currentHref={currentHref} />
-          </aside>
-
-          <main className="order-1 xl:order-none">
+          <main id="main-content" tabIndex={-1} className="xl:order-2">
             <h1 className="text-4xl font-bold text-gov-navy">{heading}</h1>
             {intro && <p className="mt-3 max-w-[70ch] text-gov-slate">{intro}</p>}
 
@@ -48,10 +52,12 @@ export function InteriorLayout({
             <WasThisPageHelpful />
           </main>
 
+          <aside className="xl:order-1">
+            <SectionNav section={section} currentHref={currentHref} />
+          </aside>
+
           {sidebar && (
-            <aside className="order-3 flex flex-col gap-6 xl:order-none xl:sticky xl:top-4 xl:self-start">
-              {sidebar}
-            </aside>
+            <aside className="flex flex-col gap-6 xl:order-3 xl:sticky xl:top-4 xl:self-start">{sidebar}</aside>
           )}
         </div>
       </div>

@@ -1,0 +1,5 @@
+# Bellwood Public Works is a fictional demonstration site and must never be indexed or
+# mistaken for a real government website. Every page also carries a noindex, nofollow
+# meta tag; this file is the belt to that pair of braces.
+User-agent: *
+Disallow: /

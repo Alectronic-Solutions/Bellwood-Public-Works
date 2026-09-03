@@ -79,6 +79,7 @@ export default function ContactPage() {
     <InteriorLayout
       section={section}
       currentHref="/contact"
+      headerImage="/images/headers/contact.jpg"
       breadcrumbs={[{ label: strings.pages.contactHeading }]}
       heading={strings.pages.contactHeading}
       intro={strings.pages.contactIntro}
@@ -191,7 +192,7 @@ export default function ContactPage() {
                 onChange={(event) => handleChange("name", event.target.value)}
                 aria-invalid={Boolean(errors.name)}
                 aria-describedby={errors.name ? "contact-name-error" : undefined}
-                className="rounded border border-gov-border px-3 py-2 text-sm text-gov-slate"
+                className="rounded border border-gov-control-border px-3 py-2 text-sm text-gov-slate"
               />
               {errors.name && (
                 <p id="contact-name-error" className="text-sm text-gov-alert">
@@ -212,7 +213,7 @@ export default function ContactPage() {
                 onChange={(event) => handleChange("email", event.target.value)}
                 aria-invalid={Boolean(errors.email)}
                 aria-describedby={errors.email ? "contact-email-error" : undefined}
-                className="rounded border border-gov-border px-3 py-2 text-sm text-gov-slate"
+                className="rounded border border-gov-control-border px-3 py-2 text-sm text-gov-slate"
               />
               {errors.email && (
                 <p id="contact-email-error" className="text-sm text-gov-alert">
@@ -231,7 +232,7 @@ export default function ContactPage() {
                 type="tel"
                 value={values.phone}
                 onChange={(event) => handleChange("phone", event.target.value)}
-                className="rounded border border-gov-border px-3 py-2 text-sm text-gov-slate"
+                className="rounded border border-gov-control-border px-3 py-2 text-sm text-gov-slate"
               />
             </div>
 
@@ -244,7 +245,7 @@ export default function ContactPage() {
                 id="contact-department"
                 value={values.department}
                 onChange={(event) => handleChange("department", event.target.value)}
-                className="rounded border border-gov-border bg-white px-3 py-2 text-sm text-gov-slate"
+                className="rounded border border-gov-control-border bg-white px-3 py-2 text-sm text-gov-slate"
               >
                 <option value="">{strings.contactForm.departmentPlaceholder}</option>
                 {localizedDepartments.map((department) => (
@@ -273,7 +274,7 @@ export default function ContactPage() {
                 onChange={(event) => handleChange("message", event.target.value)}
                 aria-invalid={Boolean(errors.message)}
                 aria-describedby={errors.message ? "contact-message-error" : undefined}
-                className="rounded border border-gov-border px-3 py-2 text-sm text-gov-slate"
+                className="rounded border border-gov-control-border px-3 py-2 text-sm text-gov-slate"
               />
               {errors.message && (
                 <p id="contact-message-error" className="text-sm text-gov-alert">

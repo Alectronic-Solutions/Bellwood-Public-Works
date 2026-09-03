@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import type { Service } from "@/content/types";
 import { forms } from "@/content/forms";
 import { withBasePath } from "@/lib/basePath";
@@ -43,6 +44,17 @@ export function ServiceDetail({ service: rawService }: ServiceDetailProps) {
       }
     >
       <p className="text-sm font-medium uppercase tracking-wide text-gov-slate">{service.category}</p>
+
+      {/* Explicit dimensions rather than fill, so the reserved space is correct before the
+          image loads. Static export runs with the optimizer off. */}
+      <Image
+        src={withBasePath(service.photo)}
+        alt={service.photoAlt}
+        width={1200}
+        height={675}
+        sizes="(min-width: 1280px) 40rem, 100vw"
+        className="mt-4 h-auto w-full rounded-lg border border-gov-border"
+      />
 
       <p className="mt-4 text-gov-slate">{service.description}</p>
 

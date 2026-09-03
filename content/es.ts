@@ -11,6 +11,7 @@ export const es: UIStrings = {
   },
   banner: {
     demo: "Sitio de demostración. Esta es una agencia ficticia creada como ejemplo de portafolio y no está afiliada a ninguna entidad gubernamental.",
+    demoLabel: "Aviso de sitio de demostración",
   },
   header: {
     searchPlaceholder: "Buscar en este sitio",
@@ -22,11 +23,18 @@ export const es: UIStrings = {
     mobileNavClose: "Cerrar menú",
     agencyName: "Ciudad de Bellwood",
     agencyParent: "Departamento de Obras Públicas",
+    homeLink: "Inicio de Bellwood Public Works",
     seatUnder: "Disminuir tamaño de texto",
     seatOver: "Aumentar tamaño de texto",
     seatReset: "Restablecer tamaño de texto",
+    textSizeGroupLabel: "Tamaño de texto",
+    textSizeNormal: "Tamaño de texto: normal",
+    textSizeLarge: "Tamaño de texto: grande",
+    textSizeLargest: "Tamaño de texto: muy grande",
     contactLink: "Contacto",
     quickActionsHeading: "Quiero...",
+    primaryNavLabel: "Principal",
+    mobileNavLabel: "Menú principal",
     navDropdownOpen: "Mostrar submenú de",
     navDropdownClose: "Ocultar submenú de",
   },
@@ -53,12 +61,11 @@ export const es: UIStrings = {
     copyright: "Ciudad de Bellwood. Este es un sitio web de demostración y no representa a un municipio real.",
     designedBy: "Diseñado por",
     backToTop: "Volver arriba",
+    navLabel: "Pie de página",
   },
   alert: {
     urgentLabel: "Aviso urgente",
     archivedLabel: "Archivado",
-    pauseScrolling: "Pausar aviso desplazable",
-    resumeScrolling: "Reanudar aviso desplazable",
   },
   home: {
     heading: "Bienvenido a Bellwood Public Works",
@@ -186,16 +193,181 @@ export const es: UIStrings = {
     heading: "Declaración de Accesibilidad",
     intro:
       "Bellwood Public Works se compromete a garantizar la accesibilidad digital para personas de todas las capacidades. Estamos trabajando activamente para aumentar la accesibilidad y usabilidad de este sitio web.",
-    standardsHeading: "Estado de Conformidad",
+    standardsHeading: "Estado de conformidad",
     standardsBody:
-      "Este sitio web tiene como objetivo cumplir con las Pautas de Accesibilidad para el Contenido Web (WCAG) 2.1 Nivel AA y la Sección 508 de la Ley de Rehabilitación. Estos estándares cubren la navegación por teclado, indicadores de enfoque visibles, contraste de color suficiente, puntos de referencia semánticos, texto alternativo significativo para imágenes y una estructura de encabezados lógica.",
-    feedbackHeading: "Comentarios",
+      "Este sitio web está diseñado para cumplir con las Pautas de Accesibilidad para el Contenido Web (WCAG) 2.1 Nivel AA y la Sección 508 de la Ley de Rehabilitación. Estos estándares cubren la navegación por teclado, indicadores de enfoque visibles, contraste de color suficiente, puntos de referencia semánticos, texto alternativo significativo para imágenes y una estructura de encabezados lógica. Consideramos que el sitio cumple sustancialmente, con las excepciones que se indican en las limitaciones conocidas a continuación.",
+    testingHeading: "Cómo se prueba este sitio",
+    testingBody:
+      "La accesibilidad se verifica con cada cambio, no se revisa una sola vez. Ambos procesos siguientes se ejecutan antes de que cualquier actualización llegue a este sitio.",
+    testingAutomated:
+      "Automatizado: cada plantilla de página se comprueba con axe-core frente a los conjuntos de reglas WCAG 2.1 A y AA, además de las reglas de la Sección 508, en un navegador real y en anchos de escritorio y móvil. Se incluyen los estados interactivos, como el menú móvil abierto, un menú desplegable de navegación expandido y el formulario de contacto tras un envío fallido. Una sola infracción hace fallar la compilación y bloquea la publicación.",
+    testingManual:
+      "Manual: navegación solo con teclado desde el enlace de salto hasta el pie de página, revisión con lector de pantalla de los puntos de referencia y el orden de encabezados en inglés y español, la página con un zoom del navegador del 200 por ciento combinado con el control de tamaño de texto, y el sitio con la configuración del sistema operativo de movimiento reducido. Las herramientas automatizadas detectan solo una parte de lo importante, por lo que esta revisión es la que confirma que el sitio es realmente utilizable.",
+    featuresHeading: "Características de accesibilidad",
+    features: [
+      "Un enlace de salto que lleva el enfoque del teclado directamente al contenido principal de cada página.",
+      "Un único punto de referencia principal por página, regiones de navegación con nombres distintos y un esquema de encabezados que comienza en el título de la página sin niveles omitidos.",
+      "Un indicador de enfoque que permanece visible tanto sobre el fondo claro de la página como sobre el encabezado y el pie de página azul marino, y que se conserva en el Modo de Alto Contraste de Windows.",
+      "Texto y controles interactivos que alcanzan o superan los mínimos de contraste de 4.5 a 1 para texto y 3 a 1 para elementos no textuales.",
+      "Un control de tamaño de texto que amplía toda la página hasta el 125 por ciento, recordado entre visitas y aplicado antes de que la página se dibuje.",
+      "Contenido completo en inglés y español, incluidos los nombres accesibles de los puntos de referencia y los controles.",
+      "Áreas táctiles de al menos 44 por 44 píxeles en todo el sitio.",
+      "Ningún contenido que se mueva automáticamente, y todas las transiciones restantes se desactivan cuando el sistema operativo solicita movimiento reducido.",
+      "Campos de formulario con etiquetas visibles permanentes, errores anunciados mediante un resumen de errores y ninguna dependencia del color por sí solo para transmitir información.",
+    ],
+    limitationsHeading: "Limitaciones conocidas",
+    limitationsBody:
+      "Preferimos nombrarlas con claridad antes que declarar una conformidad total. Mientras tanto, podemos ayudarle directamente con cada una de ellas.",
+    limitations: [
+      "Los documentos descargables se ofrecen como archivos PDF simples y no están etiquetados según la norma PDF/UA. Si necesita el contenido de algún formulario o agenda en un formato accesible, comuníquese con nosotros y se lo proporcionaremos como HTML accesible, letra grande o texto sin formato.",
+      "El selector de idioma cambia la página en el mismo lugar en vez de cambiar a una dirección web independiente en español, por lo que la versión en español aún no puede guardarse ni compartirse como su propio enlace.",
+      "La búsqueda del sitio concuerda con palabras y no con significados, por lo que una frase que no aparece en el texto de la página puede no devolver resultados aunque exista una página relevante. El mapa del sitio enumera todas las páginas como alternativa.",
+    ],
+    formatsHeading: "Formatos alternativos",
+    formatsBody:
+      "Cualquier información de este sitio web está disponible en letra grande, texto sin formato u otro formato a solicitud, sin costo alguno. Las solicitudes generalmente se atienden dentro de cinco días hábiles.",
+    feedbackHeading: "Reportar una barrera",
     feedbackBody:
       "Agradecemos sus comentarios sobre la accesibilidad de este sitio web. Si encuentra una barrera de accesibilidad, avísenos mediante el formulario de contacto para que podamos solucionarlo.",
     contactLinkLabel: "Contacte a Bellwood Public Works",
   },
+  privacy: {
+    heading: "Política de Privacidad",
+    intro:
+      "Bellwood Public Works respeta la privacidad de todas las personas que visitan este sitio web. Esta política explica qué información recopila el departamento en línea, cómo se utiliza y las opciones disponibles para usted.",
+    demoNote:
+      "Debido a que este es un sitio de demostración, ninguna información que ingrese aquí se transmite, almacena ni es revisada por nadie. Los formularios no están conectados a un servidor y la búsqueda funciona completamente en su navegador.",
+    collectHeading: "Información que recopilamos",
+    collectBody:
+      "El departamento no requiere que usted proporcione información personal para navegar por este sitio web. Cuando envía una solicitud de servicio, una solicitud de permiso o un formulario de contacto, recopilamos únicamente la información necesaria para responder, que generalmente incluye su nombre, dirección, número de teléfono y correo electrónico. Los servidores web registran de forma rutinaria la página solicitada, la fecha y hora, y una dirección de red truncada para fines de seguridad y planificación de capacidad.",
+    cookiesHeading: "Cookies y almacenamiento local",
+    cookiesBody:
+      "Este sitio web no utiliza cookies publicitarias ni rastreo entre sitios. Su selección de idioma y su preferencia de tamaño de texto se guardan en el almacenamiento local de su navegador para que el sitio las recuerde en su próxima visita. Esa información permanece en su dispositivo y nunca se envía al departamento. Borrar los datos de su navegador la elimina.",
+    thirdPartyHeading: "Servicios de terceros",
+    thirdPartyBody:
+      "Algunas páginas enlazan a servicios operados por otras agencias o proveedores, como un procesador de pagos en línea o un portal estatal de registros. Esos servicios tienen sus propias políticas de privacidad, y esta política deja de aplicarse una vez que usted sale de este sitio web. Revise la política de cualquier sitio antes de proporcionar información personal.",
+    retentionHeading: "Retención de registros",
+    retentionBody:
+      "La información enviada al departamento se convierte en un registro público y se conserva de acuerdo con el calendario estatal de retención de registros. La mayor parte de la correspondencia se conserva durante tres años. Los registros de permisos e inspecciones se conservan durante la vida útil de la estructura.",
+    rightsHeading: "Registros públicos y sus derechos",
+    rightsBody:
+      "La información que envíe al departamento puede estar sujeta a divulgación bajo la ley estatal de registros abiertos. Ciertas categorías, incluidos los números de Seguro Social, la información médica y algunos registros de seguridad, están exentas de divulgación. Si tiene alguna inquietud sobre la información que ha enviado, comuníquese con la Oficina del Secretario Municipal.",
+    changesHeading: "Cambios a esta política",
+    changesBody:
+      "Esta política puede actualizarse para reflejar cambios en la ley, la tecnología o las prácticas del departamento. La fecha de la revisión más reciente aparece al final de esta página. Los cambios sustanciales se anunciarán a través de la página de avisos públicos.",
+    contactHeading: "Preguntas sobre esta política",
+    contactBody: "Dirija sus preguntas sobre esta política de privacidad a la Oficina del Secretario Municipal.",
+    contactLinkLabel: "Contacte a Bellwood Public Works",
+  },
+  siteMap: {
+    heading: "Mapa del Sitio",
+    intro:
+      "Todas las páginas de este sitio web, agrupadas por sección. Use esta página para encontrar directamente un servicio, aviso, registro de reunión o formulario.",
+    allPagesHeading: "Todas las secciones",
+  },
+  projects: {
+    heading: "Proyectos de Capital",
+    intro:
+      "Bellwood Public Works mantiene un programa continuo de mejoras de capital en calles, infraestructura de agua y alcantarillado, sistemas de aguas pluviales y parques. Cada proyecto a continuación indica su fase actual, el presupuesto aprobado y el plazo previsto.",
+    statusFilterLabel: "Filtrar por estado",
+    allStatuses: "Todos los estados",
+    budgetLabel: "Presupuesto aprobado",
+    timelineLabel: "Plazo",
+    divisionLabel: "División",
+    caption: "Proyectos de capital, con estado, división, presupuesto y plazo",
+    empty: "Ningún proyecto coincide con el estado seleccionado.",
+    countLabel: "proyectos",
+  },
+  departments: {
+    heading: "Departamentos",
+    intro:
+      "Bellwood Public Works está organizado en divisiones que atienden cada una un área distinta de la infraestructura y los servicios de la ciudad. Comuníquese directamente con una división, o use la línea general del departamento si no está seguro de a dónde dirigir su consulta.",
+    phoneLabel: "Teléfono",
+    emailLabel: "Correo electrónico",
+    hoursLabel: "Horario de oficina",
+    servicesHeading: "Servicios de esta división",
+    staffHeading: "Personal de la división",
+    noServices: "Las páginas de servicios de esta división están en preparación.",
+    noStaff: "Los contactos del personal de esta división aparecen en el directorio general del departamento.",
+  },
+  tables: {
+    service: "Servicio",
+    category: "Categoría",
+    summary: "Resumen",
+    notice: "Aviso",
+    posted: "Publicado",
+    status: "Estado",
+    meeting: "Reunión",
+    dateAndLocation: "Fecha y Lugar",
+    documents: "Documentos",
+    form: "Formulario",
+    name: "Nombre",
+    title: "Cargo",
+    department: "Departamento",
+    email: "Correo electrónico",
+    project: "Proyecto",
+    division: "División",
+  },
+  publicRecords: {
+    heading: "Solicitud de Registros Públicos",
+    intro:
+      "Cualquier persona puede solicitar acceso a los registros no exentos que mantiene Bellwood Public Works bajo la ley estatal de registros abiertos. Esto incluye permisos, informes de inspección, órdenes de trabajo, contratos, actas de reuniones y correspondencia, salvo cuando se aplique una exención específica. Las solicitudes generalmente se atienden dentro de los diez días hábiles siguientes a su recepción.",
+    whoHeading: "Quién puede solicitar registros",
+    whoBody:
+      "Cualquier miembro del público puede presentar una solicitud. No necesita ser residente de Bellwood, explicar el motivo de su solicitud ni tener relación con los registros que solicita. Las solicitudes pueden ser presentadas por una persona, una empresa, un periodista o una organización.",
+    howHeading: "Cómo presentar una solicitud",
+    howBodyBefore: "Complete el Formulario de Solicitud de Registros Públicos, disponible en la página de",
+    howFormsLinkLabel: "Formularios y Solicitudes",
+    howBodyAfter:
+      "y preséntelo por correo, correo electrónico o en persona en el Ayuntamiento. Para ayudar al personal a localizar los registros rápidamente, describa los registros que busca con la mayor precisión posible, incluyendo un rango de fechas, la ubicación o el nombre del proyecto, y el departamento si lo conoce.",
+    exemptHeading: "Qué está exento",
+    exemptBody:
+      "Ciertos registros están exentos de divulgación o deben ser redactados antes de su entrega, incluidos los expedientes de personal, las investigaciones policiales activas, los planes de seguridad de infraestructura crítica, las comunicaciones protegidas por el secreto profesional entre abogado y cliente, y los registros que contienen información de identificación personal, como números de Seguro Social o números de cuentas financieras. Si una solicitud incluye material exento, el departamento entregará las partes no exentas y proporcionará una explicación por escrito de cualquier información retenida.",
+    feesHeading: "Tarifas",
+    feesBody:
+      "Las primeras cincuenta páginas de copias se proporcionan sin costo. Las copias adicionales se facturan a $0.15 por página, y el tiempo del personal para búsquedas extensas o redacciones puede facturarse a la tarifa administrativa estándar del departamento después de la primera hora, la cual se proporciona sin costo. Los solicitantes que califiquen para una exención de tarifas bajo el criterio estatal de interés público pueden presentar la Solicitud de Exención de Tarifas de Registros Públicos junto con su solicitud de registros.",
+    responseHeading: "Tiempo de respuesta",
+    responseBody:
+      "La Oficina del Secretario Municipal acusará recibo de una solicitud dentro de cinco días hábiles y entregará los registros, una entrega parcial o una explicación por escrito de cualquier demora o denegación dentro de diez días hábiles. Las solicitudes que involucren un gran volumen de registros o registros en poder de varios departamentos pueden tardar más, y el personal proporcionará por escrito un plazo estimado si no se puede cumplir con el período de diez días.",
+    appealsHeading: "Apelaciones",
+    appealsBody:
+      "Si una solicitud es denegada total o parcialmente, la respuesta incluirá la exención específica invocada y las instrucciones para apelar. Las apelaciones pueden presentarse por escrito ante la Oficina del Abogado Municipal dentro de los treinta días calendario siguientes a la denegación y serán revisadas dentro de quince días hábiles.",
+    contactHeading: "Contacto",
+    contactBody:
+      "Las preguntas sobre una solicitud de registros pueden dirigirse a la Oficina del Secretario Municipal.",
+  },
+  search: {
+    heading: "Resultados de búsqueda",
+    intro: "Busque en servicios, avisos públicos, reuniones, formularios, proyectos de capital y departamentos.",
+    inputLabel: "Buscar en este sitio",
+    submitLabel: "Buscar",
+    resultsOne: "1 resultado para",
+    resultsMany: "resultados para",
+    noResults: "Sin resultados para",
+    noResultsHint:
+      "Revise la ortografía, pruebe una frase más corta o consulte el mapa del sitio. También puede comunicarse directamente con el departamento para ayuda en la búsqueda de un registro.",
+    emptyQuery: "Escriba una palabra o frase para buscar en este sitio.",
+    typeService: "Servicio",
+    typeNotice: "Aviso",
+    typeMeeting: "Reunión",
+    typeForm: "Formulario",
+    typeProject: "Proyecto",
+    typeDepartment: "Departamento",
+    typePage: "Página",
+  },
+  notFound: {
+    heading: "No encontramos esa página",
+    intro:
+      "La página que solicitó no está disponible. No hay ningún problema con su computadora ni con su conexión, y no se requiere ninguna acción de su parte.",
+    causesHeading: "Por qué ocurre esto",
+    causeMistyped: "La dirección web se escribió o se copió incorrectamente.",
+    causeMoved: "La página fue movida o renombrada como parte de una actualización del sitio.",
+    causeOutdated: "El enlace proviene de un aviso impreso o de un marcador que ya está desactualizado.",
+    nextStepsHeading: "A dónde ir ahora",
+  },
   breadcrumbs: {
     homeLabel: "Inicio",
+    navLabel: "Ruta de navegación",
   },
   sectionNav: {
     heading: "En esta sección",

@@ -47,7 +47,9 @@ export function SectionNav({ section, currentHref }: SectionNavProps) {
   return (
     <nav aria-label={heading} className="xl:sticky xl:top-4">
       <div className="hidden xl:block">
-        <h2 className="px-3 text-xs font-bold uppercase tracking-wide text-gov-slate">{heading}</h2>
+        {/* Not a heading: the nav already carries this text as its accessible name, and a
+            heading here would sit above the page h1 in the document outline. */}
+        <p className="px-3 text-xs font-bold uppercase tracking-wide text-gov-slate">{heading}</p>
         <div className="mt-2">{renderList()}</div>
       </div>
 
@@ -57,7 +59,7 @@ export function SectionNav({ section, currentHref }: SectionNavProps) {
           aria-expanded={mobileOpen}
           aria-controls="section-nav-mobile-panel"
           onClick={() => setMobileOpen((prev) => !prev)}
-          className="flex w-full items-center justify-between rounded border border-gov-border bg-gov-surface px-4 py-3 text-left font-medium text-gov-navy"
+          className="flex w-full items-center justify-between rounded border border-gov-control-border bg-gov-surface px-4 py-3 text-left font-medium text-gov-navy"
         >
           {strings.sectionNav.toggleLabel}
           <ChevronDown

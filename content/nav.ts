@@ -141,8 +141,8 @@ export const footerDepartmentLinks: NavLink[] = [
   { href: "/services/waste-recycling", label: "Sanitation Division", labelEs: "División de Saneamiento" },
   { href: "/services/parks-recreation", label: "Parks and Recreation", labelEs: "Parques y Recreación" },
   { href: "/services/stormwater", label: "Stormwater Division", labelEs: "División de Aguas Pluviales" },
-  { href: "/contact", label: "City Clerk's Office", labelEs: "Oficina del Secretario Municipal" },
-  { href: "/contact", label: "Department Directory", labelEs: "Directorio de Departamentos" },
+  { href: "/departments#city-clerks-office", label: "City Clerk's Office", labelEs: "Oficina del Secretario Municipal" },
+  { href: "/departments", label: "Department Directory", labelEs: "Directorio de Departamentos" },
 ];
 
 export const footerServiceLinks: NavLink[] = [
@@ -174,9 +174,12 @@ export const footerResourceLinks: NavLink[] = [
   { href: "/forms", label: "Forms and Applications", labelEs: "Formularios y Solicitudes" },
   { href: "/public-records", label: "Public Records Request", labelEs: "Solicitud de Registros Públicos" },
   { href: "/accessibility", label: "Accessibility Statement", labelEs: "Declaración de Accesibilidad" },
-  { href: "/contact", label: "Department Directory", labelEs: "Directorio de Departamentos" },
-  { href: "/notices", label: "Bid and RFP Postings", labelEs: "Licitaciones y Solicitudes de Propuestas" },
-  { href: "/meetings", label: "City Council", labelEs: "Concejo Municipal" },
+  { href: "/projects", label: "Capital Projects", labelEs: "Proyectos de Capital" },
+  // These two used to promise a dedicated bids page and a council page and land on the
+  // general notices and meetings lists. The lists are the right destination, so the
+  // labels now describe what is actually there.
+  { href: "/notices", label: "Public Notices and Bid Solicitations", labelEs: "Avisos Públicos y Licitaciones" },
+  { href: "/meetings", label: "Council Meetings and Agendas", labelEs: "Reuniones y Agendas del Concejo" },
 ];
 
 export interface QuickAction {

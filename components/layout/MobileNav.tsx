@@ -12,13 +12,16 @@ interface MobileNavProps {
 }
 
 export function MobileNav({ open, onNavigate }: MobileNavProps) {
-  const { language } = useLanguage();
-  const firstLinkRef = useRef<HTMLAnchorElement>(null);
+  const { strings, language } = useLanguage();
+  // Attached to whichever control renders first, button or link. Attaching it only to
+  // the link branch silently did nothing, because the first nav item has sub-columns
+  // and so renders a button.
+  const firstControlRef = useRef<HTMLButtonElement | HTMLAnchorElement>(null);
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
   useEffect(() => {
     if (open) {
-      firstLinkRef.current?.focus();
+      firstControlRef.current?.focus();
     } else {
       setExpandedIndex(null);
     }
@@ -40,19 +43,21 @@ export function MobileNav({ open, onNavigate }: MobileNavProps) {
   if (!open) return null;
 
   return (
-    <nav aria-label="Primary" className="border-t border-gov-border bg-white md:hidden">
+    <nav aria-label={strings.header.mobileNavLabel} className="border-t border-gov-border bg-white md:hidden">
       <ul className="flex flex-col">
         {primaryNav.map((item, index) => {
           const label = language === "es" ? item.labelEs : item.label;
           const hasColumns = Boolean(item.columns && item.columns.length > 0);
           const isExpanded = expandedIndex === index;
           const sectionId = `mobile-nav-section-${index}`;
+          const isFirst = index === 0;
 
           return (
             <li key={item.href} className="border-b border-gov-border">
               {hasColumns ? (
                 <>
                   <button
+                    ref={isFirst ? (firstControlRef as React.RefObject<HTMLButtonElement>) : undefined}
                     type="button"
                     aria-expanded={isExpanded}
                     aria-controls={sectionId}
@@ -67,14 +72,20 @@ export function MobileNav({ open, onNavigate }: MobileNavProps) {
                   </button>
                   {isExpanded ? (
                     <div id={sectionId} className="bg-gov-surface px-4 pb-3">
-                      {item.columns!.map((column) => {
+                      {item.columns!.map((column, columnIndex) => {
                         const columnHeading = language === "es" ? column.headingEs : column.heading;
+                        const columnLabelId = `${sectionId}-col-${columnIndex}`;
                         return (
                           <div key={column.heading} className="mb-3 last:mb-0">
-                            <h3 className="mb-1 text-xs font-bold uppercase tracking-wide text-gov-slate">
+                            {/* Not a heading: this panel sits above the page h1, so a real
+                                heading here would break the document outline. */}
+                            <p
+                              id={columnLabelId}
+                              className="mb-1 text-xs font-bold uppercase tracking-wide text-gov-slate"
+                            >
                               {columnHeading}
-                            </h3>
-                            <ul className="space-y-1">
+                            </p>
+                            <ul className="space-y-1" aria-labelledby={columnLabelId}>
                               {column.links.map((link) => {
                                 const linkLabel = language === "es" ? link.labelEs : link.label;
                                 return (
@@ -98,7 +109,7 @@ export function MobileNav({ open, onNavigate }: MobileNavProps) {
                 </>
               ) : (
                 <Link
-                  ref={index === 0 ? firstLinkRef : undefined}
+                  ref={isFirst ? (firstControlRef as React.RefObject<HTMLAnchorElement>) : undefined}
                   href={item.href}
                   onClick={onNavigate}
                   className="block px-4 py-3 font-medium text-gov-navy hover:bg-gov-surface"

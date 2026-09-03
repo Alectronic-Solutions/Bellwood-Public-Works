@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { notices } from "@/content/notices";
 import { useLanguage, localize, dateLocale } from "@/lib/i18n";
+import { expandDateTokens } from "@/lib/dates";
 import type { Language } from "@/lib/i18n";
 import { InteriorLayout } from "@/components/layout/InteriorLayout";
 import { RelatedLinks } from "@/components/layout/RelatedLinks";
@@ -44,6 +45,7 @@ export default function NoticesPage() {
     <InteriorLayout
       section={section}
       currentHref="/notices"
+      headerImage="/images/headers/notices.jpg"
       breadcrumbs={[{ label: strings.pages.noticesHeading }]}
       heading={strings.pages.noticesHeading}
       intro={strings.pages.noticesIntro}
@@ -65,7 +67,7 @@ export default function NoticesPage() {
           id="notice-year-filter"
           value={year}
           onChange={(event) => setYear(event.target.value)}
-          className="rounded border border-gov-border bg-white px-3 py-2 text-sm text-gov-slate"
+          className="rounded border border-gov-control-border bg-white px-3 py-2 text-sm text-gov-slate"
         >
           <option value="all">{strings.notices.allYearsLabel}</option>
           {years.map((y) => (
@@ -88,7 +90,7 @@ export default function NoticesPage() {
                 <Link href={`/notices/${notice.id}`} className="font-medium link-body">
                   {notice.title}
                 </Link>
-                <p className="mt-1 text-gov-slate">{notice.body}</p>
+                <p className="mt-1 text-gov-slate">{expandDateTokens(notice.body, language)}</p>
                 <p className="mt-2 text-sm text-gov-slate">{formatDate(notice.date, language)}</p>
                 {notice.urgent && notice.active && (
                   <span className="mt-2 inline-block rounded bg-gov-alert px-2 py-0.5 text-sm font-semibold text-white">
@@ -110,13 +112,13 @@ export default function NoticesPage() {
               <thead>
                 <tr>
                   <th scope="col" className="px-3 py-2 font-semibold">
-                    Notice
+                    {strings.tables.notice}
                   </th>
                   <th scope="col" className="px-3 py-2 font-semibold">
-                    Posted
+                    {strings.tables.posted}
                   </th>
                   <th scope="col" className="px-3 py-2 font-semibold">
-                    Status
+                    {strings.tables.status}
                   </th>
                 </tr>
               </thead>
@@ -127,7 +129,7 @@ export default function NoticesPage() {
                       <Link href={`/notices/${notice.id}`} className="font-medium link-body">
                         {notice.title}
                       </Link>
-                      <p className="mt-1 text-gov-slate">{notice.body}</p>
+                      <p className="mt-1 text-gov-slate">{expandDateTokens(notice.body, language)}</p>
                     </td>
                     <td className="whitespace-nowrap px-3 py-2 text-gov-slate">
                       {formatDate(notice.date, language)}

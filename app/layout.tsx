@@ -4,6 +4,7 @@ import "./globals.css";
 import { LanguageProvider } from "@/lib/i18n";
 import { TextSizeProvider } from "@/lib/textSize";
 import { SkipLink } from "@/components/layout/SkipLink";
+import { DemoNotice } from "@/components/layout/DemoNotice";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { PrimaryNav } from "@/components/layout/PrimaryNav";
 import { QuickActionsBar } from "@/components/layout/QuickActionsBar";
@@ -28,7 +29,7 @@ export const metadata: Metadata = {
   robots: {
     index: false,
     follow: false,
-    nocache: true,
+    noarchive: true,
   },
 };
 
@@ -37,22 +38,31 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
+// Applies the stored text size before first paint so a returning visitor does not
+// see a frame at the default size. Text size is a plain style on the root element,
+// so it is outside React's tree and cannot cause a hydration mismatch.
+const textSizeScript = `(function(){try{var s=window.localStorage.getItem("bpw-text-size");var n=s?parseInt(s,10):0;if(n>0&&n<=2){document.documentElement.style.fontSize=(100+n*12.5)+"%";}}catch(e){}})();`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={publicSans.variable}>
+    <html lang="en" className={publicSans.variable} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: textSizeScript }} />
+      </head>
       <body className="font-sans antialiased">
         <LanguageProvider>
           <TextSizeProvider>
             <SkipLink />
+            <DemoNotice />
             <AlertBanner />
             <SiteHeader />
             <PrimaryNav />
             <QuickActionsBar />
-            <main id="main-content">{children}</main>
+            {children}
             <SiteFooter />
           </TextSizeProvider>
         </LanguageProvider>

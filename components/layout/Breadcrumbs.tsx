@@ -18,7 +18,7 @@ export function Breadcrumbs({ trail }: BreadcrumbsProps) {
   const items: Crumb[] = [{ href: "/", label: strings.breadcrumbs.homeLabel }, ...trail];
 
   return (
-    <nav aria-label="Breadcrumb" className="border-b border-gov-border bg-gov-surface">
+    <nav aria-label={strings.breadcrumbs.navLabel} className="border-b border-gov-border bg-gov-surface">
       <ol className="mx-auto flex max-w-6xl flex-wrap items-center gap-1 px-4 py-3 text-sm text-gov-slate sm:px-6">
         {items.map((item, index) => {
           const isLast = index === items.length - 1;

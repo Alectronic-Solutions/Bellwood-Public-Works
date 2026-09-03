@@ -11,6 +11,7 @@ export const en: UIStrings = {
   },
   banner: {
     demo: "Demonstration site. This is a fictional agency built as a portfolio example and is not affiliated with any government entity.",
+    demoLabel: "Demonstration site notice",
   },
   header: {
     searchPlaceholder: "Search this site",
@@ -22,11 +23,18 @@ export const en: UIStrings = {
     mobileNavClose: "Close menu",
     agencyName: "City of Bellwood",
     agencyParent: "Department of Public Works",
+    homeLink: "Bellwood Public Works home",
     seatUnder: "Decrease text size",
     seatOver: "Increase text size",
     seatReset: "Reset text size",
+    textSizeGroupLabel: "Text size",
+    textSizeNormal: "Text size: normal",
+    textSizeLarge: "Text size: large",
+    textSizeLargest: "Text size: largest",
     contactLink: "Contact",
     quickActionsHeading: "I Want To...",
+    primaryNavLabel: "Primary",
+    mobileNavLabel: "Main menu",
     navDropdownOpen: "Show submenu for",
     navDropdownClose: "Hide submenu for",
   },
@@ -53,12 +61,11 @@ export const en: UIStrings = {
     copyright: "City of Bellwood. This is a demonstration website and does not represent a real municipality.",
     designedBy: "Designed by",
     backToTop: "Back to top",
+    navLabel: "Footer",
   },
   alert: {
     urgentLabel: "Urgent notice",
     archivedLabel: "Archived",
-    pauseScrolling: "Pause scrolling alert",
-    resumeScrolling: "Resume scrolling alert",
   },
   home: {
     heading: "Welcome to Bellwood Public Works",
@@ -184,16 +191,180 @@ export const en: UIStrings = {
     heading: "Accessibility Statement",
     intro:
       "Bellwood Public Works is committed to ensuring digital accessibility for people of all abilities. We are actively working to increase the accessibility and usability of this website.",
-    standardsHeading: "Conformance Status",
+    standardsHeading: "Conformance status",
     standardsBody:
-      "This website aims to conform to the Web Content Accessibility Guidelines (WCAG) 2.1 Level AA and Section 508 of the Rehabilitation Act. These standards cover keyboard navigation, visible focus indicators, sufficient color contrast, semantic landmarks, meaningful alternative text for images, and a logical heading structure.",
-    feedbackHeading: "Feedback",
+      "This website is designed to conform to the Web Content Accessibility Guidelines (WCAG) 2.1 Level AA and Section 508 of the Rehabilitation Act. These standards cover keyboard navigation, visible focus indicators, sufficient color contrast, semantic landmarks, meaningful alternative text for images, and a logical heading structure. We consider the site substantially conformant, with the exceptions listed under known limitations below.",
+    testingHeading: "How this site is tested",
+    testingBody:
+      "Accessibility is verified on every change rather than reviewed once. Both of the following run before any update reaches this site.",
+    testingAutomated:
+      "Automated: every page template is checked with axe-core against the WCAG 2.1 A and AA rule sets, plus the Section 508 rules, in a real browser at both desktop and mobile widths. Interactive states are included, such as the mobile menu opened, a navigation dropdown expanded, and the contact form after a failed submission. A single violation fails the build and blocks the deployment.",
+    testingManual:
+      "Manual: keyboard-only navigation from the skip link through the footer, screen reader review of landmarks and heading order in both English and Spanish, the page at 200 percent browser zoom combined with the text size control, and the site under an operating system setting of reduced motion. Automated tools catch only part of what matters, so this pass is what confirms the site is genuinely usable.",
+    featuresHeading: "Accessibility features",
+    features: [
+      "A skip link that moves keyboard focus directly to the main content of every page.",
+      "One main landmark per page, uniquely named navigation regions, and a heading outline that begins at the page title with no skipped levels.",
+      "A focus indicator that stays visible against both the light page background and the dark navy header and footer, and that survives Windows High Contrast Mode.",
+      "Body text and interactive controls that meet or exceed the 4.5 to 1 text and 3 to 1 non-text contrast minimums.",
+      "A text size control that scales the whole page up to 125 percent, remembered between visits and applied before the page paints.",
+      "Full English and Spanish content, including the accessible names of landmarks and controls.",
+      "Touch targets of at least 44 by 44 pixels throughout.",
+      "No automatically moving content, and all remaining transitions are disabled when the operating system requests reduced motion.",
+      "Form fields with persistent visible labels, errors announced through an error summary, and no reliance on color alone to convey meaning.",
+    ],
+    limitationsHeading: "Known limitations",
+    limitationsBody:
+      "We would rather name these plainly than claim full conformance. Each one is something we can help with directly in the meantime.",
+    limitations: [
+      "Downloadable documents are provided as plain PDFs and are not tagged to the PDF/UA standard. If you need the contents of any form or agenda in an accessible format, contact us and we will provide it as accessible HTML, large print, or plain text.",
+      "The language toggle changes the page in place rather than switching to a separate Spanish web address, so a Spanish version cannot yet be bookmarked or shared as its own link.",
+      "Site search matches on words rather than meaning, so a phrase that does not appear in the page text may return nothing even when a relevant page exists. The site map lists every page as an alternative.",
+    ],
+    formatsHeading: "Alternate formats",
+    formatsBody:
+      "Any information on this website is available in large print, plain text, or another format on request, at no charge. Requests are typically fulfilled within five business days.",
+    feedbackHeading: "Report a barrier",
     feedbackBody:
       "We welcome your feedback on the accessibility of this website. If you encounter an accessibility barrier, please let us know using the contact form so we can address it.",
     contactLinkLabel: "Contact Bellwood Public Works",
   },
+  privacy: {
+    heading: "Privacy Policy",
+    intro:
+      "Bellwood Public Works respects the privacy of everyone who visits this website. This policy explains what information the department collects online, how it is used, and the choices available to you.",
+    demoNote:
+      "Because this is a demonstration site, no information you enter here is transmitted, stored, or reviewed by anyone. Forms are not connected to a server and search runs entirely in your browser.",
+    collectHeading: "Information we collect",
+    collectBody:
+      "The department does not require you to provide personal information to browse this website. When you submit a service request, a permit application, or a contact form, we collect only the information needed to respond, which typically includes your name, address, telephone number, and email address. Web servers routinely log the page requested, the date and time, and a truncated network address for security and capacity planning.",
+    cookiesHeading: "Cookies and local storage",
+    cookiesBody:
+      "This website does not use advertising cookies or cross-site tracking. Your language selection and text size preference are saved in your browser's local storage so the site remembers them on your next visit. That information stays on your device and is never sent to the department. Clearing your browser data removes it.",
+    thirdPartyHeading: "Third party services",
+    thirdPartyBody:
+      "Some pages link to services operated by other agencies or vendors, such as an online payment processor or a state records portal. Those services have their own privacy policies, and this policy does not apply once you leave this website. Review the policy of any site before providing personal information.",
+    retentionHeading: "Records retention",
+    retentionBody:
+      "Information submitted to the department becomes a public record and is retained according to the state records retention schedule. Most correspondence is retained for three years. Permit and inspection records are retained for the life of the structure.",
+    rightsHeading: "Public records and your rights",
+    rightsBody:
+      "Information you send to the department may be subject to disclosure under the state open records law. Certain categories, including Social Security numbers, medical information, and some security records, are exempt from release. If you have a concern about information you have submitted, contact the City Clerk's Office.",
+    changesHeading: "Changes to this policy",
+    changesBody:
+      "This policy may be updated to reflect changes in law, technology, or department practice. The date of the most recent revision appears at the bottom of this page. Material changes will be announced through the public notices page.",
+    contactHeading: "Questions about this policy",
+    contactBody: "Direct questions about this privacy policy to the City Clerk's Office.",
+    contactLinkLabel: "Contact Bellwood Public Works",
+  },
+  siteMap: {
+    heading: "Site Map",
+    intro:
+      "Every page on this website, grouped by section. Use this page to find a service, notice, meeting record, or form directly.",
+    allPagesHeading: "All sections",
+  },
+  projects: {
+    heading: "Capital Projects",
+    intro:
+      "Bellwood Public Works maintains a rolling program of capital improvements to streets, water and sewer infrastructure, stormwater systems, and parks. Each project below lists its current phase, approved budget, and expected timeline.",
+    statusFilterLabel: "Filter by status",
+    allStatuses: "All statuses",
+    budgetLabel: "Approved budget",
+    timelineLabel: "Timeline",
+    divisionLabel: "Division",
+    caption: "Capital projects, with status, division, budget, and timeline",
+    empty: "No projects match the selected status.",
+    countLabel: "projects",
+  },
+  departments: {
+    heading: "Departments",
+    intro:
+      "Bellwood Public Works is organized into divisions that each handle a distinct area of city infrastructure and services. Contact a division directly, or use the general department line if you are not sure where your question belongs.",
+    phoneLabel: "Phone",
+    emailLabel: "Email",
+    hoursLabel: "Office hours",
+    servicesHeading: "Services from this division",
+    staffHeading: "Division staff",
+    noServices: "Service pages for this division are being prepared.",
+    noStaff: "Staff contacts for this division are listed in the general department directory.",
+  },
+  tables: {
+    service: "Service",
+    category: "Category",
+    summary: "Summary",
+    notice: "Notice",
+    posted: "Posted",
+    status: "Status",
+    meeting: "Meeting",
+    dateAndLocation: "Date and Location",
+    documents: "Documents",
+    form: "Form",
+    name: "Name",
+    title: "Title",
+    department: "Department",
+    email: "Email",
+    project: "Project",
+    division: "Division",
+  },
+  publicRecords: {
+    heading: "Public Records Request",
+    intro:
+      "Members of the public may request access to non-exempt records maintained by Bellwood Public Works under the state open records law. This includes permits, inspection reports, work orders, contracts, meeting minutes, and correspondence, except where a specific exemption applies. Requests are typically fulfilled within ten business days of receipt.",
+    whoHeading: "Who can request records",
+    whoBody:
+      "Any member of the public may submit a request. You do not need to be a Bellwood resident, explain your reason for the request, or have a connection to the records you are asking for. Requests may be submitted by an individual, a business, a journalist, or an organization.",
+    howHeading: "How to submit a request",
+    howBodyBefore: "Complete the Public Records Request Form, available on the",
+    howFormsLinkLabel: "Forms and Applications",
+    howBodyAfter:
+      "page, and submit it by mail, email, or in person at City Hall. To help staff locate records quickly, describe the records you are seeking as specifically as possible, including a date range, location or project name, and department if known.",
+    exemptHeading: "What is exempt",
+    exemptBody:
+      "Certain records are exempt from disclosure or must be redacted before release, including personnel files, active law enforcement investigations, security plans for critical infrastructure, attorney-client privileged communications, and records containing personal identifying information such as Social Security numbers or financial account numbers. If a request includes exempt material, the department will release the non-exempt portions and provide a written explanation for any withheld information.",
+    feesHeading: "Fees",
+    feesBody:
+      "The first fifty pages of copies are provided free of charge. Additional copies are billed at $0.15 per page, and staff time for extensive searches or redactions may be billed at the department's standard clerical rate after the first hour, which is provided at no cost. Requesters who qualify for a fee waiver under the state's public interest standard may submit the Public Records Fee Waiver Request alongside their records request.",
+    responseHeading: "Response time",
+    responseBody:
+      "The City Clerk's Office will acknowledge a request within five business days and provide records, a partial release, or a written explanation of any delay or denial within ten business days. Requests involving a large volume of records or records held by multiple departments may take longer, and staff will provide an estimated timeline in writing if the ten-day window cannot be met.",
+    appealsHeading: "Appeals",
+    appealsBody:
+      "If a request is denied in whole or in part, the response will include the specific exemption relied upon and instructions for appeal. Appeals may be submitted in writing to the City Attorney's Office within thirty calendar days of the denial and will be reviewed within fifteen business days.",
+    contactHeading: "Contact",
+    contactBody: "Questions about a records request can be directed to the City Clerk's Office.",
+  },
+  search: {
+    heading: "Search results",
+    intro: "Search across services, public notices, meetings, forms, capital projects, and departments.",
+    inputLabel: "Search this site",
+    submitLabel: "Search",
+    resultsOne: "1 result for",
+    resultsMany: "results for",
+    noResults: "No results for",
+    noResultsHint:
+      "Check the spelling, try a shorter phrase, or browse the site map. You can also contact the department directly for help finding a record.",
+    emptyQuery: "Enter a word or phrase to search this site.",
+    typeService: "Service",
+    typeNotice: "Notice",
+    typeMeeting: "Meeting",
+    typeForm: "Form",
+    typeProject: "Project",
+    typeDepartment: "Department",
+    typePage: "Page",
+  },
+  notFound: {
+    heading: "We cannot find that page",
+    intro:
+      "The page you requested is not available. Nothing is wrong with your computer or your connection, and no action is needed on your part.",
+    causesHeading: "Why this happens",
+    causeMistyped: "The web address was typed or copied incorrectly.",
+    causeMoved: "The page has been moved or renamed as part of a site update.",
+    causeOutdated: "The link came from a printed notice or a bookmark that is now out of date.",
+    nextStepsHeading: "Where to go next",
+  },
   breadcrumbs: {
     homeLabel: "Home",
+    navLabel: "Breadcrumb",
   },
   sectionNav: {
     heading: "In this section",

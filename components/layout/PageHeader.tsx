@@ -1,27 +1,24 @@
 import Image from "next/image";
+import { withBasePath } from "@/lib/basePath";
 
 interface PageHeaderProps {
-  heading: string;
-  intro?: string;
+  /** Path under /public, for example /images/headers/services.jpg */
   imageSrc: string;
-  imageAlt: string;
 }
 
-export function PageHeader({ heading, intro, imageSrc, imageAlt }: PageHeaderProps) {
+/**
+ * A decorative banner band for interior pages.
+ *
+ * The image carries no information the page does not already state in its heading, so it
+ * takes an empty alt and is hidden from assistive technology, which is the correct
+ * treatment for a purely decorative image. Deliberately no text is placed over the photo:
+ * overlaying a heading on an arbitrary image cannot guarantee 4.5:1, and the page heading
+ * reads better on the plain background anyway.
+ */
+export function PageHeader({ imageSrc }: PageHeaderProps) {
   return (
-    <div className="relative">
-      <div className="relative h-48 w-full overflow-hidden sm:h-64">
-        <Image src={imageSrc} alt={imageAlt} fill priority sizes="100vw" className="object-cover" />
-        <div className="absolute inset-0 bg-gov-navy/70" aria-hidden="true" />
-        <div className="relative mx-auto flex h-full max-w-6xl items-end px-4 pb-6 sm:px-6">
-          <h1 className="text-4xl font-bold text-white">{heading}</h1>
-        </div>
-      </div>
-      {intro && (
-        <div className="mx-auto max-w-6xl px-4 pt-5 sm:px-6">
-          <p className="max-w-2xl text-gov-slate">{intro}</p>
-        </div>
-      )}
+    <div className="relative h-32 w-full overflow-hidden border-b border-gov-border sm:h-44" aria-hidden="true">
+      <Image src={withBasePath(imageSrc)} alt="" fill priority sizes="100vw" className="object-cover object-center" />
     </div>
   );
 }

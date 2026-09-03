@@ -56,8 +56,12 @@ export const sections: Section[] = [
     labelEs: "Acerca de",
     href: "/accessibility",
     pages: [
+      { href: "/departments", label: "Departments", labelEs: "Departamentos" },
+      { href: "/projects", label: "Capital Projects", labelEs: "Proyectos de Capital" },
       { href: "/accessibility", label: "Accessibility Statement", labelEs: "Declaración de Accesibilidad" },
       { href: "/public-records", label: "Public Records Request", labelEs: "Solicitud de Registros Públicos" },
+      { href: "/privacy", label: "Privacy Policy", labelEs: "Política de Privacidad" },
+      { href: "/site-map", label: "Site Map", labelEs: "Mapa del Sitio" },
       { href: "/contact", label: "Contact Us", labelEs: "Contáctenos" },
     ],
   },

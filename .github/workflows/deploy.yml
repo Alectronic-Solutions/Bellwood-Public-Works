@@ -1,9 +1,15 @@
-name: Deploy to GitHub Pages
+name: Build, audit, and deploy
 
 on:
   push:
     branches: [master]
+  pull_request:
+    branches: [master]
   workflow_dispatch:
+  schedule:
+    # Content dates are resolved against the build date, so a weekly rebuild keeps
+    # "upcoming" meetings and active notices current without anyone touching the repo.
+    - cron: "0 6 * * 1"
 
 permissions:
   contents: read
@@ -15,7 +21,33 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  quality:
+    name: Lint, types, and accessibility
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      # Built without BASE_PATH so the export is served from the root by the test server.
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:a11y
+      - if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
+
   build:
+    name: Build for Pages
+    needs: quality
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -25,12 +57,16 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
+        env:
+          BASE_PATH: /Bellwood-Public-Works
       - uses: actions/upload-pages-artifact@v3
         with:
           path: ./out
 
   deploy:
+    name: Deploy to GitHub Pages
     needs: build
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     environment:
       name: github-pages

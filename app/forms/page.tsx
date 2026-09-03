@@ -53,6 +53,7 @@ export default function FormsPage() {
     <InteriorLayout
       section={section}
       currentHref="/forms"
+      headerImage="/images/headers/forms.jpg"
       breadcrumbs={[{ label: strings.pages.formsHeading }]}
       heading={strings.pages.formsHeading}
       intro={strings.pages.formsIntro}
@@ -71,7 +72,7 @@ export default function FormsPage() {
           <label htmlFor="forms-search" className="text-sm font-medium text-gov-navy">
             {strings.forms.searchLabel}
           </label>
-          <div className="flex items-center rounded border border-gov-border bg-white px-2 focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-gov-blue">
+          <div className="flex items-center rounded border border-gov-control-border bg-white px-2">
             <Search className="h-4 w-4 text-gov-slate" aria-hidden="true" />
             <input
               id="forms-search"
@@ -79,7 +80,7 @@ export default function FormsPage() {
               value={query}
               onChange={(event) => setQuery(event.target.value)}
               placeholder={strings.forms.searchPlaceholder}
-              className="w-full border-0 bg-transparent px-2 py-2 text-sm text-gov-slate focus:outline-none"
+              className="w-full border-0 bg-transparent px-2 py-2 text-sm text-gov-slate"
             />
           </div>
         </div>
@@ -92,7 +93,7 @@ export default function FormsPage() {
             id="forms-category-filter"
             value={category}
             onChange={(event) => setCategory(event.target.value)}
-            className="rounded border border-gov-border bg-white px-3 py-2 text-sm text-gov-slate"
+            className="rounded border border-gov-control-border bg-white px-3 py-2 text-sm text-gov-slate"
           >
             <option value="all">{strings.forms.allCategoriesLabel}</option>
             {categories.map((cat) => (
@@ -143,10 +144,10 @@ export default function FormsPage() {
               <thead>
                 <tr>
                   <th scope="col" className="px-3 py-2 font-semibold">
-                    Form
+                    {strings.tables.form}
                   </th>
                   <th scope="col" className="px-3 py-2 font-semibold">
-                    Category
+                    {strings.tables.category}
                   </th>
                   <th scope="col" className="px-3 py-2 font-semibold">
                     {strings.forms.fileSizeLabel}

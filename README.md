@@ -1,36 +1,119 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Bellwood Public Works
 
-## Getting Started
+A fictional municipal government website, built as a portfolio piece to demonstrate that an
+accessible public sector site can be plain, fast, and genuinely usable at the same time.
 
-First, run the development server:
+**Bellwood is not a real city and this is not a real government website.** Every page carries a
+demonstration notice, and the whole site is served with `noindex, nofollow`.
+
+[![Build, audit, and deploy](https://github.com/Alectronic-Solutions/Bellwood-Public-Works/actions/workflows/deploy.yml/badge.svg)](https://github.com/Alectronic-Solutions/Bellwood-Public-Works/actions/workflows/deploy.yml)
+
+## The point of the project
+
+Most sites claim accessibility in a statement nobody verifies. This one is built so the claim is
+checked on every commit, and the [accessibility statement](app/accessibility/page.tsx) names the
+things that are still imperfect instead of glossing over them.
+
+The target is **WCAG 2.1 Level AA and Section 508**. What enforces it:
+
+- **axe-core runs against the real static export** in a browser, at desktop and mobile widths,
+  across every page template and both dynamic routes.
+- **Interactive states are audited too**, not just first paint: the mobile menu opened, a
+  navigation dropdown expanded, and the contact form after a failed submit.
+- **Structural assertions** beyond what axe checks, including exactly one `main` landmark per
+  page, a heading outline that starts at `h1` with no skipped levels, and a skip link that really
+  moves focus.
+- **Link integrity**, so every internal link resolves to a file that exists and every advertised
+  document download is a real, non-truncated PDF.
+- **`plugin:jsx-a11y/recommended`** in the lint config, rather than the small subset that
+  `next/core-web-vitals` turns on by default.
+
+A single violation fails the build and blocks the deploy.
+
+## Stack
+
+| | |
+|---|---|
+| Framework | Next.js 14, App Router, `output: 'export'` |
+| Language | TypeScript, strict |
+| Styling | Tailwind CSS, no component library |
+| Icons | lucide-react |
+| Type | Public Sans, self-hosted via `next/font/local` |
+| Testing | Playwright and `@axe-core/playwright` |
+| Hosting | GitHub Pages, static files only |
+
+No Framer Motion, no shadcn/ui, no CSS-in-JS. Components are handcoded so there is no third party
+markup to audit around.
+
+## How it is put together
+
+**Content is separate from presentation.** Everything readable lives in typed data files under
+[`/content`](content), so a whole variant of the site can be swapped without touching a component.
+That includes both languages: [`en.ts`](content/en.ts) and [`es.ts`](content/es.ts) are key-for-key
+translations covering not just visible copy but the accessible names of landmarks and controls, so
+a Spanish screen reader user is not read English page structure.
+
+**Dates keep themselves current.** A demo whose "Upcoming Meetings" list is empty looks abandoned.
+Content dates are stored against a fixed anchor and shifted forward at build time by whole weeks,
+so recurring meetings keep their weekday and the schedule always has genuinely upcoming entries.
+Prose that names a date, such as a bid deadline, uses a `{date:YYYY-MM-DD}` token so the sentence
+moves with the notice rather than contradicting it. See [`lib/dates.ts`](lib/dates.ts). A weekly
+scheduled rebuild keeps the deployed site current without anyone touching the repo.
+
+**Downloads are real.** The site advertises 60+ agendas, minutes, and forms with a file type and
+size beside each one. [`scripts/generate-documents.mjs`](scripts/generate-documents.mjs) reads the
+built HTML and writes a real PDF for every one of them, so no download is a dead link.
+
+**Search runs in the browser.** There is no server, so [`lib/search.ts`](lib/search.ts) indexes the
+content files directly and matches accent-folded terms across services, notices, meetings, forms,
+projects, and departments.
+
+## Running it
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev          # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Note that `npm run dev` will not serve the generated PDFs until you have run a build at least
+once, since they are written during the build.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Checks
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run lint         # ESLint, including plugin:jsx-a11y/recommended
+npm run typecheck    # tsc --noEmit
+npm run build        # static export to out/, then generate the PDFs
+npm run test:a11y    # Playwright and axe against the export
+npm test             # all of the above in order
+```
 
-## Learn More
+`test:a11y` needs a browser once: `npx playwright install chromium`.
 
-To learn more about Next.js, take a look at the following resources:
+The accessibility suite serves `out/` with a small dependency-free static server
+([`scripts/serve-static.mjs`](scripts/serve-static.mjs)) so the audit sees exactly the files that
+ship, not a dev server approximation.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## What automated testing does not cover
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+axe catches perhaps a third of real accessibility barriers. Before any meaningful change, this
+site is also checked by hand:
 
-## Deploy on Vercel
+- Keyboard only, from the skip link through the footer, watching that the focus ring stays visible
+  against both the light page background and the navy header and footer.
+- A screen reader landmark and heading pass, in English and in Spanish.
+- 200 percent browser zoom combined with the in-page text size control.
+- The operating system set to reduced motion, confirming no content becomes unreadable.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Design
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Institutional rather than stylish, in the spirit of the U.S. Web Design System without copying its
+assets. Light background, high contrast, restrained. The palette is defined once as CSS variables
+in [`app/globals.css`](app/globals.css) and wired into Tailwind, including a dedicated control
+border token that clears the 3:1 non-text contrast requirement, which the softer divider color
+does not.
+
+## License and attribution
+
+Built by [Alectronic Solutions](https://alectronicsolutions.com) as a portfolio demonstration.
+The city, its departments, staff, notices, meetings, and documents are entirely fictional.

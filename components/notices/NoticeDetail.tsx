@@ -2,6 +2,7 @@
 
 import type { Notice } from "@/content/types";
 import { useLanguage, localize, dateLocale } from "@/lib/i18n";
+import { expandDateTokens } from "@/lib/dates";
 import type { Language } from "@/lib/i18n";
 import { InteriorLayout } from "@/components/layout/InteriorLayout";
 import { RelatedLinks } from "@/components/layout/RelatedLinks";
@@ -64,7 +65,7 @@ export function NoticeDetail({ notice: rawNotice }: NoticeDetailProps) {
         </div>
       </dl>
 
-      <p className="mt-6 text-gov-slate">{notice.body}</p>
+      <p className="mt-6 text-gov-slate">{expandDateTokens(notice.body, language)}</p>
     </InteriorLayout>
   );
 }

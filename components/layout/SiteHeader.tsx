@@ -2,11 +2,12 @@
 
 import { useRef, useState } from "react";
 import Link from "next/link";
-import { Menu, X, Search } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useLanguage } from "@/lib/i18n";
 import { UtilityBar } from "./UtilityBar";
 import { CivicSeal } from "./CivicSeal";
 import { MobileNav } from "./MobileNav";
+import { SiteSearchForm } from "./SiteSearchForm";
 
 export function SiteHeader() {
   const { strings } = useLanguage();
@@ -23,11 +24,7 @@ export function SiteHeader() {
       <UtilityBar />
 
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-2 px-4 py-3 sm:gap-4 sm:px-6">
-        <Link
-          href="/"
-          className="flex min-w-0 items-center gap-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gov-blue sm:gap-4"
-          aria-label="Bellwood Public Works home"
-        >
+        <Link href="/" className="flex min-w-0 items-center gap-2 sm:gap-4" aria-label={strings.header.homeLink}>
           <CivicSeal className="h-10 w-10 shrink-0 sm:h-14 sm:w-14 md:h-16 md:w-16" />
           <span className="flex flex-col leading-tight">
             <span className="text-xs font-semibold uppercase tracking-widest text-gov-slate">
@@ -51,20 +48,7 @@ export function SiteHeader() {
       </div>
 
       <div className="border-t border-gov-border px-4 py-3 md:hidden">
-        <form role="search" className="flex items-center justify-between gap-3">
-          <label htmlFor="site-search-mobile" className="sr-only-focusable">
-            {strings.header.searchLabel}
-          </label>
-          <div className="flex min-h-[44px] flex-1 items-center rounded border border-gov-border px-2 focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-gov-blue">
-            <Search className="h-4 w-4 text-gov-slate" aria-hidden="true" />
-            <input
-              id="site-search-mobile"
-              type="search"
-              placeholder={strings.header.searchPlaceholder}
-              className="w-full border-0 bg-transparent px-2 py-2.5 text-base text-gov-slate focus:outline-none"
-            />
-          </div>
-        </form>
+        <SiteSearchForm variant="mobile" id="site-search-mobile" />
       </div>
 
       <div id="mobile-nav">
