@@ -1,9 +1,12 @@
 import type { Notice } from "./types";
-import { shiftIso } from "@/lib/dates";
+import { currentHolidayNotice, shiftIso, shiftSeasonalIso, todayIso } from "../lib/dates";
 
 // Dates below are written against the dataset anchor in lib/dates and shifted onto the
 // current timeline at build time. Bodies that name a date use a {date:YYYY-MM-DD} token
-// so the prose moves with the notice instead of contradicting it.
+// so the prose moves with the notice instead of contradicting it. Notices marked
+// seasonal move by whole years instead, so a winter storm never lands in June, and use
+// {seasonal:YYYY-MM-DD} tokens for the same reason. Every date here is on or before the
+// anchor: a notice is never posted in the future.
 const rawNotices: Notice[] = [
   {
     id: "water-main-repair-elm",
@@ -77,15 +80,15 @@ const rawNotices: Notice[] = [
   },
   {
     id: "road-closure-bridge-street",
-    title: "Bridge Street closed for resurfacing through August",
-    body: "Bridge Street between Oak Avenue and the river crossing is closed to vehicle traffic while crews complete a full-depth resurfacing project. A signed detour routes traffic via Oak Avenue and Riverside Drive. Pedestrian access remains open.",
+    title: "Bridge Street closed for resurfacing",
+    body: "Bridge Street between Oak Avenue and the river crossing is closed to vehicle traffic while crews complete a full-depth resurfacing project. A signed detour routes traffic via Oak Avenue and Riverside Drive. Pedestrian access remains open. The closure is expected to last through {date:2026-09-25}, weather permitting.",
     date: "2026-07-14",
     department: "Streets Division",
     urgent: false,
     active: true,
     es: {
-      title: "Calle Bridge cerrada por repavimentación durante agosto",
-      body: "La calle Bridge entre la Avenida Oak y el cruce del río está cerrada al tráfico vehicular mientras las cuadrillas completan un proyecto de repavimentación total. Un desvío señalizado dirige el tráfico por la Avenida Oak y Riverside Drive. El acceso peatonal permanece abierto.",
+      title: "Calle Bridge cerrada por repavimentación",
+      body: "La calle Bridge entre la Avenida Oak y el cruce del río está cerrada al tráfico vehicular mientras las cuadrillas completan un proyecto de repavimentación total. Un desvío señalizado dirige el tráfico por la Avenida Oak y Riverside Drive. El acceso peatonal permanece abierto. Se espera que el cierre dure hasta el {date:2026-09-25}, si el clima lo permite.",
       department: "División de Calles",
     },
   },
@@ -139,6 +142,7 @@ const rawNotices: Notice[] = [
     department: "Water and Sewer Division",
     urgent: false,
     active: false,
+    seasonal: true,
     es: {
       title: "Concluye el programa de purga de hidrantes de primavera",
       body: "El programa anual de purga de hidrantes, que puede causar decoloración temporal del agua, concluyó en todos los distritos de la ciudad según este aviso. Se recomienda a los residentes que aún noten agua decolorada dejar correr una llave de agua fría durante unos minutos.",
@@ -162,14 +166,16 @@ const rawNotices: Notice[] = [
   {
     id: "seasonal-water-restrictions-summer",
     title: "Seasonal outdoor watering schedule now in effect",
-    body: "The annual summer outdoor watering schedule is now in effect through {date:2026-09-30}. Addresses ending in an odd number may water lawns and gardens on odd-numbered calendar days, and even-numbered addresses on even-numbered days, between 6:00 PM and 10:00 AM.",
+    body: "The annual summer outdoor watering schedule is now in effect through {seasonal:2026-09-30}. Addresses ending in an odd number may water lawns and gardens on odd-numbered calendar days, and even-numbered addresses on even-numbered days, between 6:00 PM and 10:00 AM.",
     date: "2026-06-01",
     department: "Water and Sewer Division",
     urgent: false,
     active: true,
+    seasonal: true,
+    activeUntil: "2026-09-30",
     es: {
       title: "Entra en vigencia el calendario estacional de riego al aire libre",
-      body: "El calendario anual de riego exterior de verano está vigente hasta el {date:2026-09-30}. Las direcciones que terminan en número impar pueden regar césped y jardines en días impares del calendario, y las direcciones pares en días pares, entre las 6:00 PM y las 10:00 AM.",
+      body: "El calendario anual de riego exterior de verano está vigente hasta el {seasonal:2026-09-30}. Las direcciones que terminan en número impar pueden regar césped y jardines en días impares del calendario, y las direcciones pares en días pares, entre las 6:00 PM y las 10:00 AM.",
       department: "División de Agua y Alcantarillado",
     },
   },
@@ -181,6 +187,7 @@ const rawNotices: Notice[] = [
     department: "Sanitation Division",
     urgent: false,
     active: false,
+    seasonal: true,
     es: {
       title: "Se extiende la recolección de desechos de jardín en la acera hasta noviembre",
       body: "En respuesta a las solicitudes de los residentes, la recolección quincenal en la acera de desechos de jardín se ha extendido hasta finales de noviembre de este año. Las ramas atadas y las hojas embolsadas deben colocarse en la acera antes de las 7:00 AM el día de recolección programado.",
@@ -195,6 +202,7 @@ const rawNotices: Notice[] = [
     department: "Streets Division",
     urgent: true,
     active: false,
+    seasonal: true,
     es: {
       title: "Se declara emergencia por nieve para la tormenta invernal nocturna",
       body: "Se ha declarado una emergencia por nieve vigente a partir de las 6:00 PM. Se prohíbe estacionar en las rutas designadas de emergencia por nieve hasta que se levante la emergencia. Los vehículos dejados en rutas de emergencia están sujetos a remolque. Las rutas prioritarias se despejarán primero, seguidas de las calles residenciales.",
@@ -209,24 +217,11 @@ const rawNotices: Notice[] = [
     department: "Streets Division",
     urgent: false,
     active: false,
+    seasonal: true,
     es: {
       title: "Aviso de tormenta invernal: se levantan las restricciones de estacionamiento",
       body: "Se han levantado las restricciones de estacionamiento por emergencia de nieve emitidas durante la tormenta de enero. Las calles residenciales han sido completamente despejadas y las reglas normales de estacionamiento están nuevamente en vigencia.",
       department: "División de Calles",
-    },
-  },
-  {
-    id: "city-hall-closure-holiday",
-    title: "City offices closed for Labor Day",
-    body: "All Bellwood Public Works offices, including the permitting counter and utility billing office, will be closed on Labor Day. Waste and recycling collection will run one day later than usual that week.",
-    date: "2026-08-15",
-    department: "City Clerk's Office",
-    urgent: false,
-    active: true,
-    es: {
-      title: "Oficinas de la ciudad cerradas por el Día del Trabajo",
-      body: "Todas las oficinas de Bellwood Public Works, incluyendo el mostrador de permisos y la oficina de facturación de servicios públicos, permanecerán cerradas el Día del Trabajo. La recolección de basura y reciclaje se realizará un día más tarde de lo habitual esa semana.",
-      department: "Oficina del Secretario Municipal",
     },
   },
   {
@@ -237,6 +232,7 @@ const rawNotices: Notice[] = [
     department: "City Clerk's Office",
     urgent: false,
     active: false,
+    seasonal: true,
     es: {
       title: "Oficinas de la ciudad cerradas por el Año Nuevo",
       body: "Todas las oficinas de Bellwood Public Works estarán cerradas el Día de Año Nuevo. La recolección de basura y reciclaje programada para ese día se realizará el siguiente día hábil regular, y todas las recolecciones posteriores de esa semana se retrasarán un día.",
@@ -265,6 +261,7 @@ const rawNotices: Notice[] = [
     department: "Sanitation Division",
     urgent: false,
     active: false,
+    seasonal: true,
     es: {
       title: "Se anuncia el calendario de recolección de hojas de otoño",
       body: "La recolección de hojas sueltas se realizará según un calendario rotativo por distrito desde finales de octubre hasta principios de diciembre. Los residentes deben rastrillar las hojas hacia la acera, no hacia la calle, antes de las 7:00 AM en la semana programada de su distrito. Las hojas colocadas en bolsas de plástico no serán recolectadas mediante este programa.",
@@ -321,6 +318,7 @@ const rawNotices: Notice[] = [
     department: "Streets Division",
     urgent: true,
     active: false,
+    seasonal: true,
     es: {
       title: "Alerta de emergencia: advertencia de tormenta severa vigente",
       body: "Una advertencia de tormenta severa está vigente para Bellwood y sus alrededores hasta las 9:00 PM. Se recomienda a los residentes evitar viajes innecesarios. Las cuadrillas de Obras Públicas están en espera para responder a árboles caídos, calles inundadas e interrupciones relacionadas con la tormenta.",
@@ -357,7 +355,35 @@ const rawNotices: Notice[] = [
   },
 ];
 
-export const notices: Notice[] = rawNotices.map((notice) => ({
-  ...notice,
-  date: shiftIso(notice.date),
-}));
+/**
+ * The holiday closure notice is computed rather than stored, because no fixed record can
+ * stay true: a "closed for Labor Day" notice shifted onto an October timeline reads as an
+ * error. It always describes the next observed city holiday once its notice is due, or
+ * otherwise the most recent one, archived.
+ */
+function holidayClosureNotice(): Notice {
+  const { holiday, postedIso, active } = currentHolidayNotice();
+  return {
+    id: "city-hall-closure-holiday",
+    title: `City offices closed for ${holiday.name}`,
+    body: `All Bellwood Public Works offices, including the permitting counter and utility billing office, will be closed on {fixed:${holiday.date}} in observance of ${holiday.name}. Waste and recycling collection will run one day later than usual for the rest of that week. Water and sewer emergencies can still be reported around the clock at (555) 011-2911.`,
+    date: postedIso,
+    department: "City Clerk's Office",
+    urgent: false,
+    active,
+    es: {
+      title: `Oficinas de la ciudad cerradas por ${holiday.nameEs}`,
+      body: `Todas las oficinas de Bellwood Public Works, incluyendo el mostrador de permisos y la oficina de facturación de servicios públicos, permanecerán cerradas el {fixed:${holiday.date}} en conmemoración de ${holiday.nameEs}. La recolección de basura y reciclaje se realizará un día más tarde de lo habitual durante el resto de esa semana. Las emergencias de agua y alcantarillado pueden reportarse a cualquier hora al (555) 011-2911.`,
+      department: "Oficina del Secretario Municipal",
+    },
+  };
+}
+
+export const notices: Notice[] = [
+  ...rawNotices.map((notice) => {
+    const shift = notice.seasonal ? shiftSeasonalIso : shiftIso;
+    const expired = notice.activeUntil ? shift(notice.activeUntil) < todayIso : false;
+    return { ...notice, date: shift(notice.date), active: notice.active && !expired };
+  }),
+  holidayClosureNotice(),
+];

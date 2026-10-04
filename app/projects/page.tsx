@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { useLanguage } from "@/lib/i18n";
+import { expandDateTokens } from "@/lib/dates";
 import { InteriorLayout } from "@/components/layout/InteriorLayout";
 import { RelatedLinks } from "@/components/layout/RelatedLinks";
 import { sections } from "@/content/sections";
@@ -40,6 +41,7 @@ export default function ProjectsPage() {
 
   return (
     <InteriorLayout
+      wide
       section={section}
       currentHref="/projects"
       breadcrumbs={[{ label: strings.projects.heading }]}
@@ -104,7 +106,7 @@ export default function ProjectsPage() {
                 </div>
                 <div>
                   <dt className="font-medium text-gov-navy">{strings.projects.timelineLabel}</dt>
-                  <dd className="text-gov-slate">{project.timeline}</dd>
+                  <dd className="text-gov-slate">{expandDateTokens(project.timeline, language)}</dd>
                 </div>
               </dl>
             </li>

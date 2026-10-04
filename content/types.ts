@@ -30,6 +30,11 @@ export interface Notice {
   department: string;
   urgent: boolean;
   active: boolean;
+  /** Tied to the calendar (a seasonal program, a winter storm), so it shifts by whole
+   *  years rather than whole weeks. Body dates use {seasonal:YYYY-MM-DD} tokens. */
+  seasonal?: boolean;
+  /** Last day the notice stays active, after which it is shown as archived. */
+  activeUntil?: string;
   es: {
     title: string;
     body: string;
@@ -46,6 +51,8 @@ export interface Meeting {
   location: string;
   agendaUrl?: string;
   minutesUrl?: string;
+  /** Which public body holds the meeting; filled in from the title in content/meetings. */
+  bodyId?: string;
   es: {
     title: string;
     body: string;
@@ -102,12 +109,14 @@ export interface Project {
   status: "Planning" | "Design" | "In Construction" | "Completed";
   division: string;
   budget: string;
+  /** Uses {month:YYYY-MM-DD} tokens so the phases move with the rest of the dataset. */
   timeline: string;
   description: string;
   es: {
     name: string;
     status: string;
     division: string;
+    timeline: string;
     description: string;
   };
 }
@@ -145,6 +154,8 @@ export interface UIStrings {
     mobileNavLabel: string;
     navDropdownOpen: string;
     navDropdownClose: string;
+    searchButton: string;
+    menuButton: string;
   };
   footer: {
     contactHeading: string;
@@ -169,6 +180,7 @@ export interface UIStrings {
     designedBy: string;
     backToTop: string;
     navLabel: string;
+    languageAssistance: string;
   };
   alert: {
     pauseScrolling: string;
@@ -205,6 +217,20 @@ export interface UIStrings {
     contactCtaHeading: string;
     contactCtaIntro: string;
     reportIssueCta: string;
+    heroEyebrow: string;
+    heroSearchLabel: string;
+    heroSearchPlaceholder: string;
+    popularSearchesLabel: string;
+    popularSearches: { label: string; query: string }[];
+    reportHeading: string;
+    reportBody: string;
+    emergencyNote: string;
+    callLabel: string;
+    contactSectionHeading: string;
+    agendaPosted: string;
+    agendaPending: string;
+    addressLabel: string;
+    viewAllProjects: string;
   };
   pages: {
     servicesHeading: string;
@@ -259,6 +285,11 @@ export interface UIStrings {
     atTime: string;
     forLabel: string;
     pdfFormat: string;
+    bodyFilterLabel: string;
+    allBodiesLabel: string;
+    showAllPast: string;
+    showFewerPast: string;
+    resultsCount: string;
   };
   forms: {
     searchLabel: string;
@@ -368,6 +399,7 @@ export interface UIStrings {
     status: string;
     meeting: string;
     dateAndLocation: string;
+    date: string;
     documents: string;
     form: string;
     name: string;

@@ -1,5 +1,5 @@
 import type { Meeting } from "./types";
-import { shiftIso, shiftUrlDate } from "@/lib/dates";
+import { shiftIso, shiftUrlDate } from "../lib/dates";
 
 // Dates below are written against the dataset anchor in lib/dates. They are shifted onto
 // the current timeline at build time, in whole weeks so each body keeps its weekday.
@@ -12,7 +12,6 @@ const rawMeetings: Meeting[] = [
     time: "6:30 PM",
     location: "Council Chambers, Bellwood City Hall, 100 Municipal Way",
     agendaUrl: "/documents/council-agenda-2026-08-04.pdf",
-    minutesUrl: "/documents/council-minutes-2026-07-07.pdf",
     es: {
       title: "Sesión Ordinaria del Concejo Municipal",
       body: "Sesión ordinaria mensual que incluye la agenda de consentimiento, una audiencia pública sobre el contrato de repavimentación de la calle Bridge, e informes de comités.",
@@ -36,14 +35,14 @@ const rawMeetings: Meeting[] = [
   {
     id: "parks-board-aug-2026",
     title: "Parks and Recreation Board Meeting",
-    body: "Discussion of the fall recreation program schedule and an update on the Eastside Trail extension project.",
+    body: "Discussion of the next quarter's recreation program schedule and an update on the Eastside Trail extension project.",
     date: "2026-08-13",
     time: "4:00 PM",
     location: "Community Room, Eastside Recreation Center, 415 Birch Street",
     agendaUrl: "/documents/parks-board-agenda-2026-08-13.pdf",
     es: {
       title: "Reunión de la Junta de Parques y Recreación",
-      body: "Discusión del calendario de programas recreativos de otoño y una actualización sobre el proyecto de extensión del sendero Eastside.",
+      body: "Discusión del calendario de programas recreativos del próximo trimestre y una actualización sobre el proyecto de extensión del sendero Eastside.",
       location: "Salón Comunitario, Centro Recreativo Eastside, 415 Birch Street",
     },
   },
@@ -109,7 +108,7 @@ const rawMeetings: Meeting[] = [
   {
     id: "parks-board-may-2026",
     title: "Parks and Recreation Board Meeting",
-    body: "Approved the summer recreation program schedule and reviewed bids for phase two of the Eastside Trail extension.",
+    body: "Approved the upcoming recreation program schedule and reviewed bids for phase two of the Eastside Trail extension.",
     date: "2026-05-14",
     time: "4:00 PM",
     location: "Community Room, Eastside Recreation Center, 415 Birch Street",
@@ -117,7 +116,7 @@ const rawMeetings: Meeting[] = [
     minutesUrl: "/documents/parks-board-minutes-2026-05-14.pdf",
     es: {
       title: "Reunión de la Junta de Parques y Recreación",
-      body: "Se aprobó el calendario del programa recreativo de verano y se revisaron las ofertas para la fase dos de la extensión del sendero Eastside.",
+      body: "Se aprobó el calendario del próximo programa recreativo y se revisaron las ofertas para la fase dos de la extensión del sendero Eastside.",
       location: "Salón Comunitario, Centro Recreativo Eastside, 415 Birch Street",
     },
   },
@@ -125,11 +124,11 @@ const rawMeetings: Meeting[] = [
     id: "stormwater-advisory-may-2026",
     title: "Stormwater Advisory Committee Meeting",
     body: "Heard public comment on the Willow Creek drainage improvement proposal and recommended it advance to City Council for funding consideration.",
-    date: "2026-05-28",
+    date: "2026-05-19",
     time: "6:00 PM",
     location: "Public Works Annex, 220 Industrial Parkway",
-    agendaUrl: "/documents/stormwater-agenda-2026-05-28.pdf",
-    minutesUrl: "/documents/stormwater-minutes-2026-05-28.pdf",
+    agendaUrl: "/documents/stormwater-agenda-2026-05-19.pdf",
+    minutesUrl: "/documents/stormwater-minutes-2026-05-19.pdf",
     es: {
       title: "Reunión del Comité Asesor de Aguas Pluviales",
       body: "Se recibieron comentarios públicos sobre la propuesta de mejoras de drenaje de Willow Creek y se recomendó que avance al Concejo Municipal para su financiamiento.",
@@ -199,7 +198,7 @@ const rawMeetings: Meeting[] = [
   {
     id: "parks-board-jan-2026",
     title: "Parks and Recreation Board Meeting",
-    body: "Reviewed winter program attendance and approved the pavilion reservation calendar for the coming season.",
+    body: "Reviewed attendance for the past quarter's programs and approved the pavilion reservation calendar for the coming season.",
     date: "2026-01-08",
     time: "4:00 PM",
     location: "Community Room, Eastside Recreation Center, 415 Birch Street",
@@ -207,7 +206,7 @@ const rawMeetings: Meeting[] = [
     minutesUrl: "/documents/parks-board-minutes-2026-01-08.pdf",
     es: {
       title: "Reunión de la Junta de Parques y Recreación",
-      body: "Se revisó la asistencia a los programas de invierno y se aprobó el calendario de reservas de pabellones para la próxima temporada.",
+      body: "Se revisó la asistencia a los programas del trimestre anterior y se aprobó el calendario de reservas de pabellones para la próxima temporada.",
       location: "Salón Comunitario, Centro Recreativo Eastside, 415 Birch Street",
     },
   },
@@ -215,10 +214,10 @@ const rawMeetings: Meeting[] = [
     id: "council-regular-dec-2025",
     title: "City Council Regular Meeting",
     body: "Monthly regular session. Approved the fleet vehicle purchase award and adopted the final fiscal year budget.",
-    date: "2025-12-01",
+    date: "2025-12-02",
     time: "6:30 PM",
     location: "Council Chambers, Bellwood City Hall, 100 Municipal Way",
-    minutesUrl: "/documents/council-minutes-2025-12-01.pdf",
+    minutesUrl: "/documents/council-minutes-2025-12-02.pdf",
     es: {
       title: "Sesión Ordinaria del Concejo Municipal",
       body: "Sesión ordinaria mensual. Se aprobó la adjudicación de la compra de vehículos de flota y se adoptó el presupuesto final del año fiscal.",
@@ -229,10 +228,10 @@ const rawMeetings: Meeting[] = [
     id: "stormwater-advisory-oct-2025",
     title: "Stormwater Advisory Committee Meeting",
     body: "Reviewed findings from the 4th Avenue culvert replacement project and discussed priorities for the following year's drainage improvements.",
-    date: "2025-10-22",
+    date: "2025-10-21",
     time: "6:00 PM",
     location: "Public Works Annex, 220 Industrial Parkway",
-    minutesUrl: "/documents/stormwater-minutes-2025-10-22.pdf",
+    minutesUrl: "/documents/stormwater-minutes-2025-10-21.pdf",
     es: {
       title: "Reunión del Comité Asesor de Aguas Pluviales",
       body: "Se revisaron los resultados del proyecto de reemplazo de la alcantarilla de la 4ta Avenida y se discutieron las prioridades para las mejoras de drenaje del año siguiente.",
@@ -243,10 +242,10 @@ const rawMeetings: Meeting[] = [
     id: "planning-commission-sep-2025",
     title: "Planning Commission Meeting",
     body: "Approved a preliminary plat for a small residential subdivision off Oak Avenue and heard a report on citywide sidewalk gap analysis.",
-    date: "2025-09-08",
+    date: "2025-09-09",
     time: "5:30 PM",
     location: "Council Chambers, Bellwood City Hall, 100 Municipal Way",
-    minutesUrl: "/documents/planning-minutes-2025-09-08.pdf",
+    minutesUrl: "/documents/planning-minutes-2025-09-09.pdf",
     es: {
       title: "Reunión de la Comisión de Planificación",
       body: "Se aprobó un plano preliminar para una pequeña subdivisión residencial cerca de la Avenida Oak y se presentó un informe sobre el análisis de brechas de aceras en toda la ciudad.",
@@ -256,14 +255,14 @@ const rawMeetings: Meeting[] = [
   {
     id: "council-regular-aug-2025",
     title: "City Council Regular Meeting",
-    body: "Monthly regular session. Approved emergency repair funding following the July severe thunderstorm and heard a report on the recycling cart replacement rollout.",
-    date: "2025-08-04",
+    body: "Monthly regular session. Approved emergency repair funding following the recent severe thunderstorm and heard a report on the recycling cart replacement rollout.",
+    date: "2025-08-05",
     time: "6:30 PM",
     location: "Council Chambers, Bellwood City Hall, 100 Municipal Way",
-    minutesUrl: "/documents/council-minutes-2025-08-04.pdf",
+    minutesUrl: "/documents/council-minutes-2025-08-05.pdf",
     es: {
       title: "Sesión Ordinaria del Concejo Municipal",
-      body: "Sesión ordinaria mensual. Se aprobó el financiamiento de reparaciones de emergencia tras la tormenta severa de julio y se presentó un informe sobre la distribución de contenedores de reciclaje.",
+      body: "Sesión ordinaria mensual. Se aprobó el financiamiento de reparaciones de emergencia tras la reciente tormenta severa y se presentó un informe sobre la distribución de contenedores de reciclaje.",
       location: "Salón del Concejo, Ayuntamiento de Bellwood, 100 Municipal Way",
     },
   },
@@ -283,8 +282,39 @@ const rawMeetings: Meeting[] = [
   },
 ];
 
+export interface MeetingBody {
+  id: string;
+  label: string;
+  labelEs: string;
+  /** English title prefix that identifies this body's meetings. */
+  titlePrefix: string;
+}
+
+export const meetingBodies: MeetingBody[] = [
+  { id: "council", label: "City Council", labelEs: "Concejo Municipal", titlePrefix: "City Council" },
+  {
+    id: "planning",
+    label: "Planning Commission",
+    labelEs: "Comisión de Planificación",
+    titlePrefix: "Planning Commission",
+  },
+  {
+    id: "parks",
+    label: "Parks and Recreation Board",
+    labelEs: "Junta de Parques y Recreación",
+    titlePrefix: "Parks and Recreation Board",
+  },
+  {
+    id: "stormwater",
+    label: "Stormwater Advisory Committee",
+    labelEs: "Comité Asesor de Aguas Pluviales",
+    titlePrefix: "Stormwater Advisory Committee",
+  },
+];
+
 export const meetings: Meeting[] = rawMeetings.map((meeting) => ({
   ...meeting,
+  bodyId: meetingBodies.find((body) => meeting.title.startsWith(body.titlePrefix))?.id,
   date: shiftIso(meeting.date),
   agendaUrl: meeting.agendaUrl ? shiftUrlDate(meeting.agendaUrl) : undefined,
   minutesUrl: meeting.minutesUrl ? shiftUrlDate(meeting.minutesUrl) : undefined,

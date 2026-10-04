@@ -6,8 +6,11 @@ import { Search } from "lucide-react";
 import { useLanguage } from "@/lib/i18n";
 
 interface SiteSearchFormProps {
-  /** "utility" is the compact box on the navy bar, "mobile" the full width one. */
-  variant: "utility" | "mobile";
+  /**
+   * "header" is the desktop box in the masthead, "mobile" the full width row shown
+   * below the masthead on small screens, and "hero" the large search on the home page.
+   */
+  variant: "header" | "mobile" | "hero";
   id: string;
 }
 
@@ -23,44 +26,59 @@ export function SiteSearchForm({ variant, id }: SiteSearchFormProps) {
     router.push(`/search/?q=${encodeURIComponent(trimmed)}`);
   }
 
-  const isUtility = variant === "utility";
+  if (variant === "hero") {
+    const labelId = `${id}-label`;
+    return (
+      <form role="search" aria-labelledby={labelId} onSubmit={handleSubmit}>
+        <label id={labelId} htmlFor={id} className="block text-xl font-bold text-white sm:text-2xl">
+          {strings.home.heroSearchLabel}
+        </label>
+        <div className="mt-3 flex">
+          <input
+            id={id}
+            name="q"
+            type="search"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder={strings.home.heroSearchPlaceholder}
+            className="min-h-[52px] w-full min-w-0 flex-1 rounded-l border-2 border-r-0 border-white bg-white px-4 text-base text-gov-navy placeholder:text-gov-slate sm:text-lg"
+          />
+          <button
+            type="submit"
+            className="inline-flex min-h-[52px] shrink-0 items-center gap-2 rounded-r border-2 border-white bg-gov-blue px-4 font-bold text-white hover:bg-gov-navy sm:px-6"
+          >
+            <Search className="h-5 w-5" aria-hidden="true" />
+            <span className="sr-only sm:not-sr-only">{strings.header.searchButton}</span>
+          </button>
+        </div>
+      </form>
+    );
+  }
+
+  const isHeader = variant === "header";
 
   return (
-    <form
-      role="search"
-      onSubmit={handleSubmit}
-      className={isUtility ? "hidden items-center sm:flex" : "flex items-center justify-between gap-3"}
-    >
+    <form role="search" onSubmit={handleSubmit} className="flex w-full items-stretch">
       <label htmlFor={id} className="sr-only">
         {strings.header.searchLabel}
       </label>
-      <div
-        className={
-          isUtility
-            ? "flex items-center rounded border border-white/60 bg-white/10 px-2"
-            : "flex min-h-[44px] flex-1 items-center rounded border border-gov-control-border px-2"
-        }
+      <input
+        id={id}
+        name="q"
+        type="search"
+        value={query}
+        onChange={(event) => setQuery(event.target.value)}
+        placeholder={strings.header.searchPlaceholder}
+        className={`min-h-[44px] min-w-0 flex-1 rounded-l border border-r-0 border-gov-control-border bg-white px-3 text-base text-gov-navy placeholder:text-gov-slate ${
+          isHeader ? "w-64 xl:w-72" : "w-full"
+        }`}
+      />
+      <button
+        type="submit"
+        className="inline-flex min-h-[44px] min-w-[44px] shrink-0 items-center justify-center gap-2 rounded-r bg-gov-navy px-3 font-bold text-white hover:bg-gov-blue"
       >
-        <Search
-          className={isUtility ? "h-3.5 w-3.5 text-white" : "h-4 w-4 text-gov-slate"}
-          aria-hidden="true"
-        />
-        <input
-          id={id}
-          name="q"
-          type="search"
-          value={query}
-          onChange={(event) => setQuery(event.target.value)}
-          placeholder={strings.header.searchPlaceholder}
-          className={
-            isUtility
-              ? "w-36 border-0 bg-transparent px-2 py-1 text-xs text-white placeholder:text-white/70"
-              : "w-full border-0 bg-transparent px-2 py-2.5 text-base text-gov-slate"
-          }
-        />
-      </div>
-      <button type="submit" className="sr-only">
-        {strings.search.submitLabel}
+        <Search className="h-4 w-4" aria-hidden="true" />
+        <span className={isHeader ? "" : "sr-only"}>{strings.header.searchButton}</span>
       </button>
     </form>
   );

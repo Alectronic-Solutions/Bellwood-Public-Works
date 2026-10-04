@@ -101,6 +101,7 @@ export default function SearchPage() {
 
   return (
     <InteriorLayout
+      wide
       section={section}
       currentHref="/search"
       breadcrumbs={[{ label: strings.search.heading }]}

@@ -31,6 +31,7 @@ export default function ServicesPage() {
 
   return (
     <InteriorLayout
+      wide
       section={section}
       currentHref="/services"
       headerImage="/images/headers/services.jpg"

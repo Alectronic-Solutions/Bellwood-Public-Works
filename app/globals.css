@@ -55,10 +55,14 @@ table tbody tr {
   border-bottom: 1px solid var(--gov-border);
 }
 
+/* Hidden by translating the link fully above the viewport rather than by a fixed negative
+   top: a fixed offset left a sliver of the navy box showing once the text size control
+   made the link taller than the offset. */
 .skip-link {
   position: absolute;
   left: 0.5rem;
-  top: -3rem;
+  top: 0.5rem;
+  transform: translateY(calc(-100% - 1rem));
   z-index: 100;
   background-color: var(--gov-navy);
   color: #ffffff;
@@ -66,11 +70,11 @@ table tbody tr {
   border-radius: 0.25rem;
   font-weight: 700;
   text-decoration: none;
-  transition: top 0.15s ease-in-out;
+  transition: transform 0.15s ease-in-out;
 }
 
 .skip-link:focus {
-  top: 0.5rem;
+  transform: none;
 }
 
 /* One focus treatment for the whole site, readable on light and dark grounds alike.
@@ -162,5 +166,40 @@ main:focus-visible {
     width: auto;
     flex-wrap: wrap;
     transform: none;
+  }
+}
+
+/* Home hero wash over the backdrop photo. Tailwind opacity modifiers such as
+   bg-gov-navy/90 generate nothing for palette colors defined as CSS variables, so the
+   translucency is written here with color-mix on the same variable, after a plain rgba
+   fallback. Small screens get a near-solid wash because the text spans the full width;
+   wide screens keep the text column above 90 percent navy and let the photo show on
+   the right, where there is no text. */
+.hero-scrim {
+  background-color: rgba(27, 58, 92, 0.93);
+  background-color: color-mix(in srgb, var(--gov-navy) 93%, transparent);
+}
+
+@media (min-width: 1024px) {
+  .hero-scrim {
+    background-color: transparent;
+    background-image: linear-gradient(
+      90deg,
+      rgba(27, 58, 92, 0.97) 0%,
+      rgba(27, 58, 92, 0.92) 55%,
+      rgba(27, 58, 92, 0.3) 100%
+    );
+    background-image: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--gov-navy) 97%, transparent) 0%,
+      color-mix(in srgb, var(--gov-navy) 92%, transparent) 55%,
+      color-mix(in srgb, var(--gov-navy) 30%, transparent) 100%
+    );
+  }
+}
+
+@media (forced-colors: active) {
+  .hero-scrim {
+    background: Canvas;
   }
 }

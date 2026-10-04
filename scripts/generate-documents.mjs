@@ -13,7 +13,25 @@ import { join, dirname, relative } from "node:path";
 const outDir = join(process.cwd(), "out");
 const publicDir = join(process.cwd(), "public");
 
-const LINK_PATTERN = /<a[^>]+href="([^"]*\/documents\/[^"]+\.pdf)"[^>]*>([^<]*)</g;
+// Captures the whole anchor body, so links that open with an icon or carry screen
+// reader text still yield their full title ("Agenda for City Council Regular Meeting,
+// October 6, 2026") rather than an empty string or a bare filename.
+const LINK_PATTERN = /<a[^>]+href="([^"]*\/documents\/[^"]+\.pdf)"[^>]*>([\s\S]*?)<\/a>/g;
+
+/** Plain text of an anchor body: tags dropped, entities decoded, file type suffix removed. */
+function linkText(innerHtml) {
+  return innerHtml
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;|&#160;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&#x27;|&#39;/g, "'")
+    .replace(/&quot;/g, '"')
+    .replace(/\s+/g, " ")
+    .replace(/\s+([,.)])/g, "$1")
+    .replace(/\(\s+/g, "(")
+    .replace(/\s*\((PDF|DOC)[^)]*\)\s*$/i, "")
+    .trim();
+}
 
 async function* walk(dir) {
   for (const entry of await readdir(dir, { withFileTypes: true })) {
@@ -124,7 +142,7 @@ async function main() {
     for (const match of html.matchAll(LINK_PATTERN)) {
       const [, href, label] = match;
       const path = href.slice(href.indexOf("/documents/"));
-      const title = label.trim();
+      const title = linkText(label);
       if (title && (!documents.has(path) || documents.get(path).length < title.length)) {
         documents.set(path, title);
       } else if (!documents.has(path)) {

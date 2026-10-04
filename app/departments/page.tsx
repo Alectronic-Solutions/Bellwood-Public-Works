@@ -9,6 +9,7 @@ import { sections } from "@/content/sections";
 import { departments } from "@/content/departments";
 import { staff } from "@/content/staff";
 import { footerDepartmentLinks } from "@/content/nav";
+import { EmailText } from "@/components/layout/EmailText";
 
 /** Stable anchor id so other pages can deep link to a single division. */
 function departmentSlug(name: string): string {
@@ -78,9 +79,9 @@ export default function DepartmentsPage() {
                 <dd className="text-gov-slate">
                   <a
                     href={`mailto:${localized.email}`}
-                    className="break-all text-gov-blue underline underline-offset-2 hover:text-gov-navy"
+                    className="text-gov-blue underline underline-offset-2 hover:text-gov-navy"
                   >
-                    {localized.email}
+                    <EmailText email={localized.email} />
                   </a>
                 </dd>
               </div>
@@ -117,9 +118,9 @@ export default function DepartmentsPage() {
                     <span className="font-medium text-gov-navy">{member.name}</span>, {member.title}{" "}
                     <a
                       href={`mailto:${member.email}`}
-                      className="break-all text-gov-blue underline underline-offset-2 hover:text-gov-navy"
+                      className="text-gov-blue underline underline-offset-2 hover:text-gov-navy"
                     >
-                      {member.email}
+                      <EmailText email={member.email} />
                     </a>
                   </li>
                 ))}

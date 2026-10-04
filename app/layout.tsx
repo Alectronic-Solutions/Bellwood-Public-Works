@@ -6,7 +6,6 @@ import { TextSizeProvider } from "@/lib/textSize";
 import { SkipLink } from "@/components/layout/SkipLink";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { PrimaryNav } from "@/components/layout/PrimaryNav";
-import { QuickActionsBar } from "@/components/layout/QuickActionsBar";
 import { AlertBanner } from "@/components/layout/AlertBanner";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 
@@ -59,7 +58,6 @@ export default function RootLayout({
             <AlertBanner />
             <SiteHeader />
             <PrimaryNav />
-            <QuickActionsBar />
             {children}
             <SiteFooter />
           </TextSizeProvider>

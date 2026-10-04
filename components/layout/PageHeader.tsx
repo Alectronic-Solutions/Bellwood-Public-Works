@@ -13,11 +13,15 @@ interface PageHeaderProps {
  * takes an empty alt and is hidden from assistive technology, which is the correct
  * treatment for a purely decorative image. Deliberately no text is placed over the photo:
  * overlaying a heading on an arbitrary image cannot guarantee 4.5:1, and the page heading
- * reads better on the plain background anyway.
+ * reads better on the plain background anyway. It is left out below the sm breakpoint,
+ * where a photo strip would only push the page heading further below the fold.
  */
 export function PageHeader({ imageSrc }: PageHeaderProps) {
   return (
-    <div className="relative h-32 w-full overflow-hidden border-b border-gov-border sm:h-44" aria-hidden="true">
+    <div
+      className="relative hidden h-44 w-full overflow-hidden border-b border-gov-border sm:block lg:h-52"
+      aria-hidden="true"
+    >
       <Image src={withBasePath(imageSrc)} alt="" fill priority sizes="100vw" className="object-cover object-center" />
     </div>
   );

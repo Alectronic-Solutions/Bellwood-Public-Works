@@ -2,6 +2,7 @@
 
 import { Phone, Mail, Clock } from "lucide-react";
 import { useLanguage } from "@/lib/i18n";
+import { EmailText } from "./EmailText";
 
 interface ContactCardProps {
   departmentName: string;
@@ -35,9 +36,9 @@ export function ContactCard({ departmentName, phone, email, hours }: ContactCard
           <div className="flex items-start gap-2">
             <Mail className="mt-0.5 h-4 w-4 flex-shrink-0 text-gov-blue" aria-hidden="true" />
             <dt className="sr-only">{strings.sidebar.emailLabel}</dt>
-            <dd className="break-all">
-              <a href={`mailto:${email}`} className="link-body break-all">
-                {email}
+            <dd className="min-w-0">
+              <a href={`mailto:${email}`} className="link-body">
+                <EmailText email={email} />
               </a>
             </dd>
           </div>

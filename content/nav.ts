@@ -16,6 +16,8 @@ export interface NavItem {
   label: string;
   labelEs: string;
   href: string;
+  /** Path prefixes that count as being inside this section, for the current-page marker. */
+  matches: string[];
   columns?: NavColumn[];
 }
 
@@ -24,6 +26,7 @@ export const primaryNav: NavItem[] = [
     label: "Services",
     labelEs: "Servicios",
     href: "/services",
+    matches: ["/services"],
     columns: [
       {
         heading: "Utilities",
@@ -86,44 +89,115 @@ export const primaryNav: NavItem[] = [
     ],
   },
   {
+    label: "Departments",
+    labelEs: "Departamentos",
+    href: "/departments",
+    matches: ["/departments"],
+    columns: [
+      {
+        heading: "Operating Divisions",
+        headingEs: "Divisiones Operativas",
+        links: [
+          {
+            href: "/departments#water-and-sewer-division",
+            label: "Water and Sewer Division",
+            labelEs: "División de Agua y Alcantarillado",
+          },
+          { href: "/departments#streets-division", label: "Streets Division", labelEs: "División de Calles" },
+          {
+            href: "/departments#sanitation-division",
+            label: "Sanitation Division",
+            labelEs: "División de Saneamiento",
+          },
+          {
+            href: "/departments#stormwater-division",
+            label: "Stormwater Division",
+            labelEs: "División de Aguas Pluviales",
+          },
+        ],
+      },
+      {
+        heading: "Community Services",
+        headingEs: "Servicios Comunitarios",
+        links: [
+          {
+            href: "/departments#building-permits-and-inspections",
+            label: "Building Permits and Inspections",
+            labelEs: "Permisos de Construcción e Inspecciones",
+          },
+          { href: "/departments#parks-and-recreation", label: "Parks and Recreation", labelEs: "Parques y Recreación" },
+          {
+            href: "/departments#city-clerk-s-office",
+            label: "City Clerk's Office",
+            labelEs: "Oficina del Secretario Municipal",
+          },
+        ],
+      },
+      {
+        heading: "Directories",
+        headingEs: "Directorios",
+        links: [
+          { href: "/departments", label: "All Departments", labelEs: "Todos los Departamentos" },
+          { href: "/contact#staff-directory-heading", label: "Staff Directory", labelEs: "Directorio de Personal" },
+          { href: "/contact", label: "Contact Us", labelEs: "Contáctenos" },
+        ],
+      },
+    ],
+  },
+  {
+    label: "Projects",
+    labelEs: "Proyectos",
+    href: "/projects",
+    matches: ["/projects"],
+  },
+  {
     label: "Notices",
     labelEs: "Avisos",
     href: "/notices",
+    matches: ["/notices"],
   },
   {
     label: "Meetings",
     labelEs: "Reuniones",
     href: "/meetings",
+    matches: ["/meetings"],
   },
   {
     label: "Forms",
     labelEs: "Formularios",
     href: "/forms",
+    matches: ["/forms"],
   },
   {
     label: "About",
     labelEs: "Acerca de",
     href: "/accessibility",
+    matches: ["/accessibility", "/public-records", "/privacy", "/site-map", "/contact"],
     columns: [
       {
-        heading: "Department",
-        headingEs: "Departamento",
+        heading: "Government",
+        headingEs: "Gobierno",
+        links: [
+          { href: "/contact", label: "Contact Us", labelEs: "Contáctenos" },
+          {
+            href: "/public-records",
+            label: "Public Records Request",
+            labelEs: "Solicitud de Registros Públicos",
+          },
+          { href: "/meetings", label: "Agendas and Minutes", labelEs: "Agendas y Actas" },
+        ],
+      },
+      {
+        heading: "Policies",
+        headingEs: "Políticas",
         links: [
           {
             href: "/accessibility",
             label: "Accessibility Statement",
             labelEs: "Declaración de Accesibilidad",
           },
-          {
-            href: "/public-records",
-            label: "Public Records Request",
-            labelEs: "Solicitud de Registros Públicos",
-          },
-          {
-            href: "/contact",
-            label: "Contact Us",
-            labelEs: "Contáctenos",
-          },
+          { href: "/privacy", label: "Privacy Policy", labelEs: "Política de Privacidad" },
+          { href: "/site-map", label: "Site Map", labelEs: "Mapa del Sitio" },
         ],
       },
     ],
@@ -141,12 +215,16 @@ export const footerDepartmentLinks: NavLink[] = [
   { href: "/services/waste-recycling", label: "Sanitation Division", labelEs: "División de Saneamiento" },
   { href: "/services/parks-recreation", label: "Parks and Recreation", labelEs: "Parques y Recreación" },
   { href: "/services/stormwater", label: "Stormwater Division", labelEs: "División de Aguas Pluviales" },
-  { href: "/departments#city-clerks-office", label: "City Clerk's Office", labelEs: "Oficina del Secretario Municipal" },
+  {
+    href: "/departments#city-clerks-office",
+    label: "City Clerk's Office",
+    labelEs: "Oficina del Secretario Municipal",
+  },
   { href: "/departments", label: "Department Directory", labelEs: "Directorio de Departamentos" },
 ];
 
 export const footerServiceLinks: NavLink[] = [
-  { href: "/services/water-sewer", label: "Pay a Utility Bill", labelEs: "Pagar Factura de Servicios" },
+  { href: "/services/utility-billing-assistance", label: "Pay a Utility Bill", labelEs: "Pagar Factura de Servicios" },
   { href: "/services/streets-sidewalks", label: "Report a Pothole", labelEs: "Reportar un Bache" },
   {
     href: "/services/building-permits",
@@ -191,7 +269,7 @@ export interface QuickAction {
 
 export const quickActions: QuickAction[] = [
   {
-    href: "/services/water-sewer",
+    href: "/services/utility-billing-assistance",
     icon: "credit-card",
     label: "Pay a Utility Bill",
     labelEs: "Pagar Factura de Servicios",
@@ -205,37 +283,37 @@ export const quickActions: QuickAction[] = [
   {
     href: "/services/building-permits",
     icon: "file-check-2",
-    label: "Request a Permit",
+    label: "Apply for a Permit",
     labelEs: "Solicitar un Permiso",
   },
   {
     href: "/services/waste-recycling",
     icon: "trash-2",
-    label: "View Trash Schedule",
-    labelEs: "Ver Horario de Recolección",
-  },
-  {
-    href: "/public-records",
-    icon: "folder-search",
-    label: "Public Records Request",
-    labelEs: "Solicitar Registros Públicos",
+    label: "Trash and Recycling Schedule",
+    labelEs: "Horario de Basura y Reciclaje",
   },
   {
     href: "/meetings",
     icon: "calendar-days",
-    label: "Find a Meeting Agenda",
-    labelEs: "Buscar Agenda de Reunión",
+    label: "Agendas and Minutes",
+    labelEs: "Agendas y Actas",
   },
   {
-    href: "/services/streets-sidewalks",
-    icon: "lightbulb",
-    label: "Report Streetlight Outage",
-    labelEs: "Reportar Luz de Calle Apagada",
+    href: "/public-records",
+    icon: "folder-search",
+    label: "Request Public Records",
+    labelEs: "Solicitar Registros Públicos",
   },
   {
-    href: "/services/streets-sidewalks",
-    icon: "signpost",
-    label: "Encroachment Permit",
-    labelEs: "Permiso de Invasión",
+    href: "/services/snow-removal",
+    icon: "snowflake",
+    label: "Snow Routes and Plowing",
+    labelEs: "Rutas de Nieve y Quitanieves",
+  },
+  {
+    href: "/notices",
+    icon: "landmark",
+    label: "Bids and Solicitations",
+    labelEs: "Licitaciones y Convocatorias",
   },
 ];

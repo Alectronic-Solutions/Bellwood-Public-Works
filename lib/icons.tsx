@@ -20,6 +20,7 @@ import {
   HardHat,
   Map,
   Leaf,
+  Landmark,
   type LucideIcon,
 } from "lucide-react";
 
@@ -51,4 +52,6 @@ export const quickActionIcons: Record<string, LucideIcon> = {
   "calendar-days": CalendarDays,
   lightbulb: Lightbulb,
   signpost: Signpost,
+  snowflake: Snowflake,
+  landmark: Landmark,
 };

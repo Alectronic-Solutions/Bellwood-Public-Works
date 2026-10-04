@@ -217,9 +217,9 @@ test("contact form error summary is accessible after a failed submit", async ({ 
 });
 
 test("primary nav dropdown is accessible when open", async ({ page, viewport }) => {
-  // PrimaryNav is the desktop mega menu (hidden below the md breakpoint). The mobile
+  // PrimaryNav is the desktop mega menu (hidden below the lg breakpoint). The mobile
   // equivalent is covered by the mobile menu test above.
-  test.skip((viewport?.width ?? 0) < 768, "desktop nav only renders at md and above");
+  test.skip((viewport?.width ?? 0) < 1024, "desktop nav only renders at lg and above");
 
   await page.goto("/");
 
@@ -229,4 +229,79 @@ test("primary nav dropdown is accessible when open", async ({ page, viewport }) 
 
   const results = await analyze(page);
   expect(results.violations, `\n${describeViolations(results)}`).toEqual([]);
+});
+
+test("footer link groups collapse on phones and stay accessible when opened", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/");
+
+  const footer = page.getByRole("contentinfo");
+  const toggle = footer.getByRole("button", { name: /^services$|^servicios$/i });
+  await expect(toggle).toHaveAttribute("aria-expanded", "false");
+  await expect(footer.getByRole("link", { name: /report a pothole|reportar un bache/i })).toBeHidden();
+
+  await toggle.click();
+  await expect(toggle).toHaveAttribute("aria-expanded", "true");
+  await expect(footer.getByRole("link", { name: /report a pothole|reportar un bache/i })).toBeVisible();
+
+  const results = await analyze(page);
+  expect(results.violations, `\n${describeViolations(results)}`).toEqual([]);
+});
+
+test("footer link groups are plain headings with visible lists on wide screens", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto("/");
+
+  // No disclosure button on desktop, so nobody hears "collapsed" for a visible list.
+  const footer = page.getByRole("contentinfo");
+  await expect(footer.getByRole("button", { name: /^services$/i })).toHaveCount(0);
+  await expect(footer.getByRole("link", { name: /report a pothole/i })).toBeVisible();
+});
+
+test("past meetings archive expands and remains accessible", async ({ page }) => {
+  await page.goto("/meetings/");
+
+  // Matched on the words both states share, because the name flips to "Show fewer".
+  const toggle = page.getByRole("button", { name: /past meetings/i });
+  await expect(toggle).toHaveText(/show all \d+ past meetings/i);
+  await expect(toggle).toHaveAttribute("aria-expanded", "false");
+  await toggle.click();
+  await expect(toggle).toHaveAttribute("aria-expanded", "true");
+
+  // Older meetings are rendered and only hidden, so their documents exist in the export.
+  const hiddenRows = await page.locator("#past-meetings-table tr[hidden], #past-meetings-list li[hidden]").count();
+  expect(hiddenRows).toBe(0);
+
+  const results = await analyze(page);
+  expect(results.violations, `\n${describeViolations(results)}`).toEqual([]);
+});
+
+test("every page has its own browser tab title", async ({ page }) => {
+  const titles = new Map<string, string>();
+  for (const route of routes.filter((item) => !item.path.includes("?") && item.name !== "not found")) {
+    await page.goto(route.path);
+    titles.set(route.path, await page.title());
+  }
+  for (const [path, title] of titles) {
+    if (path === "/") continue;
+    expect(title, `${path} should not reuse the home page title`).not.toBe(titles.get("/"));
+    expect(title, `${path} title should name the site`).toMatch(/Bellwood Public Works$/);
+  }
+});
+
+test("primary navigation marks the current section", async ({ page, viewport }) => {
+  test.skip((viewport?.width ?? 0) < 1024, "desktop nav only renders at lg and above");
+  await page.goto("/notices/water-main-repair-elm/");
+
+  const nav = page.getByRole("navigation", { name: /^primary$/i });
+  await expect(nav.getByRole("link", { name: /^notices$/i })).toHaveAttribute("aria-current", "true");
+  await expect(nav.locator('[aria-current="true"]')).toHaveCount(1);
+});
+
+test("search understands the words residents use", async ({ page }) => {
+  // No page says "trash", so a literal match once returned nothing for the most common
+  // query a public works site gets.
+  await page.goto("/search/?q=trash");
+  const first = page.getByRole("main").getByRole("listitem").first().getByRole("link");
+  await expect(first).toHaveText(/waste and recycling collection/i);
 });

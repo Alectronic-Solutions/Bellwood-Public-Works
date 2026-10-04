@@ -43,6 +43,7 @@ export default function NoticesPage() {
 
   return (
     <InteriorLayout
+      wide
       section={section}
       currentHref="/notices"
       headerImage="/images/headers/notices.jpg"

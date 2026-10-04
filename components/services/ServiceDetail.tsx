@@ -3,6 +3,7 @@
 import Image from "next/image";
 import type { Service } from "@/content/types";
 import { forms } from "@/content/forms";
+import { departments } from "@/content/departments";
 import { withBasePath } from "@/lib/basePath";
 import { useLanguage, localize } from "@/lib/i18n";
 import { InteriorLayout } from "@/components/layout/InteriorLayout";
@@ -18,6 +19,10 @@ export function ServiceDetail({ service: rawService }: ServiceDetailProps) {
   const { strings, language } = useLanguage();
   const service = localize(rawService, language);
   const section = sections.find((item) => item.id === "services")!;
+  // The division that answers for this service, matched on its published inbox. The
+  // service category ("Utilities") is a browsing aid, not an office anyone can call.
+  const rawDivision = departments.find((department) => department.email === service.contactEmail);
+  const division = rawDivision ? localize(rawDivision, language) : undefined;
   const relatedForms = forms
     .map((form) => localize(form, language))
     .filter((form) => service.relatedFormIds.includes(form.id));
@@ -32,7 +37,12 @@ export function ServiceDetail({ service: rawService }: ServiceDetailProps) {
       lastUpdatedIso="2026-06-02"
       sidebar={
         <>
-          <ContactCard departmentName={service.category} phone={service.contactPhone} email={service.contactEmail} />
+          <ContactCard
+            departmentName={division?.name ?? service.category}
+            phone={service.contactPhone ?? division?.phone}
+            email={service.contactEmail ?? division?.email}
+            hours={division?.hours}
+          />
           <RelatedDocuments
             documents={relatedForms.map((form) => ({
               href: withBasePath(form.fileUrl),

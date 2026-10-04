@@ -33,7 +33,13 @@ the build for dead internal links and missing downloads.
 Content dates in /content are written against the anchor in lib/dates.ts and shifted
 forward at build time in whole weeks, so meetings keep their weekday and the site never
 shows an empty "Upcoming Meetings" list. Prose that names a date must use a
-{date:YYYY-MM-DD} token so the sentence moves with the record.
+{date:YYYY-MM-DD} token so the sentence moves with the record. Every authored date must be
+on or before the anchor: a notice is never posted in the future.
+Records tied to the calendar (winter storms, summer programs, holiday closures) are
+marked `seasonal: true` and shift in whole 52-week years instead, with {seasonal:...}
+tokens, so they never land in the wrong season. Project timelines use {month:...}
+tokens. The holiday closure notice is computed from the observed holiday calendar in
+lib/dates.ts. tests/content.spec.ts enforces these rules.
 
 ## Design direction
 This is a government site, not a premium agency site. Light background,

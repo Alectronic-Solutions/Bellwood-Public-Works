@@ -51,6 +51,7 @@ export default function FormsPage() {
 
   return (
     <InteriorLayout
+      wide
       section={section}
       currentHref="/forms"
       headerImage="/images/headers/forms.jpg"

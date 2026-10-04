@@ -45,15 +45,15 @@ export function SectionNav({ section, currentHref }: SectionNavProps) {
   }
 
   return (
-    <nav aria-label={heading} className="xl:sticky xl:top-4">
-      <div className="hidden xl:block">
+    <nav aria-label={heading}>
+      <div className="hidden lg:block">
         {/* Not a heading: the nav already carries this text as its accessible name, and a
             heading here would sit above the page h1 in the document outline. */}
         <p className="px-3 text-xs font-bold uppercase tracking-wide text-gov-slate">{heading}</p>
         <div className="mt-2">{renderList()}</div>
       </div>
 
-      <div className="xl:hidden">
+      <div className="lg:hidden">
         <button
           type="button"
           aria-expanded={mobileOpen}

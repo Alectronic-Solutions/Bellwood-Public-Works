@@ -5,6 +5,7 @@ import Image from "next/image";
 import { staff } from "@/content/staff";
 import { withBasePath } from "@/lib/basePath";
 import { useLanguage, localize } from "@/lib/i18n";
+import { EmailText } from "./EmailText";
 
 interface StaffDirectoryProps {
   limit?: number;
@@ -34,10 +35,7 @@ export function StaffDirectory({ limit }: StaffDirectoryProps = {}) {
 
       <ul className="mt-4 flex flex-col gap-3">
         {localizedStaff.map((member) => (
-          <li
-            key={member.id}
-            className="flex gap-4 rounded-lg border border-gov-border p-4 shadow-card"
-          >
+          <li key={member.id} className="flex gap-4 rounded-lg border border-gov-border p-4 shadow-card">
             {/* Explicit dimensions rather than fill, so the reserved space is correct
                 before the image loads. Static export runs with the optimizer off. */}
             <Image
@@ -53,16 +51,13 @@ export function StaffDirectory({ limit }: StaffDirectoryProps = {}) {
               <p className="mt-1 text-sm text-gov-slate">{member.title}</p>
               <p className="text-sm text-gov-slate">{member.department}</p>
               <p className="mt-2 text-sm">
-                <a
-                  href={`tel:${dialString(mainLine, member.extension)}`}
-                  className="link-body"
-                >
+                <a href={`tel:${dialString(mainLine, member.extension)}`} className="link-body">
                   {mainLine} ext. {member.extension}
                 </a>
               </p>
               <p className="text-sm">
-                <a href={`mailto:${member.email}`} className="link-body break-all">
-                  {member.email}
+                <a href={`mailto:${member.email}`} className="link-body">
+                  <EmailText email={member.email} />
                 </a>
               </p>
             </div>

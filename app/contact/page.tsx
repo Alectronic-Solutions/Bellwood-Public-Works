@@ -7,6 +7,7 @@ import { InteriorLayout } from "@/components/layout/InteriorLayout";
 import { ContactCard } from "@/components/layout/ContactCard";
 import { StaffDirectory } from "@/components/layout/StaffDirectory";
 import { sections } from "@/content/sections";
+import { EmailText } from "@/components/layout/EmailText";
 
 interface FormValues {
   name: string;
@@ -77,6 +78,7 @@ export default function ContactPage() {
 
   return (
     <InteriorLayout
+      wide
       section={section}
       currentHref="/contact"
       headerImage="/images/headers/contact.jpg"
@@ -101,8 +103,8 @@ export default function ContactPage() {
             <a href={`tel:${department.phone.replace(/[^0-9+]/g, "")}`} className="mt-1 block text-sm link-body">
               {department.phone}
             </a>
-            <a href={`mailto:${department.email}`} className="mt-1 block text-sm link-body break-all">
-              {department.email}
+            <a href={`mailto:${department.email}`} className="mt-1 block text-sm link-body">
+              <EmailText email={department.email} />
             </a>
           </li>
         ))}
@@ -133,8 +135,16 @@ export default function ContactPage() {
             {localizedDepartments.map((department) => (
               <tr key={department.name} className="align-top">
                 <td className="break-words px-3 py-2 text-gov-slate">{department.name}</td>
-                <td className="break-words px-3 py-2 text-gov-slate">{department.phone}</td>
-                <td className="break-all px-3 py-2 text-gov-slate">{department.email}</td>
+                <td className="break-words px-3 py-2 text-gov-slate">
+                  <a href={`tel:${department.phone.replace(/[^0-9+]/g, "")}`} className="link-body whitespace-nowrap">
+                    {department.phone}
+                  </a>
+                </td>
+                <td className="break-words px-3 py-2 text-gov-slate">
+                  <a href={`mailto:${department.email}`} className="link-body">
+                    <EmailText email={department.email} />
+                  </a>
+                </td>
               </tr>
             ))}
           </tbody>

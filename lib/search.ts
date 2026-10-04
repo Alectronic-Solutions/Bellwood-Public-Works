@@ -5,6 +5,7 @@ import { forms } from "@/content/forms";
 import { projects } from "@/content/projects";
 import { departments } from "@/content/departments";
 import { sections } from "@/content/sections";
+import { searchSynonyms } from "@/content/searchSynonyms";
 import type { UIStrings } from "@/content/types";
 import type { Language } from "./i18n";
 import { expandDateTokens } from "./dates";
@@ -28,16 +29,27 @@ function fold(text: string): string {
     .replace(/[̀-ͯ]/g, "");
 }
 
-function scoreEntry(title: string, haystack: string, terms: string[]): number {
+/** A query term plus the words that mean the same thing to a resident. */
+function alternatives(term: string): string[] {
+  const group = searchSynonyms.find((words) => words.includes(term));
+  return group ? [term, ...group.filter((word) => word !== term)] : [term];
+}
+
+function scoreEntry(title: string, haystack: string, terms: string[][]): number {
   const foldedTitle = fold(title);
   const foldedHaystack = fold(haystack);
 
   let score = 0;
-  for (const term of terms) {
-    if (foldedTitle.startsWith(term)) score += 8;
-    else if (foldedTitle.includes(term)) score += 5;
-    if (foldedHaystack.includes(term)) score += 1;
-    else if (!foldedTitle.includes(term)) return 0; // every term must appear somewhere
+  for (const options of terms) {
+    // The word as typed outranks a synonym, so an exact match still sorts first.
+    const [typed] = options;
+    const inTitle = options.find((word) => foldedTitle.includes(word));
+    const inHaystack = options.some((word) => foldedHaystack.includes(word));
+    if (!inTitle && !inHaystack) return 0; // every term must appear somewhere
+    if (foldedTitle.startsWith(typed)) score += 8;
+    else if (foldedTitle.includes(typed)) score += 5;
+    else if (inTitle) score += 4;
+    if (inHaystack) score += 1;
   }
   return score;
 }
@@ -105,7 +117,7 @@ function candidates(language: Language, strings: UIStrings): Candidate[] {
       href: "/projects",
       title: value.name,
       summary: value.description,
-      extra: `${value.status} ${value.division} ${project.budget} ${project.timeline}`,
+      extra: `${value.status} ${value.division} ${project.budget} ${expandDateTokens(value.timeline, language)}`,
     });
   }
 
@@ -145,7 +157,7 @@ function candidates(language: Language, strings: UIStrings): Candidate[] {
 }
 
 export function search(query: string, language: Language, strings: UIStrings): SearchResult[] {
-  const terms = fold(query).split(/\s+/).filter(Boolean);
+  const terms = fold(query).split(/\s+/).filter(Boolean).map(alternatives);
   if (terms.length === 0) return [];
 
   return candidates(language, strings)
@@ -157,6 +169,9 @@ export function search(query: string, language: Language, strings: UIStrings): S
       score: scoreEntry(candidate.title, `${candidate.title} ${candidate.summary} ${candidate.extra ?? ""}`, terms),
     }))
     .filter((result) => result.score > 0)
+    // On a city site the service page is usually the answer, ahead of a notice or a form
+    // that happens to share the word, so equal matches favor services.
+    .map((result) => (result.kind === "service" ? { ...result, score: result.score + 2 } : result))
     .sort((a, b) => b.score - a.score || a.title.localeCompare(b.title))
     .slice(0, 50);
 }
